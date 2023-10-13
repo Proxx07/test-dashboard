@@ -1,9 +1,9 @@
 <script setup lang="ts">
-
+import Header from "@/components/Header.vue";
 </script>
 
 <template>
-  <h1> Настройки </h1>
+  <Header title="Настройки"/>
 </template>
 
 <style scoped></style>

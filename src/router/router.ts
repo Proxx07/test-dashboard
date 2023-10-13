@@ -1,10 +1,10 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import {createRouter, createWebHistory, Router} from 'vue-router'
 import {routes} from '@/router/routes.ts';
 import {layoutMiddleware} from "@/middlewares/layoutMiddleware.ts";
 
-const router = createRouter({
+const router: Router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
 });
 
 router.beforeEach(layoutMiddleware)

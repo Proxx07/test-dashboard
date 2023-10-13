@@ -1,6 +1,6 @@
 interface INavigation {
-  name: String,
-  link: String
+  name: string,
+  link: string
 }
 export const navigation: INavigation[] = [
   {

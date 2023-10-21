@@ -5,7 +5,11 @@ export const routes = [
     component: () => import("@/pages/Main.vue"),
     meta: {
       layout: 'Default'
-    }
+    },
+    // children: {
+    //   path: "/",
+    //   component: () => import("")
+    // }
   },
 
   {

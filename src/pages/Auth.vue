@@ -1,9 +1,20 @@
 <script setup lang="ts">
+import AuthorizationForm from "@/components/AuthorizationForm.vue";
 
 </script>
 
 <template>
-  <h1> Авторизация </h1>
+  <div class="wrapper">
+    <AuthorizationForm/>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.wrapper {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

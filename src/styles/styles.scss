@@ -6,16 +6,17 @@
   padding: 0;
 }
 
-input, button, select, textarea, button {
-  font-family: inherit;
-  font-size: 1rem;
-  background: none;
-}
-
 html {
   --fontSize: 10px;
   font-size: var(--fontSize);
   line-height: 1.3;
+}
+
+input, button, select, textarea, button {
+  font-family: inherit;
+  font-size: 1.2rem;
+  background: none;
+  border: 1px solid var(--ContentBorderColor);
 }
 
 body {

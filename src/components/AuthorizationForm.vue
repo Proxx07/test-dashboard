@@ -1,49 +1,54 @@
 <script setup lang="ts">
-import {ref} from "vue";
-import {AuthUserInterface} from "@/models/auth/authUser.ts";
-import Button from "@/components/UI/Button.vue";
+import {useAuth} from "@/hooks/useAuth.ts";
 
-const authUser = ref<AuthUserInterface>({
-  email: '',
-  password: ''
-})
-const authSubmit = () => {
-  console.log('submit')
-}
+const {error, authUser, authSubmit} = useAuth()
 
-const clickHandle = () => {
-  console.log(authUser.value)
-}
 </script>
 
 <template>
   <form class="auth-form" @submit.prevent="authSubmit">
-    <h1> Авторизация </h1>
 
-    <label>
-      <input type="text" class="auth-form__email" v-model="authUser.email">
-    </label>
+    <h1> Face ID </h1>
 
-    <label>
-      <input type="password" class="auth-form__password" v-model="authUser.password">
-    </label>
+    <span v-if="error">
+      test error
+    </span>
 
-    <Button class="auth-form__button" @click="clickHandle">
-      Кнопка
-    </Button>
+    <div class="auth-form__fields">
+      <v-input class="auth-form__name" label="Номер телефона" v-model="authUser.phone"/>
 
+      <v-input class="auth-form__password" type="password" label="Пароль" v-model="authUser.password"/>
+
+      <v-button class="auth-form__button transparent">
+        Вход
+      </v-button>
+    </div>
   </form>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+h1 {
+  font-size: 2.8rem;
+  color: var(--VioletText);
+  margin-bottom: 2.4rem;
+}
 .auth-form {
   width: 100%;
-  max-width: 400px;
+  max-width: 40rem;
   text-align: center;
-  background: var(--WhiteBg);
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    background: var(--WhiteBg);
+    padding: 2.4rem;
+    border-radius: .4rem;
+    gap: 2.4rem
+  }
+
+  &__button {
+    font-size: 1.5rem;
+    margin-top: 2.6rem;
+  }
 }
 </style>

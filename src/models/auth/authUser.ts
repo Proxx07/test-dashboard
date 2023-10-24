@@ -1,4 +1,4 @@
 export interface AuthUserInterface {
-  email: string
+  phone: string
   password: string
 }

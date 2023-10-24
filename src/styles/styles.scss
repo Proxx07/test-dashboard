@@ -17,6 +17,7 @@ input, button, select, textarea, button {
   font-size: 1.2rem;
   background: none;
   border: 1px solid var(--ContentBorderColor);
+  border-radius: .4rem;
 }
 
 body {
@@ -28,13 +29,15 @@ body {
 
   --PrimaryBg: #f2f2f2;
   --WhiteBg: #fcfcfc;
+  --white: #fff;
 
   --LayoutBorderColor: #D9D8D8;
   --ContentBorderColor: #ECECEC;
 
   --VioletText: #5D1AEC;
-  --VioletBg: #E3DCF1;
-  --VioletCharts: #764AE6;
+  --VioletTransparent: #E3DCF1;
+  --Violet: #764AE6;
+
   --redCharts: #E65764;
   --greenCharts: #6FBC84;
 
@@ -45,6 +48,7 @@ body {
 
 h1 {
   color: var(--AccentColor);
+  line-height: 1.32;
 }
 h2, h3, h4, h5, h6 {
   color: var(--TextColorAccent);

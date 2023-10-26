@@ -4,6 +4,9 @@ import Header from "@/components/Header.vue";
 
 <template>
   <Header title="Дашборд"/>
+  <main>
+    123
+  </main>
 </template>
 
 <style scoped></style>

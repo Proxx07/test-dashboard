@@ -6,14 +6,12 @@ import Navigation from "@/components/Navigation.vue";
 
 <template>
   <div class="app-inner">
-    <div class="sidebar">
+    <aside class="sidebar">
       <Navigation/>
-    </div>
+    </aside>
 
     <div class="site-content">
-      <main>
-        <slot/>
-      </main>
+      <slot/>
     </div>
   </div>
 </template>
@@ -29,12 +27,14 @@ import Navigation from "@/components/Navigation.vue";
 }
 
 .sidebar {
-  padding: 20px 15px 20px 32px;
+  padding: 20px 15px 20px 2.4rem;
   border-right: 1px solid var(--LayoutBorderColor);
   width: 100%;
 }
 
 .site-content {
-  padding: 32px;
+  padding: 2.4rem;
+  /*display: grid;
+  grid-template-columns: 1fr;*/
 }
 </style>

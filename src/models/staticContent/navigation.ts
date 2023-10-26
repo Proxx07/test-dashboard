@@ -1,5 +1,5 @@
 interface INavigation {
-  name: string,
+  name: string
   link: string
 }
 export const navigation: INavigation[] = [

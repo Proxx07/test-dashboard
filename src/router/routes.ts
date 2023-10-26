@@ -48,6 +48,9 @@ export const routes = [
   {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
-    component: () => import("@/pages/Page_404.vue")
+    component: () => import("@/pages/Page_404.vue"),
+    meta: {
+      layout: 'Guest'
+    }
   }
 ]

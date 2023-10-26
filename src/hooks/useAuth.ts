@@ -9,7 +9,7 @@ export const useAuth = () => {
     password: '',
   });
   const authSubmit = () => {
-    error.value = true
+    console.log({...authUser.value})
   }
 
   return {

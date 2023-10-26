@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import {useAuth} from "@/hooks/useAuth.ts";
-
 const {error, authUser, authSubmit} = useAuth()
-
 </script>
 
 <template>
@@ -10,16 +8,14 @@ const {error, authUser, authSubmit} = useAuth()
 
     <h1> Face ID </h1>
 
-    <span v-if="error">
-      test error
-    </span>
+    <span v-if="error"> test error </span>
 
     <div class="auth-form__fields">
-      <v-input class="auth-form__name" label="Номер телефона" v-model="authUser.phone"/>
+      <v-input v-model="authUser.phone" class="auth-form__name" label="Номер телефона"/>
 
-      <v-input class="auth-form__password" type="password" label="Пароль" v-model="authUser.password"/>
+      <v-input v-model="authUser.password" class="auth-form__password" type="password" label="Пароль"/>
 
-      <v-button class="auth-form__button transparent">
+      <v-button type="submit" class="auth-form__button transparent">
         Вход
       </v-button>
     </div>

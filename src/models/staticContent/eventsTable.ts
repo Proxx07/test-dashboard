@@ -31,5 +31,3 @@ export const eventsThead: ITableHead[] = [
     value: "device"
   }
 ]
-
-console.log(eventsThead)

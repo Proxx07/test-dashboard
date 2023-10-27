@@ -31,7 +31,6 @@ const props = withDefaults(defineProps<HeaderProps>(), {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 0 2.4rem;
-  min-height: 14.2rem;
   &__description {
     font-weight: 600;
     font-size: 1.5em;

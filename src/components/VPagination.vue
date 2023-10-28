@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {useRouter} from "vue-router";
+const route = useRouter();
 
-const route = useRouter()
 const props = defineProps<{
   totalPages: string | number
+}>()
+
+const emit = defineEmits<{
+  (e: 'pageChange', page: string | number): void
 }>()
 
 const activePage = ref(route.currentRoute.value.query?.page || 1)
 const changePage = (page: number) => {
   route.push({query: {page}})
   activePage.value = page
+  emit('pageChange', page)
+
 }
 </script>
 

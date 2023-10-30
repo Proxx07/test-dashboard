@@ -11,13 +11,13 @@ const {error, authUser, authSubmit} = useAuth()
     <span v-if="error"> test error </span>
 
     <div class="auth-form__fields">
+
       <v-input v-model="authUser.phone" class="auth-form__name" label="Номер телефона"/>
 
       <v-input v-model="authUser.password" class="auth-form__password" type="password" label="Пароль"/>
 
-      <v-button type="submit" class="auth-form__button transparent">
-        Вход
-      </v-button>
+      <v-button type="submit" class="auth-form__button transparent"> Вход </v-button>
+
     </div>
   </form>
 </template>

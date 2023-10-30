@@ -10,19 +10,19 @@ const props = defineProps<{
 <template>
   <table>
     <thead>
-    <tr>
-      <th v-for="header in tableHeaders">
-        {{ header.name }}
-      </th>
-    </tr>
+      <tr>
+        <th v-for="header in tableHeaders">
+          {{ header.name }}
+        </th>
+      </tr>
     </thead>
-    <tbody>
 
-    <tr v-if="tableList.length" v-for="item in tableList">
-      <td v-for="header in tableHeaders">
-        {{ item[header.value] }}
-      </td>
-    </tr>
+    <tbody>
+      <tr v-if="props.tableList.length" v-for="item in tableList">
+        <td v-for="header in tableHeaders">
+          {{ item[header.value] }}
+        </td>
+      </tr>
     </tbody>
   </table>
 </template>
@@ -37,6 +37,7 @@ table {
   border-radius: .4rem .4rem 0 0;
   overflow: hidden;
   line-height: 1.7;
+
   &.center {
     text-align: center;
   }

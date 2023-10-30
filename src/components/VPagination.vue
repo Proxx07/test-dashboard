@@ -11,7 +11,9 @@ const emit = defineEmits<{
   (e: 'pageChange', page: string | number): void
 }>()
 
-const activePage = ref(route.currentRoute.value.query?.page || 1)
+const activePage = ref(Number(route.currentRoute.value.query?.page) || 1)
+const pagesArray = Array.from({length: +props.totalPages}, (_, i) => i + 1)
+
 const changePage = (page: number) => {
   route.push({query: {page}})
   activePage.value = page
@@ -21,16 +23,16 @@ const changePage = (page: number) => {
 </script>
 
 <template>
-  <div class="pagination" v-if="+props.totalPages">
+  <div class="pagination" v-if="+totalPages">
     <button class="prev" :disabled="activePage == 1" @click="changePage(+activePage - 1)"/>
-    <button
-      v-for="page in +totalPages"
-      :class="{active: page == activePage}"
-      :disabled="page == activePage"
-      @click="changePage(page)"
-    >
-      {{page}}
-    </button>
+    <template v-for="page in pagesArray">
+
+      <button :class="{active: page == activePage}" :disabled="page == activePage" @click="changePage(page)">
+        {{page}}
+      </button>
+
+      <!-- <span v-if="activePage + 2 === page && activePage < +totalPages - 2">{{"..."}}</span> -->
+    </template>
     <button class="next" :disabled="activePage == totalPages" @click="changePage(+activePage + 1)"/>
   </div>
 </template>

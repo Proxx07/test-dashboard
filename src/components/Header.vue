@@ -14,11 +14,9 @@ const props = withDefaults(defineProps<HeaderProps>(), {
 <template>
   <header class="header">
     <div class="header__left">
-
       <h1 class="header__title">
         {{props.title}}
       </h1>
-
       <div class="header__description" v-if="props.subtitle">
         {{props.subtitle}}
       </div>

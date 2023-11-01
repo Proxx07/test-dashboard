@@ -114,7 +114,7 @@ const pageHandler = (page: string | number) => {
 <template>
   <Header title="События"/>
   <v-table class="table" :table-headers="eventsThead" :table-list="list"/>
-  <v-pagination total-pages="10" @page-change="pageHandler"/>
+  <v-pagination :total-pages="20" @page-change="pageHandler"/>
 </template>
 
 <style scoped>

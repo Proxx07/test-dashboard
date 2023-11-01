@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface HeaderProps {
   title: string,
-  subtitle: string
+  subtitle?: string
 }
 
 const props = withDefaults(defineProps<HeaderProps>(), {

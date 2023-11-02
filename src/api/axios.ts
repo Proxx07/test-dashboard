@@ -16,10 +16,11 @@ axios.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     if (!error.response) return Promise.reject(error);
-    const { data, status } = error.response;
+    const data: any = error.response.data
+    const status = error.response.status
     switch (status) {
       case 400:
-        alert(data?.message);
+        alert(data.message);
       break;
 
       case 401:

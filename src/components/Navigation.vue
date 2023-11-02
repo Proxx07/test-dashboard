@@ -1,18 +1,23 @@
 <script setup lang="ts">
 import {navigation} from "@/models/staticContent/navigation.ts";
+//import burgerIcon from "@/assets/icons/burger.svg?raw"
 </script>
 
 <template>
   <nav class="navigation">
-
-    <div class="site-name-wrapper">
-        <span class="site-name"> Face ID </span>
+    <div class="navigation__menu-item">
+      <!--
+      <span class="navigation__menu-item-link" @click="toggleBurger">
+        <span class="icon" v-html="burgerIcon"/>
+      </span>
+      -->
     </div>
 
     <ul class="navigation__menu">
       <li class="navigation__menu-item" v-for="item in navigation" :key="item.link">
         <router-link :to="item.link" class="navigation__menu-item-link">
-          <span> {{item.name}} </span>
+          <span v-if="item.icon" v-html="item.icon" class="icon" />
+          {{item.name}}
         </router-link>
       </li>
     </ul>
@@ -20,19 +25,14 @@ import {navigation} from "@/models/staticContent/navigation.ts";
     <div class="empty"></div>
 
     <div class="navigation__menu-item">
-      <span class="navigation__menu-item-link">Выйти</span>
+      <span class="navigation__menu-item-link">
+        Выйти
+      </span>
     </div>
   </nav>
 </template>
 
 <style lang="scss">
-.site-name {
-  color: var(--VioletText);
-  font-size: 2.4rem;
-  text-decoration: none;
-  display: block;
-  padding: 4px 0;
-}
 
 .navigation {
   display: grid;
@@ -54,9 +54,16 @@ import {navigation} from "@/models/staticContent/navigation.ts";
         font-size: 1.5rem;
         transition: all 0.3s;
         cursor: pointer;
+        svg path {
+          transition: all 0.3s;
+        }
+
         &:hover,
         &.router-link-active {
-          color: var(--VioletText)
+          color: var(--VioletText);
+          svg path {
+            fill: var(--VioletText);
+          }
         }
       }
     }

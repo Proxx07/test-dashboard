@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import Navigation from "@/components/Navigation.vue";
-
+import {onMounted} from "vue";
+import {useRouter} from "vue-router";
 // Auth checking
+onMounted(() => {
+  const authToken = localStorage.getItem('token')
+  const router = useRouter()
+  if (!authToken) router.push({path: "/auth"})
+})
+
 </script>
 
 <template>
@@ -33,7 +40,7 @@ import Navigation from "@/components/Navigation.vue";
 }
 
 .site-content {
-  padding: 2.4rem;
+  padding: 2.2rem 2.4rem 2.4rem;
   /*display: grid;
   grid-template-columns: 1fr;*/
 }

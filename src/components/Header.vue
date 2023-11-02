@@ -14,6 +14,10 @@ const props = withDefaults(defineProps<HeaderProps>(), {
 <template>
   <header class="header">
     <div class="header__left">
+      <div class="site-name-wrapper">
+        <span class="site-name"> Face ID </span>
+      </div>
+
       <h1 class="header__title">
         {{props.title}}
       </h1>
@@ -25,6 +29,14 @@ const props = withDefaults(defineProps<HeaderProps>(), {
 </template>
 
 <style lang="scss">
+.site-name {
+  color: var(--VioletText);
+  font-size: 2.4rem;
+  text-decoration: none;
+  display: block;
+  padding: 0 0 1.4rem;
+}
+
 .header {
   display: grid;
   grid-template-columns: 1fr;
@@ -37,7 +49,7 @@ const props = withDefaults(defineProps<HeaderProps>(), {
 
   &__left {
     display: grid;
-    grid-gap: 10px 0;
+    grid-gap: 1rem 0;
   }
 }
 </style>

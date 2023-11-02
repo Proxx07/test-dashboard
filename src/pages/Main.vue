@@ -3,10 +3,7 @@ import Header from "@/components/Header.vue";
 </script>
 
 <template>
-  <Header title="Дашборд"/>
-  <main>
-    123
-  </main>
+  <Header title="Дашборд" subtitle="Описание"/>
 </template>
 
 <style scoped></style>

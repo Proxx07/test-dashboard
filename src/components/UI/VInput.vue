@@ -7,7 +7,7 @@ const props = defineProps<{
   modelValue: string,
 }>()
 
-const emit = defineEmits(["update:modelValue"])
+const emit = defineEmits(["update:modelValue", 'focus'])
 </script>
 
 <template>
@@ -19,6 +19,7 @@ const emit = defineEmits(["update:modelValue"])
       :value="modelValue"
       :placeholder="props.placeholder || props.label"
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+      @focus="emit('focus')"
     />
   </label>
 </template>

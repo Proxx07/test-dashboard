@@ -56,7 +56,7 @@ const changePage = (page: number) => {
     <button class="prev" :disabled="activePage == 1" @click="changePage(+activePage - 1)"/>
 
     <template v-for="page in renderingPages">
-      <button v-if="Number.isInteger(page)" :class="{active: page == activePage}" :disabled="page == activePage" @click="changePage(page)">
+      <button v-if="Number.isInteger(page)" :class="{active: page == activePage}" :disabled="page == activePage" @click="changePage(+page)">
         {{ page }}
       </button>
       <span v-else class="separator"> {{page}} </span>

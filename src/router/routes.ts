@@ -6,10 +6,12 @@ export const routes = [
     meta: {
       layout: 'Default'
     },
-    // children: {
-    //   path: "/",
-    //   component: () => import("")
-    // }
+    /*
+    children: {
+      path: "/",
+      component: () => import("")
+    }
+    */
   },
 
   {
@@ -28,9 +30,9 @@ export const routes = [
   },
 
   {
-    path: "/devices",
-    name: "devices",
-    component: () => import("@/pages/Devices.vue")
+    path: "/projects",
+    name: "projects",
+    component: () => import("@/pages/Projects.vue")
   },
 
   {
@@ -38,12 +40,18 @@ export const routes = [
     name: "users",
     component: () => import("@/pages/Users.vue")
   },
-
+  /*
+  {
+    path: "/devices",
+    name: "devices",
+    component: () => import("@/pages/Devices.vue")
+  },
   {
     path: "/settings",
     name: "settings",
     component: () => import("@/pages/Settings.vue")
   },
+  */
 
   {
     path: "/:pathMatch(.*)*",

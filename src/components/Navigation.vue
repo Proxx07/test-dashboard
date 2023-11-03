@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import {navigation} from "@/models/staticContent/navigation.ts";
-//import burgerIcon from "@/assets/icons/burger.svg?raw"
+//import burgerIcon from "@/assets/icons/burger.svg?raw";
+
+import {useAuth} from "@/hooks/useAuth.ts";
+const {logOut} = useAuth()
 </script>
 
 <template>
@@ -25,7 +28,7 @@ import {navigation} from "@/models/staticContent/navigation.ts";
     <div class="empty"></div>
 
     <div class="navigation__menu-item">
-      <span class="navigation__menu-item-link">
+      <span class="navigation__menu-item-link" @click="logOut">
         Выйти
       </span>
     </div>

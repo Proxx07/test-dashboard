@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import Navigation from "@/components/Navigation.vue";
-import {onMounted} from "vue";
 import {useRouter} from "vue-router";
-// Auth checking
-onMounted(() => {
-  const authToken = localStorage.getItem('token')
-  const router = useRouter()
-  if (!authToken) router.push({path: "/auth"})
-})
+
+const authToken = localStorage.getItem('token')
+const router = useRouter()
+if (!authToken) router.push({path: "/auth"})
 
 </script>
 

@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import {vMaska} from "maska";
+
 const props = defineProps<{
+  phone?: boolean,
   label?: string,
   placeholder?: string,
   type?: "text" | "password",
@@ -14,6 +17,19 @@ const emit = defineEmits(["update:modelValue", 'focus'])
   <label>
     <span v-if="props.label" class="label-text">{{props.label}}</span>
     <input
+      v-if="props.phone"
+      v-maska
+      data-maska="+998(##)-###-##-##"
+      type="text"
+      :class="'text-field ' + props.class"
+      :value="modelValue"
+      :placeholder="props.placeholder || props.label"
+      @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
+      @focus="emit('focus')"
+    />
+
+    <input
+      v-else
       :type="props.type || 'text'"
       :class="'text-field ' + props.class"
       :value="modelValue"
@@ -44,6 +60,7 @@ label, .label-text {
   padding: .6rem 1.6rem;
   line-height: 2.15;
   transition: all 0.3s;
+
   &::placeholder {
     font-weight: 400;
     transition: all 0.3s;
@@ -53,6 +70,14 @@ label, .label-text {
     &::placeholder {
       opacity: 0;
     }
+  }
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  &[type=number] {
+    -moz-appearance: textfield;
   }
 
   &.error {

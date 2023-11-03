@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 //axios.defaults.baseURL = import.meta.env.PROD ? 'https://faceid-admin.theable.tech/' : 'https://fback.scon.uz/';
 axios.defaults.baseURL = 'https://faceid-admin.theable.tech/';
@@ -12,32 +12,32 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
-axios.interceptors.response.use(
-  (response) => response,
-  (error: AxiosError) => {
-    if (!error.response) return Promise.reject(error);
-    const data: any = error.response.data
-    const status = error.response.status
-    switch (status) {
-      case 400:
-        alert(data.message);
-      break;
-
-      case 401:
-        console.log('unauthorised', data);
-      break;
-
-      case 404:
-        console.log('/not-found', data);
-      break;
-
-      case 500:
-        console.log('/server-error', data);
-      break;
-    }
-    return Promise.reject(error);
-  }
-);
+// axios.interceptors.response.use(
+//   (response) => response,
+//   (error: AxiosError) => {
+//     if (!error.response) return Promise.reject(error);
+//     const data: any = error.response.data
+//     const status = error.response.status
+//     switch (status) {
+//       case 400:
+//         console.log(data.message);
+//       break;
+//
+//       case 401:
+//         console.log('unauthorised', data);
+//       break;
+//
+//       case 404:
+//         console.log('/not-found', data);
+//       break;
+//
+//       case 500:
+//         console.log('/server-error', data);
+//       break;
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 

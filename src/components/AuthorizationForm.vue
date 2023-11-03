@@ -13,6 +13,7 @@ const {error, authUser, authSubmit, resetError} = useAuth()
 
       <v-input
         v-model="authUser.phone"
+        :phone="true"
         label="Номер телефона"
         :class="['auth-form__name', error && 'error']"
         @focus="resetError"

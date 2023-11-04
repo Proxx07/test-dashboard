@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import Navigation from "@/components/Navigation.vue";
 import {useRouter} from "vue-router";
+import {AUTH_TOKEN_NAME} from "@/models/staticContent/constants.ts";
 
-const authToken = localStorage.getItem('token')
+const authToken = localStorage.getItem(AUTH_TOKEN_NAME)
 const router = useRouter()
 if (!authToken) router.push({path: "/auth"})
 

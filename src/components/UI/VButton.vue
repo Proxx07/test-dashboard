@@ -12,11 +12,12 @@ export default {
 
 <style scoped lang="scss">
 .button {
-  padding: 1rem;
+  padding: .8rem 1.5rem;
   font-size: 1.2rem;
   cursor: pointer;
   border-radius: 4px;
   border: 1px solid transparent;
+  transition: all 0.3s;
   &.primary {
     background: var(--Violet);
     color: var(--white);

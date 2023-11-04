@@ -2,6 +2,7 @@ import {ref} from "vue";
 import {useRouter} from "vue-router";
 import {AuthUserInterface} from "@/models/auth/authUser.ts";
 import request from "@/api/axios.ts";
+import {AUTH_TOKEN_NAME} from "@/models/staticContent/constants.ts";
 
 export const useAuth = () => {
   const router = useRouter()
@@ -29,8 +30,9 @@ export const useAuth = () => {
 
       error.value = true
     } else {
+
       alert(res.message)
-      localStorage.setItem('token', res.result.access_token)
+      localStorage.setItem(AUTH_TOKEN_NAME, res.result.access_token)
       await router.push({path: '/'})
     }
   }
@@ -38,9 +40,9 @@ export const useAuth = () => {
     error.value = false
   }
 
-  const logOut = async () => {
+  const logOut = () => {
     if (!confirm('Вы уверены, что хотите выйти?')) return
-    localStorage.removeItem('token')
+    localStorage.removeItem(AUTH_TOKEN_NAME)
     router.push('/auth')
   }
 

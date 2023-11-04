@@ -1,10 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
+import {AUTH_TOKEN_NAME} from "@/models/staticContent/constants.ts";
 
 //axios.defaults.baseURL = import.meta.env.PROD ? 'https://faceid-admin.theable.tech/' : 'https://fback.scon.uz/';
 axios.defaults.baseURL = 'https://faceid-admin.theable.tech/';
 
 axios.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem(AUTH_TOKEN_NAME);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }

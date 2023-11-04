@@ -6,11 +6,9 @@ const {error, authUser, authSubmit, resetError} = useAuth()
 
 <template>
   <form class="auth-form" @submit.prevent="authSubmit">
-
     <h1> Face ID </h1>
 
     <div class="auth-form__fields">
-
       <v-input
         v-model="authUser.phone"
         :phone="true"
@@ -27,7 +25,7 @@ const {error, authUser, authSubmit, resetError} = useAuth()
         @focus="resetError"
       />
 
-      <v-button type="submit" class="auth-form__button transparent"> Вход</v-button>
+      <v-button type="submit" class="auth-form__button transparent"> Вход </v-button>
     </div>
   </form>
 </template>
@@ -54,6 +52,7 @@ h1 {
   }
 
   &__button {
+    padding: 1rem;
     font-size: 1.5rem;
     margin-top: 2.6rem;
   }

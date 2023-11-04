@@ -1,13 +1,13 @@
 <script setup lang="ts">
 interface HeaderProps {
-  title: string,
+  title?: string,
   subtitle?: string
 }
 
 const props = withDefaults(defineProps<HeaderProps>(), {
   title: "",
   subtitle: ""
-})
+});
 
 </script>
 
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<HeaderProps>(), {
         <span class="site-name"> Face ID </span>
       </div>
 
-      <h1 class="header__title">
+      <h1 v-if="props.title" class="header__title">
         {{props.title}}
       </h1>
       <div class="header__description" v-if="props.subtitle">

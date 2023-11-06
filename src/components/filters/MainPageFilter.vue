@@ -23,6 +23,7 @@ const dateHandler = (item: string | string[]) => {
 }
 
 const datepickerHandler = (date: Date, isEnd: boolean = false) => {
+
   if (!isEnd) {
     emit('update:fromDate', validDate(date))
     return
@@ -31,6 +32,8 @@ const datepickerHandler = (date: Date, isEnd: boolean = false) => {
   emit('update:toDate', validDate(date))
   emit('filterChanged')
 }
+
+console.log(props)
 </script>
 
 <template>
@@ -50,9 +53,9 @@ const datepickerHandler = (date: Date, isEnd: boolean = false) => {
       <VueDatePicker
         :enable-time-picker="false"
         :clearable="false"
+        range no-today auto-apply
         @range-start="datepickerHandler($event)"
         @range-end="datepickerHandler($event, true)"
-        range no-today auto-apply
       />
     </div>
   </div>

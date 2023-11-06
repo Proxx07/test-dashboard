@@ -1,29 +1,46 @@
 <script setup lang="ts">
 import {ITableHead} from "@/models/interfaces/tableInterfaces.ts";
+import EmptyText from "@/components/EmptyText.vue";
+import VPreloader from "@/components/UI/VPreloader.vue";
 
 const props = defineProps<{
   tableHeaders: ITableHead[]
   tableList: any[]
+  loading: boolean
 }>()
 </script>
 
 <template>
   <table>
     <thead>
-      <tr>
-        <th v-for="header in tableHeaders">
-          {{ header.name }}
-        </th>
-      </tr>
+    <tr>
+      <th v-for="header in tableHeaders" :width="header?.width">
+        {{ header.name }}
+      </th>
+    </tr>
     </thead>
-
     <tbody>
-      <tr v-if="props.tableList.length" v-for="item in tableList">
-        <td v-for="header in tableHeaders">
-          {{ item[header.value] }}
+
+      <tr v-if="props.loading">
+        <td :colspan="tableHeaders.length" align="center">
+          <v-preloader/>
         </td>
       </tr>
+
+      <tr v-else-if="tableList.length" v-for="item in tableList">
+        <td v-for="header in tableHeaders">
+          {{ item[header.value] || "-" }}
+        </td>
+      </tr>
+
+      <tr v-else>
+        <td :colspan="tableHeaders.length" align="center">
+          <empty-text/>
+        </td>
+      </tr>
+
     </tbody>
+
   </table>
 </template>
 

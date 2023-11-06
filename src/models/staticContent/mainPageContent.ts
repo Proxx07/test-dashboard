@@ -25,7 +25,7 @@ export const filterAppTypes: IFilterTypes[] = [
 export const filterDateTypes = [
   {
     name: "За день",
-    value: getDateInterval(0)
+    value: getDateInterval(1)
   },
 
   {

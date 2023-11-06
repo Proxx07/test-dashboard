@@ -3,7 +3,8 @@ import {ITableHead} from "../interfaces/tableInterfaces";
 export const eventsThead: ITableHead[] = [
   {
     name: "Тип ошибки",
-    value: "type"
+    value: "type",
+    width: '50%'
   },
 
   {

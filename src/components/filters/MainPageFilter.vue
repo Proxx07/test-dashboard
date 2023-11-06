@@ -1,10 +1,36 @@
 <script setup lang="ts">
 import {filterAppTypes, filterDateTypes} from "@/models/staticContent/mainPageContent.ts";
-import {ref} from "vue";
+import {IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import {validDate} from "@/utils/scripts.ts";
 
-const filter = ref({
+const props = defineProps<IFilter>();
 
-})
+const emit = defineEmits<{
+  (e: 'update:fromDate', from: string): void
+  (e: 'update:toDate', to: string): void
+  (e: 'filterChanged'): void
+}>()
+const dateHandler = (item: string | string[]) => {
+  if (!Array.isArray(item)) {
+    emit('update:fromDate', item)
+    emit('update:toDate', item)
+  } else {
+    emit('update:fromDate', item[0])
+    emit('update:toDate', item[1])
+  }
+  emit('filterChanged')
+}
+
+const datepickerHandler = (date: Date, isEnd: boolean = false) => {
+  if (!isEnd) {
+    emit('update:fromDate', validDate(date))
+    return
+  }
+
+  emit('update:toDate', validDate(date))
+  emit('filterChanged')
+}
 </script>
 
 <template>
@@ -16,12 +42,18 @@ const filter = ref({
   </div>
 
   <div class="main-filter__dates">
-    <v-button class="date-button" v-for="item in filterDateTypes" :key="item.value.join('')">
+    <v-button class="date-button" v-for="item in filterDateTypes" :key="item.value" @click="dateHandler(item.value)">
       {{item.name}}
     </v-button>
 
     <div class="calendar">
-      DatePicker
+      <VueDatePicker
+        :enable-time-picker="false"
+        :clearable="false"
+        @range-start="datepickerHandler($event)"
+        @range-end="datepickerHandler($event, true)"
+        range no-today auto-apply
+      />
     </div>
   </div>
 </div>
@@ -56,6 +88,10 @@ const filter = ref({
     align-items: flex-end;
     justify-content: flex-end;
     margin-bottom: -1px;
+  }
+
+  .calendar {
+    margin-left: -1px;
   }
 }
 

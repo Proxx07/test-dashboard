@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import request from "@/api/axios.ts";
 
 import Header from "@/components/Header.vue";
@@ -8,130 +8,48 @@ import VPagination from "@/components/VPagination.vue";
 import MainPageFilter from "@/components/filters/MainPageFilter.vue";
 
 import {eventsThead} from "@/models/staticContent/eventsTable.ts";
+import {getDateInterval} from "@/utils/scripts.ts";
+import {IErrorItem, IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
+import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 
-onMounted(async () => {
-  const res = await request.post('/statistic/by_check', {
-    fromDate: '2023-01-01',
-    toDate: '2023-10-10',
-    projectId: null
-  })
-  console.log(res)
-})
-const list = [
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 1",
-    id: "1",
-    name: "Название 1",
-    ip: "ip 1",
-    device: "Устройство 1"
-  },
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 2",
-    id: "2",
-    name: "Название 2",
-    ip: "ip 2",
-    device: "Устройство 2"
-  },
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 3",
-    id: "3",
-    name: "Название 3",
-    ip: "ip 3",
-    device: "Устройство 3"
-  },
+const list = ref([]);
 
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 1",
-    id: "1",
-    name: "Название 1",
-    ip: "ip 1",
-    device: "Устройство 1"
-  },
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 2",
-    id: "2",
-    name: "Название 2",
-    ip: "ip 2",
-    device: "Устройство 2"
-  },
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 3",
-    id: "3",
-    name: "Название 3",
-    ip: "ip 3",
-    device: "Устройство 3"
-  },
+const filter = ref<IFilter>({
+  fromDate: getDateInterval(0) as string,
+  toDate: getDateInterval(0) as string,
+  projectId: null
+});
 
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 1",
-    id: "1",
-    name: "Название 1",
-    ip: "ip 1",
-    device: "Устройство 1"
-  },
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 2",
-    id: "2",
-    name: "Название 2",
-    ip: "ip 2",
-    device: "Устройство 2"
-  },
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 3",
-    id: "3",
-    name: "Название 3",
-    ip: "ip 3",
-    device: "Устройство 3"
-  },
+const isFetching = ref<boolean>(false)
+const fetchData = async () => {
+  isFetching.value = true
+  const res = await request.post<IResponse<IErrorItem[]>>('/statistic/by_check', filter.value)
+  isFetching.value = false
+  list.value = res.result
+}
 
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 1",
-    id: "1",
-    name: "Название 1",
-    ip: "ip 1",
-    device: "Устройство 1"
-  },
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 2",
-    id: "2",
-    name: "Название 2",
-    ip: "ip 2",
-    device: "Устройство 2"
-  },
-  {
-    date: "Thu Oct 26 2023",
-    type: "Тип 3",
-    id: "3",
-    name: "Название 3",
-    ip: "ip 3",
-    device: "Устройство 3"
-  }
-]
+const filterHandler = () => {
+  fetchData()
+}
 const pageHandler = (page: string | number) => {
   console.log(page)
 }
 
-/*const filter = ref({
-  fromDate: "",
-  toDate: ""
-});*/
+
+onMounted(() => {
+  fetchData()
+})
 
 </script>
 
 <template>
   <Header/>
-  <main-page-filter/>
+  <main-page-filter
+    v-model:fromDate="filter.fromDate"
+    v-model:toDate="filter.toDate"
+    v-model:projectId="filter.projectId"
+    @filter-changed="filterHandler"
+  />
   <v-table class="table" :table-headers="eventsThead" :table-list="list"/>
   <v-pagination :total-pages="20" @page-change="pageHandler"/>
 </template>

@@ -2,32 +2,17 @@ import {ITableHead} from "../interfaces/tableInterfaces";
 
 export const eventsThead: ITableHead[] = [
   {
-    name: "Дата и время",
-    value: "date"
-  },
-
-  {
-    name: "Тип события",
+    name: "Тип ошибки",
     value: "type"
   },
 
   {
-    name: "ID",
-    value: "id"
+    name: "Код ошибки",
+    value: "errorCode"
   },
 
   {
-    name: "Логин",
-    value: "name"
+    name: "Количество",
+    value: "count"
   },
-
-  {
-    name: "IP-адрес",
-    value: "ip"
-  },
-
-  {
-    name: "Устройство",
-    value: "device"
-  }
 ]

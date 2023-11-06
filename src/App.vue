@@ -8,4 +8,4 @@ import AppLayout from "@/layouts/AppLayout.vue";
   </AppLayout>
 </template>
 
-<style lang="scss" scoped></style>
+<style></style>

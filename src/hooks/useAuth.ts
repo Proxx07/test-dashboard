@@ -1,8 +1,10 @@
 import {ref} from "vue";
 import {useRouter} from "vue-router";
-import {AuthUserInterface} from "@/models/auth/authUser.ts";
+import {AxiosError} from "axios";
+import {AuthorizedUser, AuthUserInterface} from "@/models/auth/authUser.ts";
 import request from "@/api/axios.ts";
 import {AUTH_TOKEN_NAME} from "@/models/staticContent/constants.ts";
+import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 
 export const useAuth = () => {
   const router = useRouter()
@@ -15,7 +17,7 @@ export const useAuth = () => {
 
   const authSubmit = async () => {
     authUser.value.phone = authUser.value.phone.replace(/[^+\d]/g, '').substring(1);
-    const res = await request.post('auth/sign-in', {...authUser.value})
+    const res = await request.post<IResponse<AuthorizedUser | AxiosError>>('auth/sign-in', {...authUser.value})
 
     if (res.statusCode !== 200) {
       switch (res.response.status) {

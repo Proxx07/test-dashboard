@@ -4,7 +4,6 @@ import {getDateInterval} from "@/utils/scripts.ts";
 import request from "@/api/axios.ts";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 
-
 export const useErrorsStatistic = () => {
   const list = ref([]);
   const isFetching = ref<boolean>(false)
@@ -19,14 +18,12 @@ export const useErrorsStatistic = () => {
     const res = await request.post<IResponse<IErrorItem[]>>('/statistic/by_check', filter.value)
     isFetching.value = false
 
-    list.value = res.result
+    list.value = Array.isArray(res.result) ? res.result : []
   };
   const filterHandler = () => {
     fetchData()
   };
-  const pageHandler = (page: string | number) => {
-    console.log(page)
-  };
+
   onMounted(() => {
     fetchData()
   });
@@ -36,7 +33,6 @@ export const useErrorsStatistic = () => {
     isFetching,
     filter,
     fetchData,
-    filterHandler,
-    pageHandler
+    filterHandler
   }
 }

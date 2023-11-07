@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import {navigation} from "@/models/staticContent/navigation.ts";
-//import burgerIcon from "@/assets/icons/burger.svg?raw";
-
+import burgerIcon from "@/assets/icons/burger.svg?raw";
+import closeIcon from "@/assets/icons/close.svg?raw"
+import logOutIcon from "@/assets/icons/logout.svg?raw";
 import {useAuth} from "@/hooks/useAuth.ts";
 const {logOut} = useAuth()
+
+const props = defineProps<{
+  burgerClosed: boolean
+}>()
 </script>
 
 <template>
   <nav class="navigation">
     <div class="navigation__menu-item">
-      <!--
-      <span class="navigation__menu-item-link" @click="toggleBurger">
-        <span class="icon" v-html="burgerIcon"/>
+      <span class="navigation__menu-item-link burger-button" @click="$emit('burger-click')">
+        <span class="icon" v-html="props.burgerClosed ? burgerIcon : closeIcon"/>
       </span>
-      -->
     </div>
 
     <ul class="navigation__menu">
@@ -29,6 +32,7 @@ const {logOut} = useAuth()
 
     <div class="navigation__menu-item">
       <span class="navigation__menu-item-link" @click="logOut">
+        <span v-html="logOutIcon" class="icon"></span>
         Выйти
       </span>
     </div>
@@ -48,15 +52,19 @@ const {logOut} = useAuth()
     flex-direction: column;
     &-item {
       &-link {
-        padding: 10px 0;
+        padding: 1rem 0;
         text-decoration: none;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 1.6rem;
         color: var(--AccentColor);
         font-size: 1.5rem;
         transition: all 0.3s;
         cursor: pointer;
+        .icon {
+          font-size: 0;
+          transition: all 0.2s;
+        }
         svg path {
           transition: all 0.3s;
         }

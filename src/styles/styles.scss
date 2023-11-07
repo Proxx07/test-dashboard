@@ -1,6 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap");
 @import url("@vuepic/vue-datepicker/dist/main.css");
+@import url('vue3-toastify/dist/index.css');
+
 @import "calendar.css";
+@import "toast.css";
 
 * {
   box-sizing: border-box;

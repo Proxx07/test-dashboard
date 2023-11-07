@@ -1,14 +1,14 @@
 import {ref} from "vue";
 
 export const useBurger = () => {
-  const burger = ref<boolean>(false)
+  const burgerClosed = ref<boolean>(true)
 
   const toggleBurger = () => {
-    burger.value = !burger.value
+    burgerClosed.value = !burgerClosed.value
   }
 
   return {
-    burger,
+    burgerClosed,
     toggleBurger
   }
 }

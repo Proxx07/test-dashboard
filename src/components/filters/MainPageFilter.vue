@@ -4,6 +4,7 @@ import {IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import {validDate} from "@/utils/scripts.ts";
 
+//@ts-ignore
 const props = defineProps<IFilter>();
 
 const emit = defineEmits<{
@@ -32,8 +33,6 @@ const datepickerHandler = (date: Date, isEnd: boolean = false) => {
   emit('update:toDate', validDate(date))
   emit('filterChanged')
 }
-
-console.log(props)
 </script>
 
 <template>

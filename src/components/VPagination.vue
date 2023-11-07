@@ -15,21 +15,20 @@ const activePage = ref(Number(route.currentRoute.value.query?.page) || 1)
 const pagesArray = Array.from({length: +props.totalPages}, (_, i) => i + 1)
 
 const visibleItems = 3
-const filteredPages = (current = activePage.value) => pagesArray.map(page => {
+const sideItems = Math.floor(visibleItems / 2)
+const filteredPages = (current = activePage.value): (number | undefined)[] => pagesArray.map(page => {
   if (current <= visibleItems || current > +props.totalPages - visibleItems) {
     if (page <= visibleItems || page > +props.totalPages - visibleItems) return page
   } else {
     if (page === 1) return page
     if (page === +props.totalPages) return page
-    if (page + 1 === current || page === current || page - 1 === current) return page
+    if ((page <= current && page >= current - sideItems) || (page > current && page <= current + sideItems)) return page
   }
 })
-
 
 const renderingPages = computed(() => {
   const array = filteredPages()
   const result: (string | number)[] = [];
-
   array.forEach((item, index) => {
     if (item === undefined) {
       const nextItemVal = array[index + 1];

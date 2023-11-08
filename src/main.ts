@@ -2,7 +2,7 @@ import "@/styles/styles.scss"
 import { createApp } from 'vue'
 import components from "@/components/UI"
 import router from '@/router/router.ts'
-import Vue3Toasity, {toast, type ToastContainerOptions} from 'vue3-toastify';
+import {ToastPlugin, ToastPluginOptions} from "@/plugins/toast.ts";
 
 
 import App from '@/App.vue'
@@ -15,9 +15,6 @@ components.forEach(component => {
 })
 
 app
-  .use(Vue3Toasity, {
-    autoClose: 5000,
-    position: toast.POSITION.TOP_RIGHT
-  } as ToastContainerOptions)
+  .use(ToastPlugin, ToastPluginOptions)
   .use(router)
   .mount('#app');

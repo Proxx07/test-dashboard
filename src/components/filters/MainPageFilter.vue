@@ -4,7 +4,6 @@ import {IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import {validDate} from "@/utils/scripts.ts";
 
-//@ts-ignore
 const props = defineProps<IFilter>();
 
 const emit = defineEmits<{
@@ -24,9 +23,9 @@ const dateHandler = (item: string | string[]) => {
 }
 
 const datepickerHandler = (date: Date, isEnd: boolean = false) => {
-
   if (!isEnd) {
     emit('update:fromDate', validDate(date))
+    emit('update:toDate', '')
     return
   }
 
@@ -44,7 +43,13 @@ const datepickerHandler = (date: Date, isEnd: boolean = false) => {
   </div>
 
   <div class="main-filter__dates">
-    <v-button class="date-button" v-for="item in filterDateTypes" :key="item.value" @click="dateHandler(item.value)">
+    <v-button
+      v-for="item in filterDateTypes"
+      :key="item.value.join('-')"
+      :class="{'active': props.fromDate === item.value[0] && props.toDate === item.value[1]}"
+      class="date-button"
+      @click="dateHandler(item.value)"
+    >
       {{item.name}}
     </v-button>
 
@@ -108,7 +113,8 @@ const datepickerHandler = (date: Date, isEnd: boolean = false) => {
     border-radius: .4rem 0 0 .4rem;
   }
 
-  &:hover {
+  &:hover,
+  &.active {
     background: var(--VioletTransparent);
     color: var(--VioletText);
   }

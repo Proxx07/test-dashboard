@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import {useRouter} from "vue-router";
-import {AUTH_TOKEN_NAME} from "@/models/staticContent/constants.ts";
-import {useBurger} from "@/hooks/useBurger.ts";
 import Navigation from "@/components/Navigation.vue";
+import {useAuth} from "@/hooks/useAuth.ts";
+import {useBurger} from "@/hooks/useBurger.ts";
 
-const authToken = localStorage.getItem(AUTH_TOKEN_NAME)
-const router = useRouter()
-if (!authToken) router.push({path: "/auth"})
+const {checkUser} = useAuth();
+const {burgerClosed, toggleBurger} = useBurger();
 
-const {burgerClosed, toggleBurger} = useBurger()
-
+checkUser()
 </script>
 
 <template>

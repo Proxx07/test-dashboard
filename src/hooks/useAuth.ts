@@ -31,7 +31,6 @@ export const useAuth = () => {
           $toast.error(res.response.data.message.join('\n'))
         break
       }
-
       error.value = true
     } else {
       localStorage.setItem(AUTH_TOKEN_NAME, res.result.access_token)
@@ -49,9 +48,14 @@ export const useAuth = () => {
   }
 
   const checkUser = () => {
+    const authToken = localStorage.getItem(AUTH_TOKEN_NAME)
     // ToDo user checking
-    if (router.currentRoute.value.name !== 'auth') return
-    console.log('User checking ...')
+    if (router.currentRoute.value.name === 'auth') {
+      console.log('Auth page user checking ...')
+    }
+    else {
+      if (!authToken) router.push({path: "/auth"})
+    }
   }
 
   return {

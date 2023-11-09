@@ -3,10 +3,13 @@ export interface IFilterTypes {
   value: string
 }
 
-export interface IFilter {
+export interface IDate {
   fromDate: string,
   toDate: string,
-  projectId: null | number
+}
+
+export interface IFilter extends IDate {
+  projectId?: null | number
 }
 
 export interface IErrorItem {

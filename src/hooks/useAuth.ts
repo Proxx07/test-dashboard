@@ -3,7 +3,7 @@ import {useRouter} from "vue-router";
 import {AxiosError} from "axios";
 import {AuthorizedUser, AuthUserInterface} from "@/models/auth/authUser.ts";
 import request from "@/api/axios.ts";
-import {AUTH_TOKEN_NAME} from "@/models/staticContent/constants.ts";
+import {AUTH_TOKEN_NAME, USER_ID_KEY} from "@/models/staticContent/constants.ts";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {useToast} from "@/hooks/useToast.ts";
 
@@ -34,7 +34,9 @@ export const useAuth = () => {
       error.value = true
     } else {
       localStorage.setItem(AUTH_TOKEN_NAME, res.result.access_token)
+      localStorage.setItem(USER_ID_KEY, res.result.id)
       await router.push({path: '/'})
+
       $toast.success(`Вы ${res.message.toLowerCase()} авторизоавлись`)
     }
   }
@@ -44,15 +46,17 @@ export const useAuth = () => {
   const logOut = () => {
     if (!confirm('Вы уверены, что хотите выйти?')) return
     localStorage.removeItem(AUTH_TOKEN_NAME)
+    localStorage.removeItem(USER_ID_KEY)
     router.push('/auth')
   }
 
   const checkUser = () => {
     const authToken = localStorage.getItem(AUTH_TOKEN_NAME)
-    // ToDo user checking
+
     if (router.currentRoute.value.name === 'auth') {
-      console.log('Auth page user checking ...')
+      if (authToken) router.push({path: '/'})
     }
+
     else {
       if (!authToken) router.push({path: "/auth"})
     }

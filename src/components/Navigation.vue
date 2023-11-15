@@ -59,11 +59,11 @@ const props = defineProps<{
         gap: 1.6rem;
         color: var(--AccentColor);
         font-size: 1.5rem;
-        transition: all 0.3s;
+        transition: all 0.2s;
         cursor: pointer;
         .icon {
           font-size: 0;
-          transition: all 0.2s;
+          transition: all 0.3s;
         }
         svg path {
           transition: all 0.3s;

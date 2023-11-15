@@ -24,12 +24,13 @@ checkUser()
 
 <style lang="scss">
 .app-inner {
-  min-height: 100vh;
   display: grid;
   grid-template-columns: minmax(21.5rem, 21.5rem) auto;
-  max-width: 1440px;
+  max-width: 100%;
   margin: 0 auto;
   transition: all .3s;
+  min-height: 100vh;
+  max-height: 100vh;
 }
 
 .sidebar {
@@ -42,6 +43,8 @@ checkUser()
 
 .site-content {
   padding: 2.2rem 2.4rem 2.4rem;
+  overflow: auto;
+  max-height: 100vh;
 }
 
 .app-inner--burger-closed {
@@ -54,7 +57,10 @@ checkUser()
     font-size: 0;
     &.burger-button {
       .icon {
-        transform: rotateY(180deg);
+        transform: rotateZ(-90deg);
+        svg {
+          transform: rotateZ(90deg);
+        }
       }
     }
   }

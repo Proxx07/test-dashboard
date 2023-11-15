@@ -17,6 +17,7 @@ const {list, isFetching, filter, filterHandler} = useErrorsStatistic()
     v-model:projectId="filter.projectId"
     @filter-changed="filterHandler"
   />
+
   <v-table class="table" :table-headers="eventsThead" :table-list="list" :loading="isFetching"/>
 </template>
 

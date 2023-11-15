@@ -54,7 +54,7 @@ const request = {
   },
 
   put: <T>(url: string, body: {}) => {
-    return axios.post<T>(url, body).then(responseBody).catch(error => error)
+    return axios.put<T>(url, body).then(responseBody).catch(error => error)
   },
 
   delete: <T>(url: string) => {

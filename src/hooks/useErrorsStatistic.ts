@@ -21,6 +21,7 @@ export const useErrorsStatistic = () => {
     list.value = Array.isArray(res.result) ? res.result : []
   };
   const filterHandler = () => {
+
     fetchData()
   };
 

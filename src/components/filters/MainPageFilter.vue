@@ -42,6 +42,7 @@ const dateHandler = (item: string[]) => {
           :enable-time-picker="false"
           :clearable="false"
           :month-change-on-scroll="false"
+          locale="ru"
           model-type="yyyy-MM-dd"
           range no-today auto-apply
           @update:model-value="dateHandler"

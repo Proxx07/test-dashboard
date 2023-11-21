@@ -7,6 +7,7 @@ const roles = {
   moderator: 2,
   operator: 3,
 };
+console.log(roles)
 
 export const facilities = {
   CAN_READ_USER: "can-read-user",

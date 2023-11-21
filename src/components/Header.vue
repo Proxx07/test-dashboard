@@ -18,12 +18,15 @@ const props = withDefaults(defineProps<HeaderProps>(), {
         <span class="site-name"> Face ID </span>
       </div>
 
-      <h1 v-if="props.title" class="header__title">
-        {{props.title}}
-      </h1>
-      <div class="header__description" v-if="props.subtitle">
-        {{props.subtitle}}
+      <div v-if="props.title || props.subtitle" class="page-header">
+        <h1 v-if="props.title" class="header__title">
+          {{props.title}}
+        </h1>
+        <div class="header__description" v-if="props.subtitle">
+          {{props.subtitle}}
+        </div>
       </div>
+
     </div>
   </header>
 </template>
@@ -37,14 +40,22 @@ const props = withDefaults(defineProps<HeaderProps>(), {
   padding: 0 0 1.4rem;
 }
 
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .header {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 0 2.4rem;
+  margin-bottom: 1.8rem;
   &__description {
     font-weight: 600;
     font-size: 1.5em;
-    color: var(--TextColorGray)
+    color: var(--TextColorAccent);
+    opacity: 0.5;
   }
 
   &__left {

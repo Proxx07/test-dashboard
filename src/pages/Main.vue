@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import Header from "@/components/Header.vue";
 import VTable from "@/components/VTable.vue";
-import MainPageFilter from "@/components/filters/MainPageFilter.vue";
 import {eventsThead} from "@/models/staticContent/eventsTable.ts";
 import {useErrorsStatistic} from "@/hooks/useErrorsStatistic.ts";
+import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
+import FilterDeviceTypes from "@/components/filters/FilterDeviceTypes.vue";
 
 const {list, isFetching, filter, filterHandler} = useErrorsStatistic()
 
@@ -11,19 +12,26 @@ const {list, isFetching, filter, filterHandler} = useErrorsStatistic()
 
 <template>
   <Header/>
-  <main-page-filter
-    v-model:fromDate="filter.fromDate"
-    v-model:toDate="filter.toDate"
-    v-model:projectId="filter.projectId"
-    @filter-changed="filterHandler"
-  />
 
-  <v-table class="table" :table-headers="eventsThead" :table-list="list" :loading="isFetching"/>
+  <div class="main-page-filter">
+    <filter-device-types/>
+    <filter-date-component
+      v-model:from-date="filter.fromDate"
+      v-model:to-date="filter.toDate"
+      @filter-changed="filterHandler"
+    />
+  </div>
+
+  <main>
+    <v-table class="table" :table-headers="eventsThead" :table-list="list" :loading="isFetching"/>
+  </main>
 </template>
 
 <style scoped>
-.table {
-  margin-top: 2.4rem;
-  margin-bottom: 3.2rem;
+.main-page-filter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem;
+  border-bottom: 1px solid var(--LayoutBorderColor);
 }
 </style>

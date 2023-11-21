@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import {ref, computed} from "vue";
-import {useRouter} from "vue-router";
+import {LocationQueryValue, useRouter} from "vue-router";
 const route = useRouter();
 
 const props = defineProps<{
-  totalPages: string | number
+  totalPages: string | number,
+  modelValue?: LocationQueryValue
 }>()
 
 const emit = defineEmits<{
   (e: 'pageChange', page: string | number): void
+  (e: 'update:modelValue', page: string) : void
 }>()
 
 const activePage = ref(Number(route.currentRoute.value.query?.page) || 1)
@@ -46,8 +48,10 @@ const renderingPages = computed(() => {
 const changePage = (page: number) => {
   route.push({query: {page}})
   activePage.value = page
+  emit('update:modelValue', `${page}`)
   emit('pageChange', page)
 }
+
 </script>
 
 <template>

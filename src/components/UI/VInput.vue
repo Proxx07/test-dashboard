@@ -14,14 +14,14 @@ const emit = defineEmits(["update:modelValue", 'focus'])
 </script>
 
 <template>
-  <label>
+  <label :class="`${props.class}`">
     <span v-if="props.label" class="label-text">{{props.label}}</span>
     <input
       v-if="props.phone"
       v-maska
       data-maska="+998(##)-###-##-##"
       type="text"
-      :class="'text-field ' + props.class"
+      :class="'text-field'"
       :value="modelValue"
       :placeholder="props.placeholder || props.label"
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
@@ -31,7 +31,7 @@ const emit = defineEmits(["update:modelValue", 'focus'])
     <input
       v-else
       :type="props.type || 'text'"
-      :class="'text-field ' + props.class"
+      :class="'text-field'"
       :value="modelValue"
       :placeholder="props.placeholder || props.label"
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
@@ -41,13 +41,15 @@ const emit = defineEmits(["update:modelValue", 'focus'])
 </template>
 
 <style lang="scss" scoped>
+label {
+  font-size: 1.4rem;
+}
 label, .label-text {
   display: block;
   text-align: left;
 }
 
 .label-text {
-  font-size: 1.4rem;
   font-weight: 600;
   line-height: 2.15;
   cursor: pointer;
@@ -55,12 +57,12 @@ label, .label-text {
 
 .text-field {
   width: 100%;
-  font-size: 1.4rem;
+  font-size: inherit;
   outline: none;
   padding: .6rem 1.6rem;
   line-height: 2.15;
   transition: all 0.3s;
-
+  background: var(--WhiteBg);
   &::placeholder {
     font-weight: 400;
     transition: all 0.3s;
@@ -79,10 +81,11 @@ label, .label-text {
   &[type=number] {
     -moz-appearance: textfield;
   }
+}
 
-  &.error {
-    border-color: #ff5555;
-    background-color: #f2d6d6;
-  }
+
+label.error .text-field {
+  border-color: #ff5555;
+  background-color: #f2d6d6;
 }
 </style>

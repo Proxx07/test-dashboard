@@ -38,8 +38,14 @@ export const routes = [
   {
     path: "/users",
     name: "users",
-    component: () => import("@/pages/Users.vue")
+    component: () => import("@/pages/Users/index.vue"),
   },
+  {
+    path: "/users/user/:id?",
+    name: "user",
+    component: () => import("@/pages/Users/action.vue"),
+  },
+
   /*
   {
     path: "/devices",

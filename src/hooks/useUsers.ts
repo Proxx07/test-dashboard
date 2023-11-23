@@ -2,11 +2,9 @@ import {onMounted, ref, computed} from "vue";
 import request from "@/api/axios.ts";
 import {IUser, IUserFilter} from "@/models/interfaces/usersInterfaces.ts";
 import {IListResponse, IResponse} from "@/models/interfaces/tableInterfaces.ts";
-import {LocationQueryValue, useRouter} from "vue-router";
 import {declination, getDateInterval} from "@/utils/scripts.ts";
 
 export const useUsers = () => {
-  const router = useRouter();
 
   const list = ref([]);
   const isFetching = ref<boolean>(false);
@@ -14,11 +12,13 @@ export const useUsers = () => {
 
   const usersCount = ref<number>(0);
   const headerSubtitle = computed(() => {
-    return `( ${usersCount.value} ${declination(usersCount.value, ['пользователь', 'пользователя', 'пользователей'])} )`
+    return usersCount.value
+      ? `( ${usersCount.value} ${declination(usersCount.value, ['пользователь', 'пользователя', 'пользователей'])} )`
+      : ""
   });
 
   const filter = ref<IUserFilter>({
-    page: router.currentRoute.value.query?.page as LocationQueryValue,
+    page: "1",
     search: "",
     fromDate: getDateInterval(1)[0],
     toDate: getDateInterval(1)[1],

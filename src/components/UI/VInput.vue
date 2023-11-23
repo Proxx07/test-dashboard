@@ -43,6 +43,7 @@ const emit = defineEmits(["update:modelValue", 'focus'])
 <style lang="scss" scoped>
 label {
   font-size: 1.4rem;
+  line-height: 2.15;
 }
 label, .label-text {
   display: block;
@@ -51,7 +52,6 @@ label, .label-text {
 
 .label-text {
   font-weight: 600;
-  line-height: 2.15;
   cursor: pointer;
 }
 
@@ -60,9 +60,9 @@ label, .label-text {
   font-size: inherit;
   outline: none;
   padding: .6rem 1.6rem;
-  line-height: 2.15;
   transition: all 0.3s;
   background: var(--WhiteBg);
+  height: 100%;
   &::placeholder {
     font-weight: 400;
     transition: all 0.3s;

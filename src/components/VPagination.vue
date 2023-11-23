@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, computed} from "vue";
+import {ref, computed, onMounted} from "vue";
 import {LocationQueryValue, useRouter} from "vue-router";
 const route = useRouter();
 
@@ -51,6 +51,10 @@ const changePage = (page: number) => {
   emit('update:modelValue', `${page}`)
   emit('pageChange', page)
 }
+
+onMounted(() => {
+  emit('update:modelValue', `${activePage.value}`)
+})
 
 </script>
 

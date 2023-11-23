@@ -1,10 +1,12 @@
 import {onMounted, ref, computed} from "vue";
 import request from "@/api/axios.ts";
-import {IUser, IUserFilter} from "@/models/interfaces/usersInterfaces.ts";
+import {IUser, IUserFilter, IUserWithDate, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
 import {IListResponse, IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {declination, getDateInterval} from "@/utils/scripts.ts";
+import {useRouter} from "vue-router";
 
 export const useUsers = () => {
+  const $router = useRouter()
 
   const list = ref([]);
   const isFetching = ref<boolean>(false);
@@ -32,6 +34,10 @@ export const useUsers = () => {
     list.value = Array.isArray(res.result.result) ? res.result.result : []
   };
 
+  const listItemHandler = (value: IUserWithDate) => {
+    $router.push({name: "user", params: {id: value.id}})
+  }
+
   onMounted(() => {
     fetchData()
   });
@@ -43,5 +49,54 @@ export const useUsers = () => {
     headerSubtitle,
     totalPages,
     fetchData,
+    listItemHandler,
+  }
+}
+
+export const useUser = (id: string) => {
+
+  const setUser = (user: IUserWithDate | void): IUserWithPassword => {
+    return {
+      name: user?.name || "",
+      phone: user?.phone || "",
+      email: user?.email || "",
+      projectId: user?.projectId || "",
+      role : user ? user.role : null,
+      password: ""
+    }
+  }
+
+  const user = ref<IUser>(setUser())
+
+  const getUser = async (userID: string = id) => {
+    const {result} = await request.get<IResponse<IUserWithDate>>(`/users/${userID}`)
+
+    user.value = setUser(result)
+  }
+  const postUser = async () => {
+    const result = await request.post<IResponse<IUserWithDate>>('/users', user.value)
+    console.log(result)
+  }
+  
+  const putUser = async (userID: string = id) => {
+    const result = await request.put<IResponse<IUserWithDate>>(`/users/${userID}`, user.value)
+    console.log(result)
+  }
+  const deleteUser = async (userID: string = id) => {
+    const result = await request.delete<IResponse<IUserWithDate>>(`/users/${userID}`)
+    console.log(result)
+  }
+
+  onMounted(() => {
+    getUser()
+  })
+
+  return {
+    user,
+
+    getUser,
+    postUser,
+    putUser,
+    deleteUser,
   }
 }

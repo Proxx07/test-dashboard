@@ -6,8 +6,16 @@ import VPreloader from "@/components/UI/VPreloader.vue";
 const props = defineProps<{
   tableHeaders: ITableHead[]
   tableList: any[]
-  loading: boolean
+  loading: boolean,
 }>()
+
+const emit = defineEmits<{
+  (e: 'rowClicked', item: any): void
+}>()
+
+const rowClickHandler = (item: any) => {
+  emit('rowClicked', item)
+}
 </script>
 
 <template>
@@ -27,7 +35,12 @@ const props = defineProps<{
         </td>
       </tr>
 
-      <tr v-else-if="tableList.length" v-for="item in tableList">
+      <tr
+        v-else-if="tableList.length"
+        v-for="item in tableList"
+        class="table-row"
+        @click="rowClickHandler(item)"
+      >
         <td v-for="header in tableHeaders">
           {{ item[header.value] || "-" }}
         </td>
@@ -69,6 +82,14 @@ table {
 
     & > tr {
       border-bottom: 1px solid var(--ContentBorderColor);
+
+      &.table-row {
+        cursor: pointer;
+        transition: all .3s;
+        &:hover {
+          background: rgba(0, 0, 0, 0.025);
+        }
+      }
     }
   }
 

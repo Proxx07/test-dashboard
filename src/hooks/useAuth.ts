@@ -8,7 +8,7 @@ import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {useToast} from "@/hooks/useToast.ts";
 
 export const useAuth = () => {
-  const router = useRouter()
+  const $router = useRouter()
   const error = ref<boolean>(false)
   const authUser = ref<AuthUserInterface>({
     phone: '+998',
@@ -35,7 +35,7 @@ export const useAuth = () => {
     } else {
       localStorage.setItem(AUTH_TOKEN_NAME, res.result.access_token)
       localStorage.setItem(USER_ID_KEY, res.result.id)
-      await router.push({path: '/'})
+      await $router.push({path: '/'})
 
       $toast.success(`Вы ${res.message.toLowerCase()} авторизоавлись`)
     }
@@ -47,18 +47,18 @@ export const useAuth = () => {
     if (!confirm('Вы уверены, что хотите выйти?')) return
     localStorage.removeItem(AUTH_TOKEN_NAME)
     localStorage.removeItem(USER_ID_KEY)
-    router.push('/auth')
+    $router.push('/auth')
   }
 
   const checkUser = () => {
     const authToken = localStorage.getItem(AUTH_TOKEN_NAME)
 
-    if (router.currentRoute.value.name === 'auth') {
-      if (authToken) router.push({path: '/'})
+    if ($router.currentRoute.value.name === 'auth') {
+      if (authToken) $router.push({path: '/'})
     }
 
     else {
-      if (!authToken) router.push({path: "/auth"})
+      if (!authToken) $router.push({path: "/auth"})
     }
   }
 

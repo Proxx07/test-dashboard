@@ -6,7 +6,7 @@ import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 import {usersThead} from "@/models/staticContent/usersPageContent.ts";
 import {useUsers} from "@/hooks/useUsers.ts";
 
-const {filter, list, totalPages, headerSubtitle, isFetching, fetchData} = useUsers()
+const {filter, list, totalPages, headerSubtitle, isFetching, fetchData, listItemHandler} = useUsers()
 
 </script>
 
@@ -32,7 +32,7 @@ const {filter, list, totalPages, headerSubtitle, isFetching, fetchData} = useUse
   </div>
 
   <main>
-    <v-table class="table" :table-headers="usersThead" :table-list="list" :loading="isFetching"/>
+    <v-table class="table" :table-headers="usersThead" :table-list="list" :loading="isFetching" @row-clicked="listItemHandler"/>
   </main>
 
   <v-pagination v-if="totalPages > 1" v-model="filter.page" :total-pages="totalPages" @page-change="fetchData"/>

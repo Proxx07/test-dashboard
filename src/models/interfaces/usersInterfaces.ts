@@ -6,17 +6,24 @@ export enum roles {
   moderator = 2,
   operator = 3
 }
-
 export interface IUser {
-  id: string,
+  id?: string,
   name: string,
   projectId: string,
   email: string,
   phone: string,
-  role: roles,
-  createdAt: string,
-  updatedAt: string
-};
+  role: roles | null,
+}
+
+export interface IUserWithDate extends IUser{
+  createdAt?: string,
+  updatedAt?: string
+}
+
+export interface IUserWithPassword extends IUser {
+  password: string
+}
+
 
 export interface IUserFilter {
   page: LocationQueryValue,

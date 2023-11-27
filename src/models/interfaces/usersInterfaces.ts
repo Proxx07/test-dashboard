@@ -1,11 +1,6 @@
 import {LocationQueryValue} from "vue-router";
+import {roles} from "@/utils/roles.ts";
 
-export enum roles {
-  main = 0,
-  admin = 1,
-  moderator = 2,
-  operator = 3
-}
 export interface IUser {
   id?: string,
   name: string,

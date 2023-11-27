@@ -1,14 +1,18 @@
-import {onMounted, ref, computed} from "vue";
+import {computed, onMounted, ref} from "vue";
 import request from "@/api/axios.ts";
 import {IUser, IUserFilter, IUserWithDate, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
 import {IListResponse, IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {declination, getDateInterval} from "@/utils/scripts.ts";
 import {useRouter} from "vue-router";
+import {accesses, checkUserAccess} from "@/utils/roles.ts";
+import {useToast} from "@/hooks/useToast.ts";
+
+const $toast = useToast()
 
 export const useUsers = () => {
   const $router = useRouter()
 
-  const list = ref([]);
+  const list = ref<IUser[]>([]);
   const isFetching = ref<boolean>(false);
   const totalPages = ref<number>(1);
 
@@ -31,11 +35,16 @@ export const useUsers = () => {
     const res = await request.get<IResponse<IListResponse<IUser[]>>>('/users', filter.value)
     isFetching.value = false
     usersCount.value = res.result.count
-    list.value = Array.isArray(res.result.result) ? res.result.result : []
+    list.value = res.result.result
   };
 
   const listItemHandler = (value: IUserWithDate) => {
-    $router.push({name: "user", params: {id: value.id}})
+    if (!checkUserAccess(accesses.UPDATE_USER)) {
+      $toast.error('У вас не достаточно прав для перехода на страницу')
+    }
+    else {
+      $router.push({name: "user-edit", params: {id: value.id}})
+    }
   }
 
   onMounted(() => {
@@ -69,8 +78,8 @@ export const useUser = (id: string) => {
   const user = ref<IUser>(setUser())
 
   const getUser = async (userID: string = id) => {
+    if (!userID) return
     const {result} = await request.get<IResponse<IUserWithDate>>(`/users/${userID}`)
-
     user.value = setUser(result)
   }
   const postUser = async () => {

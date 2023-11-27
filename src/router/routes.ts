@@ -1,3 +1,5 @@
+import {accesses} from "@/utils/roles.ts";
+
 export const routes = [
   {
     path: "/",
@@ -41,9 +43,17 @@ export const routes = [
     component: () => import("@/pages/Users/index.vue"),
   },
   {
-    path: "/users/user/:id?",
+    path: "/users/user",
     name: "user",
     component: () => import("@/pages/Users/action.vue"),
+    access: accesses.CREATE_USER,
+  },
+
+  {
+    path: "/users/user/:id",
+    name: "user-edit",
+    component: () => import("@/pages/Users/action.vue"),
+    access: accesses.UPDATE_USER
   },
 
   /*

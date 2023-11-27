@@ -45,19 +45,19 @@ axios.interceptors.response.use(
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
 const request = {
-  get: <T>(url: string, query?: {}) => {
+  get: <T>(url: string, query?: {}): Promise<T> => {
     return axios.get<T>(url, {params: query}).then(responseBody).catch(error => error)
   },
 
-  post: <T>(url: string, body: {}) => {
+  post: <T>(url: string, body: {}): Promise<T> => {
     return axios.post<T>(url, body).then(responseBody).catch(error => error)
   },
 
-  put: <T>(url: string, body: {}) => {
+  put: <T>(url: string, body: {}): Promise<T> => {
     return axios.put<T>(url, body).then(responseBody).catch(error => error)
   },
 
-  delete: <T>(url: string) => {
+  delete: <T>(url: string): Promise<T> => {
     return axios.delete<T>(url).then(responseBody).catch(error => error)
   }
 };

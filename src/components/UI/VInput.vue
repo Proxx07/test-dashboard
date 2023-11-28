@@ -2,28 +2,34 @@
 import {vMaska} from "maska";
 
 const props = defineProps<{
+  modelValue: string,
   phone?: boolean,
   label?: string,
   placeholder?: string,
-  type?: "text" | "password",
-  class?: string
-  modelValue: string,
+  type?: "text" | "password" | "email",
 }>()
 
 const emit = defineEmits(["update:modelValue", 'focus'])
 </script>
 
 <template>
-  <label :class="`${props.class}`">
-    <span v-if="props.label" class="label-text">{{props.label}}</span>
+  <label>
+    <span v-if="props.label" class="label-text">
+      {{props.label}}
+      <span class="required-mark" v-if="$attrs.hasOwnProperty('required')"> *</span>
+    </span>
+
     <input
       v-if="props.phone"
       v-maska
       data-maska="+998(##)-###-##-##"
       type="text"
-      :class="'text-field'"
       :value="modelValue"
+      :class="['text-field', 'phone-field']"
       :placeholder="props.placeholder || props.label"
+      v-bind="$attrs"
+      pattern=".{18}"
+      title="Номер телефона должен состоять из 12 цифр"
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       @focus="emit('focus')"
     />
@@ -31,9 +37,12 @@ const emit = defineEmits(["update:modelValue", 'focus'])
     <input
       v-else
       :type="props.type || 'text'"
-      :class="'text-field'"
+      :class="['text-field']"
       :value="modelValue"
       :placeholder="props.placeholder || props.label"
+      :pattern="props.type === 'email' ? '[^@\\s]+@[^@\\s]+\\.[^@\\s]+' : undefined"
+      :title="props.type === 'email' ? 'Например: test@email.com' : undefined"
+      v-bind="$attrs"
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       @focus="emit('focus')"
     />
@@ -41,18 +50,28 @@ const emit = defineEmits(["update:modelValue", 'focus'])
 </template>
 
 <style lang="scss" scoped>
-label {
-  font-size: 1.4rem;
-  line-height: 2.15;
-}
 label, .label-text {
   display: block;
   text-align: left;
 }
 
+label {
+  --errorSolid: #ff5555;
+  --errorTransparent: #f2d6d6;
+
+
+  font-size: 1.4rem;
+  line-height: 2.15;
+  display: flex;
+  flex-direction: column;
+}
+
 .label-text {
   font-weight: 600;
   cursor: pointer;
+  .required-mark {
+    color: var(--errorSolid);
+  }
 }
 
 .text-field {
@@ -62,17 +81,20 @@ label, .label-text {
   padding: .6rem 1.6rem;
   transition: all 0.3s;
   background: var(--WhiteBg);
-  height: 100%;
+  flex-grow: 1;
+  min-height: 4.4rem;
   &::placeholder {
     font-weight: 400;
     transition: all 0.3s;
     color: var(--TextColorGray);
   }
+
   &:focus {
     &::placeholder {
       opacity: 0;
     }
   }
+
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -85,7 +107,7 @@ label, .label-text {
 
 
 label.error .text-field {
-  border-color: #ff5555;
-  background-color: #f2d6d6;
+  border-color: var(--errorSolid);
+  background-color: var(--errorTransparent);
 }
 </style>

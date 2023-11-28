@@ -16,7 +16,7 @@ const {filter, list, totalPages, headerSubtitle, isFetching, fetchData, listItem
   <Header title="Список пользователей" :subtitle="headerSubtitle"/>
   <div class="users-filter">
     <div class="users-filter__search">
-      <v-input v-model="filter.search" class="users-filter__input" placeholder="Поиск пользователя"/>
+      <input type="text" v-model="filter.search" class="users-filter__input" placeholder="Поиск пользователя" >
       <v-button class="users-filter__button primary" @click="fetchData"> Найти</v-button>
     </div>
 
@@ -55,13 +55,20 @@ const {filter, list, totalPages, headerSubtitle, isFetching, fetchData, listItem
   }
 
   &__input {
+    width: 100%;
     font-size: 1.2rem;
+    outline: none;
+    padding: .6rem 1.6rem;
+    transition: all 0.3s;
+    background: var(--WhiteBg);
     line-height: 1.6;
-    flex-grow: 1;
+    border-radius: 0;
+    border: 0;
   }
 
   &__button {
     min-width: 130px;
+    border-radius: 0 4px 4px 0;
   }
 
   &__left {

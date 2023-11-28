@@ -63,11 +63,12 @@ export const useUsers = () => {
 }
 
 export const useUser = (id: string) => {
+  const $router = useRouter()
 
   const setUser = (user: IUserWithDate | void): IUserWithPassword => {
     return {
       name: user?.name || "",
-      phone: user?.phone || "",
+      phone: user?.phone || "998",
       email: user?.email || "",
       projectId: user?.projectId || "",
       role : user ? user.role : null,
@@ -75,25 +76,52 @@ export const useUser = (id: string) => {
     }
   }
 
-  const user = ref<IUser>(setUser())
+  const user = ref<IUserWithPassword>(setUser())
+  const buttonText = computed(() => !id ? "Cоздать" : "Редактировать")
 
-  const getUser = async (userID: string = id) => {
-    if (!userID) return
-    const {result} = await request.get<IResponse<IUserWithDate>>(`/users/${userID}`)
+  const getUser = async () => {
+    if (!id) return
+    const {result} = await request.get<IResponse<IUserWithDate>>(`/users/${id}`)
     user.value = setUser(result)
   }
   const postUser = async () => {
+    user.value.phone = user.value.phone.replace(/[^+\d]/g, '').substring(1);
     const result = await request.post<IResponse<IUserWithDate>>('/users', user.value)
-    console.log(result)
+    if (result.statusCode === 200 || result.statusCode === 201) {
+      await $router.push({name: "users"})
+      $toast.success("Пользователь создан")
+    } else {
+      $toast.error("Что-то пошло не так")
+    }
   }
   
-  const putUser = async (userID: string = id) => {
-    const result = await request.put<IResponse<IUserWithDate>>(`/users/${userID}`, user.value)
-    console.log(result)
+  const putUser = async () => {
+    user.value.phone = user.value.phone.replace(/[^+\d]/g, '').substring(1);
+    const result = await request.put<IResponse<IUserWithDate>>(`/users/${id}`, user.value)
+    if (result.statusCode === 200 || result.statusCode === 201) {
+      await $router.push({name: "users"})
+      $toast.success("Пользователь обновлён")
+    } else {
+      $toast.error("Что-то пошло не так")
+    }
   }
-  const deleteUser = async (userID: string = id) => {
-    const result = await request.delete<IResponse<IUserWithDate>>(`/users/${userID}`)
-    console.log(result)
+  const deleteUser = async () => {
+    if (!confirm('Вы действительно хотите удалить пользователя?')) return
+    const result = await request.delete<IResponse<IUserWithDate>>(`/users/${id}`)
+    if (result.statusCode === 200 || result.statusCode === 201) {
+      await $router.push({name: "users"})
+      $toast.success("Пользователь удалён")
+    } else {
+      $toast.error("Что-то пошло не так")
+    }
+  }
+
+  const submitForm = () => {
+    if (id) {
+      putUser()
+    } else {
+      postUser()
+    }
   }
 
   onMounted(() => {
@@ -102,10 +130,12 @@ export const useUser = (id: string) => {
 
   return {
     user,
+    buttonText,
 
     getUser,
     postUser,
     putUser,
     deleteUser,
+    submitForm,
   }
 }

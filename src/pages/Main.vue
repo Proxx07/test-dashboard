@@ -6,7 +6,7 @@ import {useErrorsStatistic} from "@/hooks/useErrorsStatistic.ts";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 import FilterDeviceTypes from "@/components/filters/FilterDeviceTypes.vue";
 
-const {list, isFetching, filter, filterHandler} = useErrorsStatistic()
+const {sortedList, isFetching, filter, filterHandler} = useErrorsStatistic()
 
 </script>
 
@@ -23,7 +23,7 @@ const {list, isFetching, filter, filterHandler} = useErrorsStatistic()
   </div>
 
   <main>
-    <v-table class="table" :table-headers="eventsThead" :table-list="list" :loading="isFetching"/>
+    <v-table class="table" :table-headers="eventsThead" :table-list="sortedList" :loading="isFetching"/>
   </main>
 </template>
 

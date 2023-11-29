@@ -41,6 +41,7 @@ export const routes = [
     path: "/users",
     name: "users",
     component: () => import("@/pages/Users/index.vue"),
+    access: accesses.READ_USER
   },
   {
     path: "/users/user",

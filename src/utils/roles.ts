@@ -28,24 +28,19 @@ export enum accesses {
   CREATE_USER = "CREATE_USER",
   UPDATE_USER = "UPDATE_USER",
   DELETE_USER = "DELETE_USER",
+  READ_USER = "READ_USER"
 }
 
 const rolesAccesses: Record<string, string[]> = {
   main: [
+    accesses.READ_USER,
     accesses.CREATE_USER,
     accesses.UPDATE_USER,
     accesses.DELETE_USER,
   ],
 
-  admin: [
-    accesses.CREATE_USER,
-    accesses.UPDATE_USER,
-  ],
-
-  moderator: [
-    accesses.UPDATE_USER,
-  ],
-
+  admin: [],
+  moderator: [],
   operator: []
 }
 

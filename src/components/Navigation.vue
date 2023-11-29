@@ -4,6 +4,7 @@ import burgerIcon from "@/assets/icons/burger.svg?raw";
 import closeIcon from "@/assets/icons/close.svg?raw"
 import logOutIcon from "@/assets/icons/logout.svg?raw";
 import {useAuth} from "@/hooks/useAuth.ts";
+import {checkUserAccess} from "@/utils/roles.ts";
 const {logOut} = useAuth()
 
 const props = defineProps<{
@@ -20,12 +21,14 @@ const props = defineProps<{
     </div>
 
     <ul class="navigation__menu">
-      <li class="navigation__menu-item" v-for="item in navigation" :key="item.link">
-        <router-link :to="item.link" class="navigation__menu-item-link">
-          <span v-if="item.icon" v-html="item.icon" class="icon" />
-          {{item.name}}
-        </router-link>
-      </li>
+      <template v-for="item in navigation" :key="item.link">
+        <li class="navigation__menu-item" v-if="checkUserAccess(item.access)">
+          <router-link :to="item.link" class="navigation__menu-item-link">
+            <span v-if="item.icon" v-html="item.icon" class="icon" />
+            {{item.name}}
+          </router-link>
+        </li>
+      </template>
     </ul>
 
     <div class="empty"></div>

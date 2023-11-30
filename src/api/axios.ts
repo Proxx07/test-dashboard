@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 import {AUTH_TOKEN_NAME} from "@/models/staticContent/constants.ts";
 
 //axios.defaults.baseURL = import.meta.env.PROD ? 'https://faceid-admin.theable.tech/' : 'https://fback.scon.uz/';
@@ -45,19 +45,19 @@ axios.interceptors.response.use(
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
 const request = {
-  get: <T>(url: string, query?: {}): Promise<T> => {
+  get: <T>(url: string, query?: Record<string, any>): Promise<T | AxiosError<string, any>> => {
     return axios.get<T>(url, {params: query}).then(responseBody).catch(error => error)
   },
 
-  post: <T>(url: string, body: {}): Promise<T> => {
+  post: <T>(url: string, body: Record<string, any>): Promise<T | AxiosError<string, any>> => {
     return axios.post<T>(url, body).then(responseBody).catch(error => error)
   },
 
-  put: <T>(url: string, body: {}): Promise<T> => {
+  put: <T>(url: string, body: Record<string, any>): Promise<T | AxiosError<string, any>> => {
     return axios.put<T>(url, body).then(responseBody).catch(error => error)
   },
 
-  delete: <T>(url: string): Promise<T> => {
+  delete: <T>(url: string): Promise<T | AxiosError<string, any>> => {
     return axios.delete<T>(url).then(responseBody).catch(error => error)
   }
 };

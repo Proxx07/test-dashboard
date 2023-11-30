@@ -19,10 +19,15 @@ export const useErrorsStatistic = () => {
 
   const fetchData = async () => {
     isFetching.value = true
-    const res = await request.post<IResponse<IErrorItem[]>>('/statistic/by_check', filter.value)
-    isFetching.value = false
+    try {
+      const res = await request.post<IResponse<IErrorItem[]>>('/statistic/by_check', filter.value)
+      isFetching.value = false
 
-    list.value = Array.isArray(res.result) ? res.result : []
+      list.value = Array.isArray(res.result) ? res.result : []
+    }
+    catch (error) {
+
+    }
   };
   const filterHandler = () => {
 

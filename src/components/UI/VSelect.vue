@@ -10,7 +10,7 @@ const emit = defineEmits<{
 }>()
 
 const props = defineProps<{
-  modelValue: string,
+  modelValue: number | null,
   options: selectOption[],
   label: string,
   placeholder?: string

@@ -17,6 +17,7 @@ export const useAuth = () => {
 
   const authSubmit = async () => {
     authUser.value.phone = authUser.value.phone.replace(/[^+\d]/g, '').substring(1);
+
     const res = await request.post<IResponse<AuthorizedUser>>('auth/sign-in', authUser.value)
 
     if (res.statusCode !== 200) {
@@ -46,7 +47,7 @@ export const useAuth = () => {
   const resetError = () => {
     error.value = false
   }
-  const logOut = () => {
+  const logOut = async () => {
 
     if (!confirm('Вы уверены, что хотите выйти?')) return
 
@@ -54,8 +55,8 @@ export const useAuth = () => {
     localStorage.removeItem(USER_ID_KEY)
     localStorage.removeItem(USER_ROLE)
 
-    $router.push('/auth')
-
+    await $router.push('/auth')
+    location.reload();
   }
 
   const checkUser = () => {

@@ -1,5 +1,4 @@
 import {accesses} from "@/utils/roles.ts";
-
 export const routes = [
   {
     path: "/",
@@ -8,12 +7,6 @@ export const routes = [
     meta: {
       layout: 'Default'
     },
-    /*
-    children: {
-      path: "/",
-      component: () => import("")
-    }
-    */
   },
 
   {
@@ -41,38 +34,37 @@ export const routes = [
     path: "/users",
     name: "users",
     component: () => import("@/pages/Users/index.vue"),
-    access: accesses.READ_USER
+    meta: {
+      access: accesses.READ_USER
+    }
   },
   {
     path: "/users/user",
     name: "user",
     component: () => import("@/pages/Users/action.vue"),
-    access: accesses.CREATE_USER,
+    meta: {
+      access: accesses.CREATE_USER,
+    }
   },
 
   {
     path: "/users/user/:id",
     name: "user-edit",
     component: () => import("@/pages/Users/action.vue"),
-    access: accesses.UPDATE_USER
+    meta: {
+      access: accesses.UPDATE_USER
+    }
   },
 
-  /*
   {
-    path: "/devices",
-    name: "devices",
-    component: () => import("@/pages/Devices.vue")
+    path: "/no-permission",
+    name: "no-permission",
+    component: () => import("@/pages/NoPermission.vue")
   },
-  {
-    path: "/settings",
-    name: "settings",
-    component: () => import("@/pages/Settings.vue")
-  },
-  */
 
   {
     path: "/:pathMatch(.*)*",
-    name: "NotFound",
+    name: "not-found",
     component: () => import("@/pages/Page_404.vue"),
     meta: {
       layout: 'Guest'

@@ -1,10 +1,11 @@
 import {ref} from "vue";
 import {useRouter} from "vue-router";
 import {AuthorizedUser, AuthUserInterface} from "@/models/auth/authUser.ts";
-import request from "@/api/axios.ts";
 import {AUTH_TOKEN_NAME, USER_ID_KEY, USER_ROLE} from "@/models/staticContent/constants.ts";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {useToast} from "@/hooks/useToast.ts";
+import {AxiosError, AxiosResponse} from "axios";
+import $axios from "@/api/axios.ts";
 
 const $toast = useToast()
 export const useAuth = () => {
@@ -17,31 +18,22 @@ export const useAuth = () => {
 
   const authSubmit = async () => {
     authUser.value.phone = authUser.value.phone.replace(/[^+\d]/g, '').substring(1);
-
-    const res = await request.post<IResponse<AuthorizedUser>>('auth/sign-in', authUser.value)
-
-    if (res.statusCode !== 200) {
-      // @ts-ignore
-      switch (res.response.status) {
-        case 500:
-        case 401:
-          $toast.error('Некорректный номер или пароль')
-        break
-        case 400:
-          // @ts-ignore
-          $toast.error(res.response.data.message.join('\n'))
-        break
+    try {
+      const { data: {result, message} }: AxiosResponse<IResponse<AuthorizedUser>> = await $axios.post('auth/sign-in', authUser.value)
+      localStorage.setItem(AUTH_TOKEN_NAME, result.access_token)
+      localStorage.setItem(USER_ID_KEY, result.id)
+      localStorage.setItem(USER_ROLE, `${result.role}`)
+      await $router.push({path: '/'})
+      $toast.success(`Вы ${message.toLowerCase()} авторизоавлись`)
+    }
+    catch (e) {
+      const err = e as AxiosError<{message: string[]}>
+      if (err.response?.status !== 400) {
+        $toast.error('Некорректный номер или пароль')
+      } else {
+        $toast.error(err.response.data.message.join('\n'))
       }
       error.value = true
-
-    } else {
-
-      localStorage.setItem(AUTH_TOKEN_NAME, res.result.access_token)
-      localStorage.setItem(USER_ID_KEY, res.result.id)
-      localStorage.setItem(USER_ROLE, `${res.result.role}`)
-
-      await $router.push({path: '/'})
-      $toast.success(`Вы ${res.message.toLowerCase()} авторизоавлись`)
     }
   }
   const resetError = () => {
@@ -50,25 +42,10 @@ export const useAuth = () => {
   const logOut = async () => {
 
     if (!confirm('Вы уверены, что хотите выйти?')) return
-
     localStorage.removeItem(AUTH_TOKEN_NAME)
     localStorage.removeItem(USER_ID_KEY)
     localStorage.removeItem(USER_ROLE)
-
     await $router.push('/auth')
-    location.reload();
-  }
-
-  const checkUser = () => {
-    const authToken = localStorage.getItem(AUTH_TOKEN_NAME)
-
-    if ($router.currentRoute.value.name === 'auth') {
-      if (authToken) $router.push({path: '/'})
-    }
-
-    else {
-      if (!authToken) $router.push({path: "/auth"})
-    }
   }
 
   return {
@@ -76,7 +53,6 @@ export const useAuth = () => {
     authUser,
     authSubmit,
     resetError,
-    checkUser,
     logOut
   }
 }

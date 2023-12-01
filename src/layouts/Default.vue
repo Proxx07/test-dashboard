@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import Navigation from "@/components/Navigation.vue";
-import {useAuth} from "@/hooks/useAuth.ts";
 import {useBurger} from "@/hooks/useBurger.ts";
-
-const {checkUser} = useAuth();
 const {burgerClosed, toggleBurger} = useBurger();
 
-checkUser()
 </script>
 
 <template>
@@ -34,7 +30,7 @@ checkUser()
 }
 
 .sidebar {
-  padding: 2rem 1.1rem 2.2rem 3.7rem;
+  padding: 2rem 2.4rem 2.2rem 2.4rem;
   border-right: 1px solid var(--LayoutBorderColor);
   width: 100%;
   overflow: hidden;

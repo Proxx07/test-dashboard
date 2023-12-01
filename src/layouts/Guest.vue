@@ -1,13 +1,4 @@
-<script setup lang="ts">
-import {onBeforeMount} from "vue";
-import {useAuth} from "@/hooks/useAuth.ts";
-const {checkUser} = useAuth()
-
-onBeforeMount(() => {
-  checkUser()
-})
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="empty-layout">

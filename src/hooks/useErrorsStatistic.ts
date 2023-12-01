@@ -1,8 +1,9 @@
+import {AxiosResponse} from "axios";
 import {onMounted, ref, computed} from "vue";
 import {IErrorItem, IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
 import {getDateInterval} from "@/utils/scripts.ts";
-import request from "@/api/axios.ts";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
+import $axios from "@/api/axios.ts";
 
 export const useErrorsStatistic = () => {
   const list = ref<IErrorItem[]>([]);
@@ -13,25 +14,24 @@ export const useErrorsStatistic = () => {
     projectId: null
   });
 
-  const sortedList = computed(() => list.value.sort((a: IErrorItem, b: IErrorItem) => {
-    return a.count - b.count
-  }));
+  const sortedList = computed(() => {
+    return list.value.sort((a: IErrorItem, b: IErrorItem) => a.count - b.count)
+  });
 
   const fetchData = async () => {
     isFetching.value = true
+
     try {
-      const res = await request.post<IResponse<IErrorItem[]>>('/statistic/by_check', filter.value)
+      const {data: {result}}: AxiosResponse<IResponse<IErrorItem[]>> = await $axios.post('/statistic/by_check', filter.value)
+      list.value = result
+    }
+
+    finally {
       isFetching.value = false
-
-      list.value = Array.isArray(res.result) ? res.result : []
     }
-    catch (error) {
-
-    }
-  };
-  const filterHandler = () => {
-
-    fetchData()
+  }
+  const filterHandler = async () => {
+    await fetchData()
   };
 
   onMounted(() => {

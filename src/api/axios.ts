@@ -1,64 +1,14 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import axios from 'axios';
 import {AUTH_TOKEN_NAME} from "@/models/staticContent/constants.ts";
 
-//axios.defaults.baseURL = import.meta.env.PROD ? 'https://faceid-admin.theable.tech/' : 'https://fback.scon.uz/';
-axios.defaults.baseURL = 'https://faceid-admin.theable.tech/';
-
-axios.interceptors.request.use((config) => {
+const $axios = axios.create({
+  baseURL: 'https://faceid-admin.theable.tech/'
+});
+$axios.interceptors.request.use((config) => {
   const token = localStorage.getItem(AUTH_TOKEN_NAME);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
-
   return config;
-});
-
-/*
-axios.interceptors.response.use(
-  (response) => response,
-  (error: AxiosError) => {
-    if (!error.response) return Promise.reject(error);
-    const data: any = error.response.data
-    const status = error.response.status
-    switch (status) {
-      case 400:
-        console.log(data.message);
-      break;
-
-      case 401:
-        console.log('unauthorised', data);
-      break;
-
-      case 404:
-        console.log('/not-found', data);
-      break;
-
-      case 500:
-        console.log('/server-error', data);
-      break;
-    }
-    return Promise.reject(error);
-  }
-);
-*/
-
-const responseBody = <T>(response: AxiosResponse<T>) => response.data;
-
-const request = {
-  get: <T>(url: string, query?: Record<string, any>): Promise<T | AxiosError<string, any>> => {
-    return axios.get<T>(url, {params: query}).then(responseBody).catch(error => error)
-  },
-
-  post: <T>(url: string, body: Record<string, any>): Promise<T | AxiosError<string, any>> => {
-    return axios.post<T>(url, body).then(responseBody).catch(error => error)
-  },
-
-  put: <T>(url: string, body: Record<string, any>): Promise<T | AxiosError<string, any>> => {
-    return axios.put<T>(url, body).then(responseBody).catch(error => error)
-  },
-
-  delete: <T>(url: string): Promise<T | AxiosError<string, any>> => {
-    return axios.delete<T>(url).then(responseBody).catch(error => error)
-  }
-};
-export default request;
+})
+export default $axios;

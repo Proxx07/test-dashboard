@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Header from "@/components/Header.vue";
-import {useProjects} from "@/hooks/useProjects.ts";
-import VPagination from "@/components/VPagination.vue";
 import Project from "@/components/Project.vue";
+import VPagination from "@/components/VPagination.vue";
+import {useProjects} from "@/hooks/useProjects.ts";
 
 const {list, headerSubtitle} = useProjects()
 </script>

@@ -10,6 +10,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(["update:modelValue", 'focus'])
+//pattern="[0-9]+" only digits
 </script>
 
 <template>
@@ -54,10 +55,6 @@ label, .label-text {
 }
 
 label {
-  --errorSolid: #ff5555;
-  --errorTransparent: #f2d6d6;
-
-
   font-size: 1.4rem;
   line-height: 2.15;
   display: flex;

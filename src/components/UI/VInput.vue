@@ -22,14 +22,12 @@ const emit = defineEmits(["update:modelValue", 'focus'])
     <input
       v-if="props.phone"
       v-maska
-      data-maska="+998(##)-###-##-##"
       type="text"
       :value="modelValue"
       :class="['text-field', 'phone-field']"
       :placeholder="props.placeholder || props.label"
       v-bind="$attrs"
-      pattern=".{18}"
-      title="Номер телефона должен состоять из 12 цифр"
+
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       @focus="emit('focus')"
     />

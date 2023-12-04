@@ -35,6 +35,7 @@ export const useUsers = () => {
     try {
       const {data: {result}}: AxiosResponse<IResponse<IListResponse<IUser[]>>> = await $axios.get('/users', {params: filter.value})
       list.value = result.result
+      usersCount.value = result.count
     }
     finally {
       isFetching.value = false

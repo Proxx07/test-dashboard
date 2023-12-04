@@ -1,4 +1,4 @@
-import clock from '@/assets/icons/clock.svg?raw';
+//import clock from '@/assets/icons/clock.svg?raw';
 import briefcase from '@/assets/icons/briefcase.svg?raw';
 import database from '@/assets/icons/database.svg?raw';
 import users from '@/assets/icons/users.svg?raw';
@@ -18,11 +18,11 @@ export const navigation: INavigation[] = [
     icon: database
   },
 
-  {
+  /*{
     name: "События",
     link: "/events",
     icon: clock
-  },
+  },*/
 
   {
     name: "Пользователи",

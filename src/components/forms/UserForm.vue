@@ -13,7 +13,17 @@ const {user, buttonText, deleteUser, submitForm} = useUser($router.currentRoute.
 
     <v-input  v-model="user.name" label="Имя" class="test-name" required/>
     <v-input  v-model="user.email" type="email" label="Email" required/>
-    <v-input  v-model="user.phone" label="Телефон" phone required/>
+
+    <v-input
+      v-model="user.phone"
+      label="Телефон"
+      data-maska="+998(##)-###-##-##"
+      pattern=".{18}"
+      title="Номер телефона должен состоять из 12 цифр"
+      phone
+      required
+    />
+
     <v-select v-model="user.role" :options="rolesList" label="Роли" placeholder="Выберите" required/>
     <v-input  v-model="user.password" label="Пароль" type="password" required/>
 

@@ -11,8 +11,11 @@ const {error, authUser, authSubmit, resetError} = useAuth()
     <div class="auth-form__fields">
       <v-input
         v-model="authUser.phone"
-        :phone="true"
+        phone
         label="Номер телефона"
+        data-maska="+998(##)-###-##-##"
+        pattern=".{18}"
+        title="Номер телефона должен состоять из 12 цифр"
         :class="['auth-form__name', error && 'error']"
         @focus="resetError"
       />

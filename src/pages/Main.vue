@@ -14,10 +14,11 @@ const {sortedList, isFetching, filter, filterHandler} = useErrorsStatistic();
   <Header title="Cтатистика по сверке лиц"/>
 
   <div class="main-page-filter">
-    <!--
-      <filter-device-types/>
-    -->
-
+    <div>
+      <!--
+        <filter-device-types/>
+      -->
+    </div>
     <filter-date-component
       v-model:from-date="filter.fromDate"
       v-model:to-date="filter.toDate"

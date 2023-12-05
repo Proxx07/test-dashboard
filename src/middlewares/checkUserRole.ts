@@ -13,19 +13,20 @@ export const checkUserRole = async (to: any) => {
 
   else {
     if (!userID) return {name: 'auth'}
-    const {data: {result}}: AxiosResponse<IResponse<IUserWithDate>> = await $axios.get('/auth/self')
 
-    if (!result.id) {
+    try {
+      const {data: {result}}: AxiosResponse<IResponse<IUserWithDate>> = await $axios.get('/auth/self')
+      localStorage.setItem(USER_ROLE, `${result.role}`)
+      checkUserAccess()
+      if (checkUserAccess(to.meta.access)) return true
+      return {name: "no-permission"}
+    }
+    catch (e) {
       localStorage.removeItem(AUTH_TOKEN_NAME)
       localStorage.removeItem(USER_ID_KEY)
       localStorage.removeItem(USER_ROLE)
       return {name: 'auth'}
     }
-
-    localStorage.setItem(USER_ROLE, `${result.role}`)
-    checkUserAccess()
-    if (checkUserAccess(to.meta.access)) return true
-    return {name: "no-permission"}
   }
   return true
 };

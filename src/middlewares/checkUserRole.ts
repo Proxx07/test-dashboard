@@ -1,5 +1,5 @@
 import {checkUserAccess} from "@/utils/roles.ts";
-import {USER_ID_KEY, USER_ROLE} from "@/models/staticContent/constants.ts";
+import {AUTH_TOKEN_NAME, USER_ID_KEY, USER_ROLE} from "@/models/staticContent/constants.ts";
 import $axios from "@/api/axios.ts";
 import {AxiosResponse} from "axios";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
@@ -14,7 +14,14 @@ export const checkUserRole = async (to: any) => {
   else {
     if (!userID) return {name: 'auth'}
     const {data: {result}}: AxiosResponse<IResponse<IUserWithDate>> = await $axios.get('/auth/self')
-    if (!result.id) return {name: 'auth'}
+
+    if (!result.id) {
+      localStorage.removeItem(AUTH_TOKEN_NAME)
+      localStorage.removeItem(USER_ID_KEY)
+      localStorage.removeItem(USER_ROLE)
+      return {name: 'auth'}
+    }
+
     localStorage.setItem(USER_ROLE, `${result.role}`)
     checkUserAccess()
     if (checkUserAccess(to.meta.access)) return true

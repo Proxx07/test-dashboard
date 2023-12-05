@@ -1,5 +1,6 @@
 import {IFilterTypes} from "@/models/interfaces/mainPageInterfaces.ts";
 import {getDateInterval} from "@/utils/scripts.ts";
+import {ITableHead} from "@/models/interfaces/tableInterfaces.ts";
 export const filterAppTypes: IFilterTypes[] = [
   {
     name: "Все",
@@ -41,5 +42,25 @@ export const filterDateTypes = [
   {
     name: "За год",
     value: getDateInterval(365)
+  },
+]
+
+export const transationsStatisticThead: ITableHead[] = [
+  {
+    name: "Общее кол-во транзакций",
+    value: "summary",
+    width: '33.3333%'
+  },
+
+  {
+    name: "Кол-во транзакций в ЦЭП",
+    value: "gcp",
+    width: '33.3333%'
+  },
+
+  {
+    name: "Кол-во транзакций для сверки лиц",
+    value: "check",
+    width: '33.3333%'
   },
 ]

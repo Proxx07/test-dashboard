@@ -9,11 +9,17 @@ export interface IDate {
 }
 
 export interface IFilter extends IDate {
-  projectId?: null | number
+  projectId?: string | number | null
 }
 
 export interface IErrorItem {
   count: number
   errorCode: number
   type: string | null
+}
+
+export interface IStatistic {
+  summary: number,
+  gcp: number,
+  check: number
 }

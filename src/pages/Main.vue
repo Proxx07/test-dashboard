@@ -4,17 +4,20 @@ import VTable from "@/components/VTable.vue";
 import {eventsThead} from "@/models/staticContent/eventsTable.ts";
 import {useErrorsStatistic} from "@/hooks/useErrorsStatistic.ts";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
-import FilterDeviceTypes from "@/components/filters/FilterDeviceTypes.vue";
+//import FilterDeviceTypes from "@/components/filters/FilterDeviceTypes.vue";
 
-const {sortedList, isFetching, filter, filterHandler} = useErrorsStatistic()
+const {sortedList, isFetching, filter, filterHandler} = useErrorsStatistic();
 
 </script>
 
 <template>
-  <Header/>
+  <Header title="Cтатистика по сверке лиц"/>
 
   <div class="main-page-filter">
-    <filter-device-types/>
+    <!--
+      <filter-device-types/>
+    -->
+
     <filter-date-component
       v-model:from-date="filter.fromDate"
       v-model:to-date="filter.toDate"
@@ -27,7 +30,7 @@ const {sortedList, isFetching, filter, filterHandler} = useErrorsStatistic()
   </main>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .main-page-filter {
   display: grid;
   grid-template-columns: 1fr 1fr;

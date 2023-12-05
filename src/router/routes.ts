@@ -31,6 +31,12 @@ export const routes = [
   },
 
   {
+    path: "/reports",
+    name: "reports",
+    component: () => import("@/pages/Reports.vue")
+  },
+
+  {
     path: "/users",
     name: "users",
     component: () => import("@/pages/Users/index.vue"),

@@ -2,7 +2,7 @@ import axios from 'axios';
 import {AUTH_TOKEN_NAME} from "@/models/staticContent/constants.ts";
 
 const $axios = axios.create({
-  baseURL: 'https://fback.scon.uz/'
+  baseURL: 'https://faceid-admin-dev.theable.tech'
 });
 $axios.interceptors.request.use((config) => {
   const token = localStorage.getItem(AUTH_TOKEN_NAME);

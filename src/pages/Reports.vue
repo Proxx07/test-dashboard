@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Header from "@/components/Header.vue";
 import VTable from "@/components/VTable.vue";
-import VSelect from "@/components/UI/VSelect.vue";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 import {transationsStatisticThead} from "@/models/staticContent/mainPageContent.ts";
 import {useErrorsStatistic} from "@/hooks/useErrorsStatistic.ts";
@@ -23,6 +22,7 @@ const {options} = useProjects()
         v-model="filter.projectId"
         placeholder="Фильтр по проектам"
         :options="options"
+        auto-height
         @change="filterHandler"
       />
     </div>

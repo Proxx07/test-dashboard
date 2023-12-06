@@ -4,20 +4,30 @@ import VTable from "@/components/VTable.vue";
 import {eventsThead} from "@/models/staticContent/eventsTable.ts";
 import {useErrorsStatistic} from "@/hooks/useErrorsStatistic.ts";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
+import {accesses, checkUserAccess} from "@/utils/roles.ts";
+import {useProjects} from "@/hooks/useProjects.ts";
 //import FilterDeviceTypes from "@/components/filters/FilterDeviceTypes.vue";
 
 const {sortedList, isFetching, filter, filterHandler} = useErrorsStatistic();
-
+const {options} = useProjects()
 </script>
 
 <template>
   <Header title="Cтатистика по сверке лиц"/>
 
   <div class="main-page-filter">
-    <div>
+    <div class="main-page-filter__left">
       <!--
         <filter-device-types/>
       -->
+      <v-select
+        v-if="checkUserAccess(accesses.READ_PROECTS)"
+        v-model="filter.projectId"
+        placeholder="Фильтр по проектам"
+        :options="options"
+        auto-height
+        @change="filterHandler"
+      />
     </div>
     <filter-date-component
       v-model:from-date="filter.fromDate"
@@ -37,5 +47,9 @@ const {sortedList, isFetching, filter, filterHandler} = useErrorsStatistic();
   grid-template-columns: 1fr 1fr;
   gap: 2.4rem;
   border-bottom: 1px solid var(--LayoutBorderColor);
+
+  &__left {
+    max-width: 30rem;
+  }
 }
 </style>

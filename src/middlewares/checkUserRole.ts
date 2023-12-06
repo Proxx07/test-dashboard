@@ -17,7 +17,7 @@ export const checkUserRole = async (to: any) => {
     try {
       const {data: {result}}: AxiosResponse<IResponse<IUserWithDate>> = await $axios.get('/auth/self')
       localStorage.setItem(USER_ROLE, `${result.role}`)
-      checkUserAccess()
+
       if (checkUserAccess(to.meta.access)) return true
       return {name: "no-permission"}
     }

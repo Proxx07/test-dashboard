@@ -13,6 +13,7 @@ const props = defineProps<{
   modelValue: any,
   options: selectOption[],
   label?: string,
+  autoHeight?: boolean,
   placeholder?: string
 }>()
 
@@ -31,7 +32,7 @@ const changeHandler = (e: Event) => {
      {{props.label}}
      <span class="required-mark" v-if="$attrs.hasOwnProperty('required')"> *</span>
    </span>
-   <select class="select-field" @change="changeHandler" v-bind="$attrs">
+   <select :class="{'select-field': true, 'auto-height': autoHeight}" @change="changeHandler" v-bind="$attrs">
     <option value="" :selected="!modelValue" hidden disabled>
       {{placeholder ? placeholder : label}}
     </option>
@@ -78,6 +79,10 @@ label {
   background: var(--WhiteBg);
   flex-grow: 1;
   min-height: 4.4rem;
+  &.auto-height {
+    min-height: unset;
+    height: auto;
+  }
 }
 
 label.error .select-field {

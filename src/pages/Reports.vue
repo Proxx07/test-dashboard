@@ -18,7 +18,7 @@ const {options} = useProjects()
   <div class="main-page-filter">
     <div class="main-page-filter__left">
       <v-select
-        v-if="checkUserAccess(accesses.READ_PROECTS)"
+        v-if="checkUserAccess(accesses.READ_PROJECTS)"
         v-model="filter.projectId"
         placeholder="Фильтр по проектам"
         :options="options"

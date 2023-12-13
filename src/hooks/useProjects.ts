@@ -42,7 +42,7 @@ export const useProjects = () => {
   };
 
   onMounted(() => {
-    if (checkUserAccess(accesses.READ_PROECTS)) {
+    if (checkUserAccess(accesses.READ_PROJECTS)) {
       fetchData()
     }
   })

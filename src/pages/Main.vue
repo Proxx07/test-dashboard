@@ -21,7 +21,7 @@ const {options} = useProjects()
         <filter-device-types/>
       -->
       <v-select
-        v-if="checkUserAccess(accesses.READ_PROECTS)"
+        v-if="checkUserAccess(accesses.READ_PROJECTS)"
         v-model="filter.projectId"
         placeholder="Фильтр по проектам"
         :options="options"

@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@vuepic/vue-datepicker": "^7.2.1",
+    "apexcharts": "^3.44.2",
     "axios": "^1.6.0",
     "maska": "^2.1.10",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5",
+    "vue3-apexcharts": "^1.4.4",
     "vue3-toastify": "^0.1.14"
   },
   "devDependencies": {

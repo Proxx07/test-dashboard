@@ -16,3 +16,19 @@ export const declination = (value: number, words: [string, string, string]): str
   if(num == 1) return words[0];
   return words[2];
 }
+
+export const weekDaysFormatter = (str: string | number) => {
+  const s = `${str}`.toLowerCase();
+  switch (s) {
+    case 'пн': case '1': return 'Понедельник';
+    case 'вт': case '2': return 'Вторник';
+    case 'ср': case '3': return 'Среда';
+    case 'чт': case '4': return 'Четверг';
+    case 'пт': case '5': return 'Пятница';
+    case 'сб': case '6': return 'Суббота';
+    case 'вск': case '7': return 'Воскресенье';
+
+    default:
+      return str;
+  }
+}

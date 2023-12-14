@@ -42,7 +42,7 @@ const rowClickHandler = (item: any) => {
         @click="rowClickHandler(item)"
       >
         <td v-for="header in tableHeaders">
-          {{ item[header.value] || "-" }}
+          {{ item[header.value] || header?.defaultText || "-" }}
         </td>
       </tr>
 

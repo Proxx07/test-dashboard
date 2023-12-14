@@ -4,7 +4,8 @@ export const eventsThead: ITableHead[] = [
   {
     name: "Тип ошибки",
     value: "type",
-    width: '50%'
+    width: '50%',
+    defaultText: "UNDEFINED_ERROR"
   },
 
   {

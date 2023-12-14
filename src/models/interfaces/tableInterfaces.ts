@@ -2,6 +2,7 @@ export interface ITableHead {
   name: string
   value: string
   width?: string
+  defaultText?: string
 }
 
 export interface IResponse<T> {

@@ -2,6 +2,7 @@
 import VueApexCharts from "vue3-apexcharts";
 import {computed} from "vue";
 import {formatters} from "@/utils/scripts.ts";
+import PercentLabel from "@/components/charts/PercentLabel.vue";
 
 const props = defineProps<{
   title: string,
@@ -10,14 +11,14 @@ const props = defineProps<{
   categories: Array<number | string>,
   type: 'bar' | 'area',
 
-  formatter?: keyof typeof formatters,
-
-  count?: number,
-  note?: string,
+  formatterX?: keyof typeof formatters,
+  formatterY?: keyof typeof formatters,
   tooltipNote?: string,
+  count?: string | number,
+  note?: string,
 
   percent?: {
-    value: number,
+    value: number | string,
     increase: boolean,
   },
 }>()
@@ -34,7 +35,6 @@ const axisYBorderOptions = {
     show: false
   },
 }
-
 const options = computed(() => {
   return {
     series: [{
@@ -97,8 +97,12 @@ const options = computed(() => {
       ],
       tooltip: {
         x: {
-          formatter: props.formatter && formatters[props.formatter],
+          formatter: props.formatterX && formatters[props.formatterX],
         },
+
+        y: {
+          formatter: props.formatterY && formatters[props.formatterY],
+        }
       }
     },
   }
@@ -108,14 +112,26 @@ const options = computed(() => {
 
 <template>
   <div class="chart">
+
     <div class="chart__title">
       {{ title }}
     </div>
-    <div class="chart__info">
-      {{ count }}
-      {{ note }}
 
-      <div class="percent-component"></div>
+    <div class="chart__info">
+      <div class="chart__info-left">
+        <div class="chart__info-count" v-if="count">
+          {{ count }}
+        </div>
+
+        <div class="chart__info-note" v-if="note">
+          {{ note }}
+        </div>
+      </div>
+      <div class="chart__info-right" v-if="percent?.value">
+        <percent-label :increase="percent?.increase" :value="percent?.value"/>
+      </div>
+
+
     </div>
     <div class="chart__body">
       <vue-apex-charts :options="options.chartOptions" :series="options.series"/>
@@ -127,14 +143,27 @@ const options = computed(() => {
 .chart {
   padding-bottom: 1.6rem;
   background: var(--WhiteBg);
+
   &__title {
     padding: 1.6rem;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 600;
     border-bottom: 1px solid var(--ContentBorderColor);
   }
-  &__body {
-    //adding-left: 1rem;
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1.6rem 1.6rem 0;
+    &-count {
+      font-size: 4.2rem;
+      font-weight: 600;
+    }
+
+    &-note {
+      font-size: 1.2rem;
+    }
   }
 }
 </style>

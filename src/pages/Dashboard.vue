@@ -19,9 +19,11 @@ const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', 
 <template>
   <Header title="Дашборд"/>
   <div class="dashboard-filter">
+
     <div class="dashboard-filter__left">
       <!-- <filter-device-types/> -->
     </div>
+
     <filter-date-component
       v-model:from-date="filter.fromDate"
       v-model:to-date="filter.toDate"
@@ -32,9 +34,11 @@ const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', 
   <main class="charts-wrapper">
     <column-chart
       title="Заголовок 1"
-      tooltip-note="Количество"
       type="area"
-      formatter="percent"
+      note="Частота попыток несанкционированного доступа (выражена в %)"
+      :percent="{value: '20', increase: true}"
+      formatter-x="weeks"
+      formatter-y="percent"
       :data="data1"
       :categories="categories1"
     />
@@ -43,7 +47,7 @@ const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', 
       title="Заголовок 2"
       tooltip-note="Количество"
       type="bar"
-      formatter="weeks"
+      formatter-x="weeks"
       :data="data1"
       :categories="categories1"
     />
@@ -61,6 +65,9 @@ const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', 
     <column-chart
       title="Заголовок 4"
       type="area"
+      count="70"
+      :percent="{value: '20', increase: false}"
+      formatter-y="percent"
       :data="data2"
       :categories="categories2"
     />

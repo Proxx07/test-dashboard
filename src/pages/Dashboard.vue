@@ -11,8 +11,9 @@ const data1 = ref<number[]>([21, 22, 10, 28, 16, 21, 13])
 const categories1 = ref<string[]>(['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вск'])
 
 
-const data2 = ref<number[]>([20, 23, 22, 10, 30, 45, 50, 0, 10, 20])
+const data2 = ref<number[]>([20, 23, 22, 10, 30, 45, 50, 1, 10, 20])
 const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
+
 </script>
 
 <template>
@@ -29,11 +30,40 @@ const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', 
   </div>
 
   <main class="charts-wrapper">
-    <column-chart title="Заголовок 1" type="bar" :data="data1" :categories="categories1" weeks-formatter/>
-    <column-chart title="Заголовок 2" type="bar" :data="data1" :categories="categories1" weeks-formatter/>
+    <column-chart
+      title="Заголовок 1"
+      tooltip-note="Количество"
+      type="area"
+      formatter="percent"
+      :data="data1"
+      :categories="categories1"
+    />
+
+    <column-chart
+      title="Заголовок 2"
+      tooltip-note="Количество"
+      type="bar"
+      formatter="weeks"
+      :data="data1"
+      :categories="categories1"
+    />
+
     <div></div>
-    <column-chart title="Заголовок 3" type="bar" :data="data1" :categories="categories1" weeks-formatter/>
-    <column-chart title="Заголовок 4" type="area" :data="data2" :categories="categories2"/>
+
+    <column-chart
+      title="Заголовок 3"
+      tooltip-note="Количество"
+      type="bar"
+      :data="data2"
+      :categories="categories2"
+    />
+
+    <column-chart
+      title="Заголовок 4"
+      type="area"
+      :data="data2"
+      :categories="categories2"
+    />
   </main>
 </template>
 

@@ -20,8 +20,10 @@ const {burgerClosed, toggleBurger} = useBurger();
 
 <style lang="scss">
 .app-inner {
+  --width: 21.5rem;
+
   display: grid;
-  grid-template-columns: minmax(21.5rem, 21.5rem) auto;
+  grid-template-columns: minmax(var(--width), var(--width)) calc(100% - var(--width));
   max-width: 100%;
   margin: 0 auto;
   transition: all .3s;
@@ -44,7 +46,8 @@ const {burgerClosed, toggleBurger} = useBurger();
 }
 
 .app-inner--burger-closed {
-  grid-template-columns: minmax(7.5rem, 7.5rem) auto;
+  --width: 7.5rem;
+
   .sidebar {
     padding-left: 2.4rem;
     padding-right: 2.4rem;

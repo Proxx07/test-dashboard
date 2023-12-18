@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import { ref } from "vue";
 import Header from "@/components/Header.vue";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 import ColumnChart from "@/components/charts/ColumnChart.vue";
-import {useDashboard} from "@/hooks/useDashboard.ts";
+import DonutChart from "@/components/charts/DonutChart.vue";
 
+import {useDashboard} from "@/hooks/useDashboard.ts";
 const {filter, filterHandler} = useDashboard();
 
 const data1 = ref<number[]>([21, 22, 10, 28, 16, 21, 13])
@@ -12,6 +13,8 @@ const categories1 = ref<string[]>(['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб
 
 const data2 = ref<number[]>([20, 23, 22, 10, 30, 45, 50, 1, 10, 20])
 const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
+
+
 </script>
 
 <template>
@@ -50,7 +53,7 @@ const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', 
       :categories="categories1"
     />
 
-    <div></div>
+    <donut-chart/>
 
     <column-chart
       title="Заголовок 3"
@@ -85,7 +88,9 @@ const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', 
 
 .charts-wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 33.333333%);
+  //grid-template-columns: 1fr 1fr 1fr;
   gap: 2.4rem;
+  max-width: 100%;
 }
 </style>

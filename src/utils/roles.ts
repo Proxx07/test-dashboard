@@ -12,7 +12,7 @@ export const rolesList = [
     name: "Администратор",
     value: roles.admin
   },
-
+/*
   {
     name: 'Модератор',
     value: roles.moderator
@@ -22,6 +22,8 @@ export const rolesList = [
     name: "Оператор",
     value: roles.operator
   }
+
+*/
 ]
 
 export enum accesses {

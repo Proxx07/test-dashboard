@@ -10,10 +10,8 @@ const {filter, filterHandler} = useDashboard();
 const data1 = ref<number[]>([21, 22, 10, 28, 16, 21, 13])
 const categories1 = ref<string[]>(['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вск'])
 
-
 const data2 = ref<number[]>([20, 23, 22, 10, 30, 45, 50, 1, 10, 20])
 const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
-
 </script>
 
 <template>

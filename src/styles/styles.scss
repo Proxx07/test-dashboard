@@ -40,8 +40,11 @@ body {
   --VioletTransparent: #E3DCF1;
   --Violet: #764AE6;
 
-  --redCharts: #E65764;
-  --greenCharts: #6FBC84;
+  --redCharts: rgba(255, 80, 41, 1);
+  --greenCharts: rgba(13, 155, 63, 1);
+
+  --increaseColor: rgba(23, 217, 90, 1);
+  --decreaseColor: rgba(255, 113, 81, 1);
 
   --errorSolid: #ff5555;
   --errorTransparent: #f2d6d6;

@@ -1,10 +1,19 @@
 <script setup lang="ts">
 import VueApexCharts from "vue3-apexcharts";
+import {formatters} from "@/utils/scripts.ts";
 
-const series = [30, 70]
-const chartOptions = {
+const chartOptions: ApexOptions = {
+  series: [30, 70],
+  labels: ['Неправильное положение лица', 'Низкое качество изображения'],
+
   chart: {
     type: 'donut',
+  },
+  dataLabels: {
+    enabled: false
+  },
+  stroke: {
+    width: 0
   },
   plotOptions: {
     pie: {
@@ -18,22 +27,40 @@ const chartOptions = {
       bottom: -180
     }
   },
-
   legend: {
     show: false,
-
   },
+  tooltip: {
+    custom: (a) => {
+      console.log(a)
+    },
+    y: {
+      formatter: formatters['percent'],
+      /*title: {
+        formatter: (seriesName: string) => `<div class="apexcharts-tooltip apexcharts-theme-light">
+            <div class="apexcharts-tooltip-title">50%</div>
+            <div class="apexcharts-tooltip-series-group apexcharts-active">
+              <div class="apexcharts-tooltip-text">
+                <div class="apexcharts-tooltip-y-group">
+                  <span class="apexcharts-tooltip-text-y-label">${seriesName}</span>
+                </div>
+              </div>
+            </div>
+          </div>`
+      }*/
+    },
+  }
 }
 </script>
 
 <template>
   <div class="chart">
     <div class="chart__title">
-      asda sdad asd ads asd
+      Типы ошибок распознования
     </div>
 
     <div class="chart__body">
-      <vue-apex-charts type="donut" :options="chartOptions" :series="series"/>
+      <vue-apex-charts type="donut" :options="chartOptions" :series="chartOptions.series"/>
     </div>
   </div>
 </template>
@@ -44,6 +71,7 @@ const chartOptions = {
   background: var(--WhiteBg);
   display: flex;
   flex-direction: column;
+
   &__title {
     padding: 1.6rem;
     font-size: 1.4rem;

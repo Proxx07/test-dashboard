@@ -1,9 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&display=swap");
 @import url("@vuepic/vue-datepicker/dist/main.css");
 @import url('vue3-toastify/dist/index.css');
 
 @import "calendar.css";
 @import "toast.css";
+@import "charts.css";
 
 * {
   box-sizing: border-box;
@@ -49,6 +50,8 @@ body {
   --errorSolid: #ff5555;
   --errorTransparent: #f2d6d6;
 
+  --accent-blue: #00ADEE;
+
   font-family: 'Montserrat', sans-serif;
   background: var(--PrimaryBg);
   color: var(--TextColorAccent);
@@ -56,6 +59,7 @@ body {
 h1 {
   color: var(--AccentColor);
   line-height: 1.32;
+  font-weight: 600;
 }
 h2, h3, h4, h5, h6 {
   color: var(--TextColorAccent);
@@ -67,7 +71,7 @@ h2, h3, h4, h5, h6 {
   main {
     flex-grow: 1;
     overflow-y: auto;
-    margin-top: 2.4rem;
+    padding-top: 2.4rem;
     margin-bottom: 3.2rem;
   }
 }

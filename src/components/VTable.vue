@@ -95,6 +95,7 @@ table {
 
   th {
     padding: 1.6rem;
+    font-weight: 600;
   }
 
   td {

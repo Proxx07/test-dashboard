@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+
 import Header from "@/components/Header.vue";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 import ColumnChart from "@/components/charts/ColumnChart.vue";
@@ -88,7 +89,7 @@ const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', 
 
 .charts-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 33.333333%);
+  grid-template-columns: repeat(3, calc(33.333333% - 1.6rem));
   //grid-template-columns: 1fr 1fr 1fr;
   gap: 2.4rem;
   max-width: 100%;

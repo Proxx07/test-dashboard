@@ -5,7 +5,6 @@ import { useColumnChart, IChartProps } from "@/hooks/useColumnChart.ts";
 
 const props = defineProps<IChartProps>()
 const { options } = useColumnChart(props);
-
 </script>
 
 <template>

@@ -1,19 +1,28 @@
 <script setup lang="ts">
 import VueApexCharts from "vue3-apexcharts";
 import {formatters} from "@/utils/scripts.ts";
+import PercentLabel from "@/components/charts/PercentLabel.vue";
 
-const chartOptions: ApexOptions = {
-  series: [30, 70],
-  labels: ['Неправильное положение лица', 'Низкое качество изображения'],
+const props = defineProps<{
+  data: number[]
+  categories: Array<string | number>
+  difference: any[]
+}>()
 
+const chartOptions = {
+  series: props.data,
+  labels: props.categories,
   chart: {
     type: 'donut',
+    width: "500px",
+    height: "500px"
   },
+  colors: ['rgb(0, 173, 238)', 'rgb(13, 155, 63)'],
   dataLabels: {
     enabled: false
   },
   stroke: {
-    width: 0
+    width: 0,
   },
   plotOptions: {
     pie: {
@@ -24,31 +33,25 @@ const chartOptions: ApexOptions = {
   },
   grid: {
     padding: {
-      bottom: -180
+      bottom: -200
     }
   },
   legend: {
     show: false,
   },
   tooltip: {
-    custom: (a) => {
-      console.log(a)
-    },
     y: {
       formatter: formatters['percent'],
-      /*title: {
-        formatter: (seriesName: string) => `<div class="apexcharts-tooltip apexcharts-theme-light">
-            <div class="apexcharts-tooltip-title">50%</div>
-            <div class="apexcharts-tooltip-series-group apexcharts-active">
-              <div class="apexcharts-tooltip-text">
-                <div class="apexcharts-tooltip-y-group">
-                  <span class="apexcharts-tooltip-text-y-label">${seriesName}</span>
-                </div>
-              </div>
-            </div>
-          </div>`
-      }*/
     },
+    /*
+    custom: (a: any) => {
+      return `
+        <div>
+          <h1 style="color: #fff;">${chartOptions.series[a.seriesIndex]}</h1>
+          <h2 style="color: #fff;">${chartOptions.labels[a.seriesIndex]}</h2>
+        </div>`
+    },
+    */
   }
 }
 </script>
@@ -57,6 +60,24 @@ const chartOptions: ApexOptions = {
   <div class="chart">
     <div class="chart__title">
       Типы ошибок распознования
+    </div>
+
+    <div class="chart__info">
+      <div class="chart__info-item" v-for="(_, i) in data.length" :key="i">
+        <div class="chart__info-title">
+          <span
+            v-if="chartOptions.colors.length"
+            class="marker"
+            :style="{'--marker-color': chartOptions.colors[i % chartOptions.colors.length]}"
+          />
+          {{categories[i]}}
+        </div>
+
+        <div class="chart__info-value">
+          {{data[i]}}%
+          <percent-label :increase="difference[i].type === 'inc'" :value="difference[i].value"/>
+        </div>
+      </div>
     </div>
 
     <div class="chart__body">
@@ -71,16 +92,22 @@ const chartOptions: ApexOptions = {
   background: var(--WhiteBg);
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   &__title {
     padding: 1.6rem;
     font-size: 1.4rem;
     font-weight: 600;
     border-bottom: 1px solid var(--ContentBorderColor);
+    width: 100%;
   }
 
   &__body {
     margin-top: auto;
+    padding-top: 2rem;
+    min-width: 550px;
+    overflow: hidden;
+    width: 100%;
   }
 }
 </style>

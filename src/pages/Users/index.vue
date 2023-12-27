@@ -2,7 +2,7 @@
 import Header from "@/components/Header.vue";
 import VTable from "@/components/VTable.vue";
 import VPagination from "@/components/VPagination.vue";
-import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
+//import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 
 import {usersThead} from "@/models/staticContent/usersPageContent.ts";
 import {useUsers} from "@/hooks/useUsers.ts";
@@ -15,17 +15,21 @@ const {filter, list, totalPages, headerSubtitle, isFetching, fetchData, listItem
 <template>
   <Header title="Список пользователей" :subtitle="headerSubtitle"/>
   <div class="users-filter">
+
     <div class="users-filter__search">
+    <!--
       <input type="text" v-model="filter.search" class="users-filter__input" placeholder="Поиск пользователя" >
       <v-button class="users-filter__button primary" @click="fetchData"> Найти</v-button>
+    -->
     </div>
-
     <div class="users-filter__left">
+      <!--
       <filter-date-component
         v-model:from-date="filter.fromDate"
         v-model:to-date="filter.toDate"
         @filter-changed="fetchData"
       />
+      -->
       <router-link
         v-if="checkUserAccess(accesses.CREATE_USER)"
         :to="{name: 'user'}" class="create-user"
@@ -48,7 +52,6 @@ const {filter, list, totalPages, headerSubtitle, isFetching, fetchData, listItem
   grid-template-columns: 1fr 1fr;
   gap: 2.4rem;
   border-bottom: 1px solid var(--LayoutBorderColor);
-
   &__search {
     display: flex;
     max-width: 430px;

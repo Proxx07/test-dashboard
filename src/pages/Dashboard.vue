@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import {computed, ref} from "vue";
 
 import Header from "@/components/Header.vue";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
@@ -15,7 +15,29 @@ const categories1 = ref<string[]>(['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб
 const data2 = ref<number[]>([20, 23, 22, 10, 30, 45, 50, 1, 10, 20])
 const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
 
+const donutData = [
+  {
+    name: 'Неправильное положение лица',
+    value: 30,
+    difference: {
+      type: 'inc',
+      value: 20
+    }
+  },
 
+  {
+    name: 'Низкое качество изображения',
+    value: 70,
+    difference: {
+      type: 'dec',
+      value: 15
+    }
+  }
+];
+
+const donutSeries = computed(() => donutData.map(item => item.value));
+const donutLabels = computed(() => donutData.map(item => item.name));
+const donutDifferecne = computed(() => donutData.map(item => item.difference));
 </script>
 
 <template>
@@ -54,7 +76,10 @@ const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', 
       :categories="categories1"
     />
 
-    <donut-chart/>
+    <div class="line-charts-wrapper">
+      <div></div>
+      <div></div>
+    </div>
 
     <column-chart
       title="Заголовок 3"
@@ -73,6 +98,13 @@ const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', 
       :data="data2"
       :categories="categories2"
     />
+
+    <donut-chart
+      :data="donutSeries"
+      :categories="donutLabels"
+      :difference="donutDifferecne"
+    />
+
   </main>
 </template>
 
@@ -89,9 +121,14 @@ const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', 
 
 .charts-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, calc(33.333333% - 1.6rem));
-  //grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(2, calc(35% - 1.6rem)) calc(30% - 1.6rem);
   gap: 2.4rem;
   max-width: 100%;
+  overflow-x: hidden;
+}
+
+.line-charts-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 </style>

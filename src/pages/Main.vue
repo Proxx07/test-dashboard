@@ -50,6 +50,8 @@ const {options} = useProjects()
 
   &__left {
     max-width: 30rem;
+    margin-bottom: -1px;
+    margin-left: -1px;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import VueApexCharts from "vue3-apexcharts";
 import {formatters} from "@/utils/scripts.ts";
-import PercentLabel from "@/components/charts/PercentLabel.vue";
+import ChartStats from "@/components/charts/ChartStats.vue";
 
 const props = defineProps<{
   data: number[]
@@ -62,23 +62,7 @@ const chartOptions = {
       Типы ошибок распознования
     </div>
 
-    <div class="chart__info">
-      <div class="chart__info-item" v-for="(_, i) in data.length" :key="i">
-        <div class="chart__info-title">
-          <span
-            v-if="chartOptions.colors.length"
-            class="marker"
-            :style="{'--marker-color': chartOptions.colors[i % chartOptions.colors.length]}"
-          />
-          {{categories[i]}}
-        </div>
-
-        <div class="chart__info-value">
-          {{data[i]}}%
-          <percent-label :increase="difference[i].type === 'inc'" :value="difference[i].value"/>
-        </div>
-      </div>
-    </div>
+    <chart-stats class="chart__info" :series="data" :difference="difference" :categories="categories" :colors="chartOptions.colors"/>
 
     <div class="chart__body">
       <vue-apex-charts type="donut" :options="chartOptions" :series="chartOptions.series"/>
@@ -107,6 +91,14 @@ const chartOptions = {
     padding-top: 2rem;
     min-width: 550px;
     overflow: hidden;
+    width: 100%;
+  }
+
+  &__info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 1.6rem;
     width: 100%;
   }
 }

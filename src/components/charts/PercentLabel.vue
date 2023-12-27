@@ -4,7 +4,7 @@ import arrow from '@/assets/icons/asc-desc-arrow.svg?raw';
 import {computed} from "vue";
 const props = defineProps<{
   value: number | string,
-  increase: boolean,
+  increase?: boolean,
 }>()
 const type = computed(() => props.increase ? 'percent--increase' : 'percent--decrease')
 </script>
@@ -34,6 +34,7 @@ const type = computed(() => props.increase ? 'percent--increase' : 'percent--dec
   display: flex;
   align-items: center;
   gap: .2rem;
+  font-size: 1rem;
   span {
     transform: rotate(var(--rotate));
     font-size: 0;

@@ -69,6 +69,12 @@ export const routes = [
   },
 
   {
+    path: "/settings",
+    name: "settings",
+    component: () => import("@/pages/Settings.vue")
+  },
+
+  {
     path: "/no-permission",
     name: "no-permission",
     component: () => import("@/pages/NoPermission.vue")

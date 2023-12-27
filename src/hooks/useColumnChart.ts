@@ -4,7 +4,7 @@ import {computed} from "vue";
 export interface IChartProps {
   title: string,
 
-  data: Array<number | string>,
+  data: number[],
   categories: Array<number | string>,
   type: 'bar' | 'area',
 

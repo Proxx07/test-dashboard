@@ -25,7 +25,15 @@ const {user, buttonText, deleteUser, submitForm} = useUser($router.currentRoute.
     />
 
     <v-select v-model="user.role" :options="rolesList" label="Роли" placeholder="Выберите" required/>
-    <v-input  v-model="user.password" label="Пароль" type="password" required/>
+
+    <v-input
+      v-model="user.password"
+      label="Пароль"
+      type="password"
+      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+      :title="`Пароль должен состоять минимум из 6 символов и содержать заглавную, строчную буквы и цифру`"
+      required
+    />
 
     <div class="user-form__buttons">
       <v-button class="primary">

@@ -36,6 +36,9 @@ export enum accesses {
   UPDATE_PROJECTS = "UPDATE_PROJECTS",
   DELETE_PROJECTS = "DELETE_PROJECTS",
   READ_PROJECTS = "READ_PROJECTS",
+
+  READ_TRANSACTIONS_SUMMARY = "READ_TRANSACTIONS_SUMMARY",
+  READ_TRANSACTIONS_GCP = "READ_TRANSACTIONS_GCP",
 }
 
 const rolesAccesses: Record<string, string[]> = {
@@ -45,7 +48,10 @@ const rolesAccesses: Record<string, string[]> = {
     accesses.UPDATE_USER,
     accesses.DELETE_USER,
 
-    accesses.READ_PROJECTS
+    accesses.READ_PROJECTS,
+
+    accesses.READ_TRANSACTIONS_SUMMARY,
+    accesses.READ_TRANSACTIONS_GCP
   ],
 
   admin: [],

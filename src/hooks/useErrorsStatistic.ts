@@ -1,9 +1,11 @@
 import {AxiosResponse} from "axios";
 import {computed, onMounted, ref} from "vue";
 import {IErrorItem, IFilter, IStatistic} from "@/models/interfaces/mainPageInterfaces.ts";
+import {transationsStatisticThead} from "@/models/staticContent/mainPageContent.ts";
 import {getDateInterval} from "@/utils/scripts.ts";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import $axios from "@/api/axios.ts";
+import {checkUserAccess} from "@/utils/roles.ts";
 
 export const useErrorsStatistic = () => {
   const list = ref<IErrorItem[]>([]);
@@ -20,6 +22,9 @@ export const useErrorsStatistic = () => {
     return list.value.sort((a: IErrorItem, b: IErrorItem) => a.count - b.count)
   });
 
+  const tableHeaders = transationsStatisticThead.filter(header => {
+    return header?.access && checkUserAccess(header?.access) || !header?.access
+  });
   const fetchData = async () => {
     isFetching.value = true
 
@@ -31,7 +36,6 @@ export const useErrorsStatistic = () => {
       isFetching.value = false
     }
   }
-
   const fetchDataByDate = async () => {
     isFetching.value = true
     try {
@@ -55,6 +59,7 @@ export const useErrorsStatistic = () => {
     sortedList,
     isFetching,
     filter,
+    tableHeaders,
     statisticInformation,
     fetchData,
     filterHandler,

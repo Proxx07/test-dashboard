@@ -2,13 +2,12 @@
 import Header from "@/components/Header.vue";
 import VTable from "@/components/VTable.vue";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
-import {transationsStatisticThead} from "@/models/staticContent/mainPageContent.ts";
 import {useErrorsStatistic} from "@/hooks/useErrorsStatistic.ts";
 import {useProjects} from "@/hooks/useProjects.ts";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
 
-const {isFetching, filter, statisticInformation, filterHandler} = useErrorsStatistic();
+const {isFetching, filter, statisticInformation, tableHeaders, filterHandler} = useErrorsStatistic();
 const {options} = useProjects()
 </script>
 
@@ -35,7 +34,7 @@ const {options} = useProjects()
   </div>
 
   <main>
-    <v-table class="table" :table-headers="transationsStatisticThead" :table-list="statisticInformation" :loading="isFetching"/>
+    <v-table class="table" :table-headers="tableHeaders" :table-list="statisticInformation" :loading="isFetching"/>
   </main>
 </template>
 

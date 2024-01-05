@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useAuth} from "@/hooks/useAuth.ts";
-
+import CopyrightForDev from "@/components/CopyrightForDev.vue";
 const {error, authUser, authSubmit, resetError} = useAuth()
 </script>
 
@@ -28,11 +28,7 @@ const {error, authUser, authSubmit, resetError} = useAuth()
         @focus="resetError"
       />
 
-      <div class="copyright">
-        OOO "THE ABLE TECHNOLOGIES" <br>
-        ABLE ID ver 1.0 <br>
-        Республика Узбекистан
-      </div>
+      <copyright-for-dev/>
 
       <v-button type="submit" class="auth-form__button transparent"> Вход </v-button>
     </div>
@@ -65,13 +61,5 @@ h1 {
     font-size: 1.5rem;
     //margin-top: 2.6rem;
   }
-}
-
-.copyright {
-  padding: 1rem;
-  text-align: left;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  font-size: 1.2rem;
 }
 </style>

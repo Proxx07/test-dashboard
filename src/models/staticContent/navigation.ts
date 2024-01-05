@@ -12,11 +12,17 @@ export interface INavigation {
   access?: accesses
 }
 export const navigation: INavigation[] = [
+  {
+    name: "Транзакции",
+    link: "/",
+    icon: arrow
+  },
 
   {
     name: "Дашборд",
-    link: "/",
-    icon: database
+    link: "/dashboard",
+    icon: database,
+    access: accesses.READ_DASHBOARD
   },
 
   /*{
@@ -37,10 +43,4 @@ export const navigation: INavigation[] = [
     link: "/projects",
     icon: briefcase
   },
-
-  {
-    name: "Транзакции",
-    link: "/reports",
-    icon: arrow
-  }
 ]

@@ -3,7 +3,7 @@ import {AUTH_TOKEN_NAME, USER_ID_KEY, USER_ROLE} from "@/models/staticContent/co
 import $axios from "@/api/axios.ts";
 import {AxiosResponse} from "axios";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
-import {IUserWithDate} from "@/models/interfaces/usersInterfaces.ts";
+import {IUser} from "@/models/interfaces/usersInterfaces.ts";
 
 export const checkUserRole = async (to: any) => {
   const userID = localStorage.getItem(USER_ID_KEY)
@@ -15,7 +15,7 @@ export const checkUserRole = async (to: any) => {
     if (!userID) return {name: 'auth'}
 
     try {
-      const {data: {result}}: AxiosResponse<IResponse<IUserWithDate>> = await $axios.get('/auth/self')
+      const {data: {result}}: AxiosResponse<IResponse<IUser>> = await $axios.get('/auth/self')
       localStorage.setItem(USER_ROLE, `${result.role}`)
 
       if (checkUserAccess(to.meta.access)) return true

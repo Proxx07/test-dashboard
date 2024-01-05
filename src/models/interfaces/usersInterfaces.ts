@@ -10,11 +10,6 @@ export interface IUser {
   role: roles | null,
 }
 
-export interface IUserWithDate extends IUser{
-  createdAt?: string,
-  updatedAt?: string
-}
-
 export interface IUserWithPassword extends IUser {
   password: string
 }

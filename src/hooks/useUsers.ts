@@ -1,5 +1,5 @@
 import {computed, onMounted, ref} from "vue";
-import {IUser, IUserFilter, IUserWithDate, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
+import {IUser, IUserFilter, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
 import {IListResponse, IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {declination, getDateInterval} from "@/utils/scripts.ts";
 import {useRouter} from "vue-router";
@@ -42,7 +42,7 @@ export const useUsers = () => {
     }
   };
 
-  const listItemHandler = async (value: IUserWithDate) => {
+  const listItemHandler = async (value: IUser) => {
     await $router.push({name: "user-edit", params: {id: value.id}})
   }
 
@@ -64,13 +64,13 @@ export const useUsers = () => {
 export const useUser = (id: string) => {
   const $router = useRouter()
 
-  const setUser = (user: IUserWithDate | void): IUserWithPassword => {
+  const setUser = (user: IUser | void): IUserWithPassword => {
     return {
       name: user?.name || "",
       phone: user?.phone || "998",
       email: user?.email || "",
       projectId: user?.projectId || "",
-      role : user ? user.role : null,
+      role: user ? user.role : null,
       password: ""
     }
   }
@@ -81,7 +81,7 @@ export const useUser = (id: string) => {
   const getUser = async () => {
     if (!id) return
     try {
-      const {data: {result}}: AxiosResponse<IResponse<IUserWithDate>> = await $axios.get(`/users/${id}`)
+      const {data: {result}}: AxiosResponse<IResponse<IUser>> = await $axios.get(`/users/${id}`)
       user.value = setUser(result)
     }
     catch (e) {

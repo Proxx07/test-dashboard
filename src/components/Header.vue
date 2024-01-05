@@ -15,7 +15,7 @@ const props = withDefaults(defineProps<HeaderProps>(), {
   <header class="header">
     <div class="header__left">
       <div class="site-name-wrapper">
-        <span class="site-name"> Face ID </span>
+        <span class="site-name"> Able ID </span>
       </div>
 
       <div v-if="props.title || props.subtitle" class="page-header">
@@ -38,6 +38,7 @@ const props = withDefaults(defineProps<HeaderProps>(), {
   text-decoration: none;
   display: block;
   padding: 0 0 1.4rem;
+  font-weight: 600;
 }
 
 .page-header {

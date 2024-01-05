@@ -6,7 +6,7 @@ const {error, authUser, authSubmit, resetError} = useAuth()
 
 <template>
   <form class="auth-form" @submit.prevent="authSubmit">
-    <h1> Face ID </h1>
+    <h1> Able ID </h1>
 
     <div class="auth-form__fields">
       <v-input

@@ -1,23 +1,26 @@
 import {AxiosResponse} from "axios";
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {IErrorItem, IFilter, IStatistic} from "@/models/interfaces/mainPageInterfaces.ts";
 import {transationsStatisticThead} from "@/models/staticContent/mainPageContent.ts";
 import {getDateInterval} from "@/utils/scripts.ts";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import $axios from "@/api/axios.ts";
 import {checkUserAccess} from "@/utils/roles.ts";
+import {useProjectsStore} from "@/stores/projects.ts";
 
 export const useErrorsStatistic = () => {
+  const projectStore = useProjectsStore();
+
   const list = ref<IErrorItem[]>([]);
   const statisticInformation = ref<IStatistic[]>([])
-
   const isFetching = ref<boolean>(false)
 
-  const filter = ref<IFilter>({
+  const filter = computed<IFilter>(() => ({
     fromDate: getDateInterval(1)[0],
     toDate: getDateInterval(0)[1],
-    projectId: null
-  });
+    projectId: projectStore.activeProject
+  }));
+
   const sortedList = computed(() => {
     return list.value.sort((a: IErrorItem, b: IErrorItem) => a.count - b.count)
   });
@@ -50,6 +53,11 @@ export const useErrorsStatistic = () => {
     await fetchData()
     await fetchDataByDate()
   };
+
+
+  watch(() => projectStore.activeProject, (val) => {
+    console.log(val)
+  })
 
   onMounted(() => {
     fetchData()

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Header from "@/components/Header.vue";
 import VTable from "@/components/VTable.vue";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 import {useErrorsStatistic} from "@/hooks/useErrorsStatistic.ts";
@@ -12,8 +11,6 @@ const {options} = useProjects()
 </script>
 
 <template>
-  <Header title="Статистика за период"/>
-
   <div class="main-page-filter">
     <div class="main-page-filter__left">
       <v-select

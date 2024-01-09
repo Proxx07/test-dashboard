@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Header from "@/components/Header.vue";
 import VTable from "@/components/VTable.vue";
 import VPagination from "@/components/VPagination.vue";
 //import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
@@ -8,12 +7,11 @@ import {usersThead} from "@/models/staticContent/usersPageContent.ts";
 import {useUsers} from "@/hooks/useUsers.ts";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
-const {filter, list, totalPages, headerSubtitle, isFetching, fetchData, listItemHandler} = useUsers()
+const {filter, list, totalPages, isFetching, fetchData, listItemHandler} = useUsers()
 
 </script>
 
 <template>
-  <Header title="Список пользователей" :subtitle="headerSubtitle"/>
   <div class="users-filter">
 
     <div class="users-filter__search">

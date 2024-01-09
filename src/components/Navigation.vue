@@ -1,25 +1,10 @@
 <script setup lang="ts">
 import {navigation} from "@/models/staticContent/navigation.ts";
-import burgerIcon from "@/assets/icons/burger.svg?raw";
-import closeIcon from "@/assets/icons/close.svg?raw"
-import logOutIcon from "@/assets/icons/logout.svg?raw";
-import {useAuth} from "@/hooks/useAuth.ts";
 import {checkUserAccess} from "@/utils/roles.ts";
-const {logOut} = useAuth()
-
-const props = defineProps<{
-  burgerClosed: boolean
-}>()
 </script>
 
 <template>
   <nav class="navigation">
-    <div class="navigation__menu-item">
-      <span class="navigation__menu-item-link burger-button" @click="$emit('burger-click')">
-        <span class="icon" v-html="props.burgerClosed ? burgerIcon : closeIcon"/>
-      </span>
-    </div>
-
     <ul class="navigation__menu">
       <template v-for="item in navigation" :key="item.link">
         <li class="navigation__menu-item" v-if="checkUserAccess(item.access)">
@@ -30,20 +15,10 @@ const props = defineProps<{
         </li>
       </template>
     </ul>
-
-    <div class="empty"></div>
-
-    <div class="navigation__menu-item">
-      <span class="navigation__menu-item-link" @click="logOut">
-        <span v-html="logOutIcon" class="icon"></span>
-        Выйти
-      </span>
-    </div>
   </nav>
 </template>
 
 <style lang="scss">
-
 .navigation {
   display: grid;
   grid-template-columns: 1fr;

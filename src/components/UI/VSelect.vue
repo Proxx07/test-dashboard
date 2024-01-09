@@ -10,30 +10,30 @@ const emit = defineEmits<{
 }>()
 
 const props = defineProps<{
-  modelValue: any,
+  modelValue?: any,
   options: selectOption[],
   label?: string,
-  autoHeight?: boolean,
   placeholder?: string
 }>()
 
 const changeHandler = (e: Event) => {
   const $val = (e.target as HTMLSelectElement).value
   const value = isNaN(Number($val)) ? $val : +$val
-
-  emit('update:modelValue', value)
+  if (props.modelValue) {
+    emit('update:modelValue', value)
+  }
   emit('change', value)
 }
 </script>
 
 <template>
  <label>
-   <span class="label-text">
-     {{props.label}}
+   <span class="label-text" v-if="props.label">
+     {{label}}
      <span class="required-mark" v-if="$attrs.hasOwnProperty('required')"> *</span>
    </span>
-   <select :class="{'select-field': true, 'auto-height': autoHeight}" @change="changeHandler" v-bind="$attrs">
-    <option value="" :selected="!modelValue" hidden disabled>
+   <select v-bind="$attrs" class="select-field" @change="changeHandler">
+    <option v-if="placeholder || label" :selected="!modelValue" hidden disabled value="">
       {{placeholder ? placeholder : label}}
     </option>
 
@@ -54,16 +54,12 @@ label, .label-text {
   display: block;
   text-align: left;
 }
-
 label {
-  font-size: 1.4rem;
-  line-height: 2.15;
   display: flex;
   flex-direction: column;
 }
 
 .label-text {
-  font-weight: 600;
   cursor: pointer;
   .required-mark {
     color: var(--errorSolid);
@@ -72,21 +68,9 @@ label {
 
 .select-field {
   width: 100%;
-  font-size: inherit;
   outline: none;
-  padding: .6rem 1.6rem;
-  transition: all 0.3s;
-  background: var(--WhiteBg);
+  padding: 1.3rem 1.8rem;
   flex-grow: 1;
-  min-height: 4.4rem;
-  &.auto-height {
-    min-height: unset;
-    height: auto;
-  }
 }
 
-label.error .select-field {
-  border-color: var(--errorSolid);
-  background-color: var(--errorTransparent);
-}
 </style>

@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import Header from "@/components/Header.vue";
 import VTable from "@/components/VTable.vue";
 import {eventsThead} from "@/models/staticContent/eventsTable.ts";
 import {useErrorsStatistic} from "@/hooks/useErrorsStatistic.ts";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 import {useProjects} from "@/hooks/useProjects.ts";
+import {useProjectsStore} from "@/stores/projects.ts";
 //import FilterDeviceTypes from "@/components/filters/FilterDeviceTypes.vue";
 
 const {sortedList, isFetching, filter, filterHandler} = useErrorsStatistic();
 const {options} = useProjects()
+const store = useProjectsStore()
 </script>
 
 <template>
-  <Header title="Cтатистика по сверке лиц"/>
-
   <div class="main-page-filter">
     <div class="main-page-filter__left">
       <!--
@@ -37,6 +36,7 @@ const {options} = useProjects()
   </div>
 
   <main>
+    <span>{{store.activeProject}}</span>
     <v-table class="table" :table-headers="eventsThead" :table-list="sortedList" :loading="isFetching"/>
   </main>
 </template>

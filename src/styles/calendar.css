@@ -1,24 +1,3 @@
-.dp__theme_light {
-  --dp-background-color: var(--white);
-  --dp-text-color: var(--TextColorAccent);
-  --dp-hover-color: var(--VioletTransparent);
-  --dp-hover-text-color: var(--TextColorAccent);
-
-  --dp-hover-icon-color: var(--AccentColor);
-  --dp-primary-color: var(--Violet);
-  --dp-primary-text-color: var(--white);
-  --dp-secondary-color: #a9a9a9;
-  --dp-border-color: var(--LayoutBorderColor);
-  --dp-menu-border-color: var(--ContentBorderColor);
-  --dp-border-color-hover: var(--ContentBorderColor);
-  --dp-disabled-color: #f6f6f6;
-  --dp-icon-color: var(--AccentColor);
-
-  --dp-range-between-dates-background-color: var(--dp-hover-color, #f3f3f3);
-  --dp-range-between-dates-text-color: var(--dp-hover-text-color, #212121);
-  --dp-range-between-border-color: var(--dp-hover-color, #f3f3f3);
-}
-
 :root {
   /*General*/
   --dp-font-family: inherit;
@@ -86,7 +65,7 @@
 }
 
 .dp__cell_offset.dp__range_start {
-  color: var(--dp-primary-text-color);
+  color: var(--primary-color);
 }
 
 .dp--year-select:hover,

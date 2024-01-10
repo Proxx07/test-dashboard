@@ -51,6 +51,9 @@ export default {
   position: relative;
   overflow: hidden;
   --pseudo-opacity: 0;
+  span {
+    position: relative;
+  }
   &:before {
     content: '';
     position: absolute;
@@ -59,9 +62,6 @@ export default {
     background: var(--bg-10);
     opacity: var(--pseudo-opacity);
     pointer-events: none;
-  }
-  span {
-    position: relative;
   }
   &:hover {
     --pseudo-opacity: 1;

@@ -1,65 +1,65 @@
 <script setup lang="ts">
+import logo from "@/assets/icons/logo-with-text.svg?raw";
+
 import {useAuth} from "@/hooks/useAuth.ts";
 import CopyrightForDev from "@/components/CopyrightForDev.vue";
+import VIcon from "@/components/UI/VIcon.vue";
 const {error, authUser, authSubmit, resetError} = useAuth()
 </script>
 
 <template>
-  <form class="auth-form" @submit.prevent="authSubmit">
-    <h1> Able ID </h1>
+  <div class="form-wrapper">
 
-    <div class="auth-form__fields">
-      <v-input
-        v-model="authUser.phone"
-        phone
-        label="Номер телефона"
-        data-maska="+998(##)-###-##-##"
-        pattern=".{18}"
-        title="Номер телефона должен состоять из 12 цифр"
-        :class="['auth-form__name', error && 'error']"
-        @focus="resetError"
-      />
+    <v-icon :icon="logo"/>
 
-      <v-input
-        v-model="authUser.password"
-        type="password"
-        label="Пароль"
-        :class="['auth-form__password', error && 'error']"
-        @focus="resetError"
-      />
+    <form class="auth-form" @submit.prevent="authSubmit">
+      <div class="auth-form__fields">
+        <v-input
+          v-model="authUser.phone"
+          phone
+          label="Номер телефона"
+          data-maska="+998(##)-###-##-##"
+          pattern=".{18}"
+          title="Номер телефона должен состоять из 12 цифр"
+          :class="['auth-form__name', error && 'error']"
+          @focus="resetError"
+        />
 
-      <copyright-for-dev/>
+        <v-input
+          v-model="authUser.password"
+          type="password"
+          label="Пароль"
+          :class="['auth-form__password', error && 'error']"
+          @focus="resetError"
+        />
 
-      <v-button type="submit" class="auth-form__button transparent"> Вход </v-button>
-    </div>
-  </form>
+        <copyright-for-dev/>
+
+        <v-button type="submit" class="primary large"> Вход </v-button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-h1 {
-  font-size: 2.8rem;
-  color: var(--VioletText);
-  margin-bottom: 2.4rem;
+.form-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
 }
-
 .auth-form {
   width: 100%;
-  max-width: 40rem;
+  max-width: 43rem;
   text-align: center;
-
   &__fields {
     display: flex;
     flex-direction: column;
-    background: var(--WhiteBg);
+    background: var(--form-bg);
     padding: 2.4rem;
-    border-radius: .4rem;
+    border-radius: var(--radius-s);
     gap: 2.4rem
-  }
-
-  &__button {
-    padding: 1rem;
-    font-size: 1.5rem;
-    //margin-top: 2.6rem;
   }
 }
 </style>

@@ -4,7 +4,7 @@ import AuthorizationForm from "@/components/AuthorizationForm.vue";
 
 <template>
   <div class="wrapper">
-    <AuthorizationForm/>
+    <authorization-form/>
   </div>
 </template>
 

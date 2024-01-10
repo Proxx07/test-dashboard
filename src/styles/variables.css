@@ -16,6 +16,9 @@
   --dark-color: rgba(0, 0, 0, 1);
   --logo-color: #E2FF14;
 
+  --error-solid: rgba(231, 76, 60, 1);
+  --error-transparent: rgba(255, 0, 0, .15);
+
 /* ================ colors end ================= */
 
 /*  ================== fonts ================== */
@@ -27,6 +30,7 @@
 
   --font-s: normal 500 1rem/1.33 var(--primary-font);
   --font-xs: normal 500 1.2rem/1.33 var(--primary-font);
+  --font-xs-m: normal 600 1.2rem/1.33 var(--primary-font);
 
   --font-m: normal 500 1.4rem/1.5 var(--primary-font);
   --font-m-m: normal 600 1.4rem/1.5 var(--primary-font);
@@ -47,7 +51,8 @@
   --radius-s: .4rem;
   --radius-m: .8rem;
 
-  --transition: ease-in-out 0.4s;
+  --transition-slow: all 0.4s;
+  --transition-fast: all 0.2s;
 
 /*  =============== other end =============== */
 }

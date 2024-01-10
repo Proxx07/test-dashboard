@@ -1,37 +1,70 @@
 <script lang="ts">
 export default {
-  name: "v-button"
+  name: "v-button",
 }
 </script>
 
 <template>
   <button class="button">
-    <slot/>
+    <span> <slot/> </span>
   </button>
 </template>
 
 <style scoped lang="scss">
 .button {
-  padding: .8rem 1.5rem;
-  font-size: 1.2rem;
+  background: var(--bg);
+  color: var(--cl);
+  border: 1px solid var(--bd);
+  border-radius: var(--radius-s);
   cursor: pointer;
-  border-radius: 4px;
-  border: 1px solid transparent;
-  transition: all 0.3s;
-  &.primary {
-    background: var(--Violet);
-    color: var(--white);
-  }
+  padding: .8rem 2rem;
+  font: var(--font-m-m);
 
-  &.transparent {
-    background: var(--VioletTransparent);
-    color: var(--VioletText);
+  &.primary {
+    --bg: var(--accent);
+    --cl: var(--primary-color);
+    --bd: transparent;
+    &-blank {
+      --bg: transparent;
+      --cl: var(--accent);
+      --bd: var(--accent);
+    }
   }
 
   &.secondary {
-    background: none;
-    border-color: var(--Violet);
-    color: var(--VioletText);
+    --bg: var(--primary-color);
+    --cl: var(--dark-color);
+    --bd: transparent;
+    &-blank {
+      --bg: transparent;
+      --cl: var(--primary-color);
+      --bd: var(--primary-color);
+    }
+  }
+
+  &.large {
+    min-height: 5rem;
+  }
+}
+
+.button {
+  position: relative;
+  overflow: hidden;
+  --pseudo-opacity: 0;
+  &:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transition: var(--transition-slow);
+    background: var(--bg-10);
+    opacity: var(--pseudo-opacity);
+    pointer-events: none;
+  }
+  span {
+    position: relative;
+  }
+  &:hover {
+    --pseudo-opacity: 1;
   }
 }
 </style>

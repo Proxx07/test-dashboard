@@ -23,7 +23,7 @@ const props = defineProps<{
   font-size: 0;
   gap: 1.2rem;
   color: var(--primary-color);
-  transition: var(--transition);
+  transition: var(--transition-slow);
   &__name {
     color: var(--secondary-color);
     font: var(--font-m-m);

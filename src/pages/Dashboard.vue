@@ -51,9 +51,6 @@ const searchQuery = ref("")
     @filter-changed="filterHandler"
   />
 
-  {{filter}}
-  {{searchQuery}}
-
   <main class="charts-wrapper" style="display: none">
     <column-chart
       title="Заголовок 1"

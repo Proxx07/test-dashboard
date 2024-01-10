@@ -59,6 +59,7 @@ label {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  position: relative;
 }
 
 .label-text {

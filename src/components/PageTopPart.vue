@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
-
 import FilterDeviceTypes from "@/components/filters/FilterDeviceTypes.vue";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 
@@ -57,18 +56,17 @@ const dateTo = computed({
 
 <template>
   <div class="wrapper" ref="wrapper" :style="{'--cols': columns}">
+
     <div class="wrapper__left">
       <h1> {{ heading }} </h1>
 
-      <v-input
-        v-model="search"
-        placeholder="Поиск"
-      />
+      <v-input v-if="props.hasOwnProperty('searchQuery')" v-model="search"  placeholder="Поиск" />
     </div>
-    <div class="wrapper__middle" v-if="!props.device">
+    <div v-if="props.hasOwnProperty('device')" class="wrapper__middle">
       <filter-device-types/>
     </div>
-    <div class="wrapper__right" v-if="props.fromDate || props.toDate">
+
+    <div v-if="props.hasOwnProperty('fromDate')" class="wrapper__right">
       <filter-date-component
         v-model:from-date="dateFrom"
         v-model:to-date="dateTo"
@@ -95,6 +93,10 @@ const dateTo = computed({
 
     :deep(label) {
       flex-grow: 1;
+      height: 100%;
+      input {
+        min-height: 0;
+      }
     }
   }
 }

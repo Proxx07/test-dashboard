@@ -2,22 +2,13 @@
 import logo from "@/assets/icons/AbleLogo.svg?raw"
 import User from "@/components/UI/User.vue";
 import {useAuth} from "@/hooks/useAuth.ts";
-import {useProjectsStore} from "@/stores/projects.ts";
+import {useProjectsStore, useUserStore} from "@/stores";
+import {useProjects} from "@/hooks/useProjects.ts";
 
-const {logOut} = useAuth();
-const store = useProjectsStore();
-
-const selectVals = [
-  {
-    name: "Название 1",
-    value: '11111111'
-  },
-
-  {
-    name: "Название 2",
-    value: '22222222'
-  }
-];
+const { logOut } = useAuth();
+const { options } = useProjects();
+const userStore = useUserStore();
+const projectsStore = useProjectsStore();
 
 </script>
 
@@ -33,13 +24,13 @@ const selectVals = [
 
     <div class="header__right">
       <v-select
-        v-model="store.activeProject"
+        v-model="projectsStore.activeProject"
         placeholder="Выберите проект"
-        :options="selectVals"
-        @change="store.setActiveProject"
+        :options="options"
+        @change="projectsStore.setActiveProject"
       />
 
-      <User name="Test User" @user-clicked="logOut"/>
+      <User :name="userStore.user.name" @user-clicked="logOut"/>
     </div>
 
   </header>

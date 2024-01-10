@@ -8,13 +8,11 @@ const props = defineProps<{
 </script>
 
 <template>
-<div class="user" @click="emit('user-clicked')">
-  <div class="user__name">
-    {{props.name}}
-  </div>
+  <div class="user" @click="emit('user-clicked')">
+    <div class="user__name"> {{ props.name }} </div>
 
-  <v-icon :icon="icon"/>
-</div>
+    <v-icon :icon="icon"/>
+  </div>
 </template>
 
 <style scoped lang="scss">

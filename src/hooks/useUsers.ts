@@ -61,7 +61,7 @@ export const useUsers = () => {
   }
 }
 
-export const useUser = (id: string) => {
+export const useUser = (id: string | void) => {
   const $router = useRouter()
 
   const setUser = (user: IUser | void): IUserWithPassword => {
@@ -133,7 +133,6 @@ export const useUser = (id: string) => {
 
   }
 
-
   const submitForm = async () => {
     if (id) {
       await putUser()
@@ -149,6 +148,7 @@ export const useUser = (id: string) => {
   return {
     user,
     buttonText,
+    setUser,
 
     getUser,
     postUser,

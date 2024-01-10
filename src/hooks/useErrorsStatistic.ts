@@ -6,7 +6,7 @@ import {getDateInterval} from "@/utils/scripts.ts";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import $axios from "@/api/axios.ts";
 import {checkUserAccess} from "@/utils/roles.ts";
-import {useProjectsStore} from "@/stores/projects.ts";
+import {useProjectsStore} from "@/stores";
 
 export const useErrorsStatistic = () => {
   const projectStore = useProjectsStore();

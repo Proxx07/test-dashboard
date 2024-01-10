@@ -5,7 +5,7 @@ import {useErrorsStatistic} from "@/hooks/useErrorsStatistic.ts";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 import {useProjects} from "@/hooks/useProjects.ts";
-import {useProjectsStore} from "@/stores/projects.ts";
+import {useProjectsStore} from "@/stores";
 //import FilterDeviceTypes from "@/components/filters/FilterDeviceTypes.vue";
 
 const {sortedList, isFetching, filter, filterHandler} = useErrorsStatistic();
@@ -36,7 +36,6 @@ const store = useProjectsStore()
   </div>
 
   <main>
-    <span>{{store.activeProject}}</span>
     <v-table class="table" :table-headers="eventsThead" :table-list="sortedList" :loading="isFetching"/>
   </main>
 </template>

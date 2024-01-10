@@ -13,21 +13,19 @@ import {filterAppTypes} from "@/models/staticContent/mainPageContent.ts";
 
 <style scoped lang="scss">
 .devices {
-  font-size: 1.5rem;
-  line-height: 1.3;
+  font: var(--font-m-m);
   display: flex;
+  justify-content: center;
   gap: 2.4rem;
-  margin-bottom: -1px;
-
   span {
     display: inline-block;
-    padding: .8rem 0;
+    padding: .8rem 0 .7rem;
     cursor: pointer;
     border-bottom: 2px solid transparent;
-    transition: all 0.3s;
+    transition: var(--transition-fast);
 
     &:hover, &.active {
-      border-bottom-color: var(--VioletText);
+      border-bottom-color: var(--primary-color);
     }
   }
 }

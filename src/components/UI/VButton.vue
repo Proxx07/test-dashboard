@@ -17,9 +17,9 @@ export default {
   border: 1px solid var(--bd);
   border-radius: var(--radius-s);
   cursor: pointer;
-  padding: .8rem 2rem;
+  padding: .8rem 2rem .7rem;
   font: var(--font-m-m);
-
+  transition: var(--transition-slow);
   &.primary {
     --bg: var(--accent);
     --cl: var(--primary-color);
@@ -57,7 +57,7 @@ export default {
   &:before {
     content: '';
     position: absolute;
-    inset: 0;
+    inset: -1px;
     transition: var(--transition-slow);
     background: var(--bg-10);
     opacity: var(--pseudo-opacity);

@@ -40,6 +40,7 @@ const projectsStore = useProjectsStore();
 .header {
   display: grid;
   grid-template-columns: 1fr 3fr;
+  padding-bottom: 1.2rem;
   &__left {
     .logo {
       display: flex;

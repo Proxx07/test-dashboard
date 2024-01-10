@@ -23,4 +23,9 @@ import Header from "@/components/Header.vue";
   min-height: 100vh;
   padding: 2.4rem;
 }
+
+.footer {
+  position: fixed;
+  bottom: 0;
+}
 </style>

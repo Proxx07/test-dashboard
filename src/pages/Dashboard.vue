@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 
-import Header from "@/components/Header.vue";
-import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 import ColumnChart from "@/components/charts/ColumnChart.vue";
 import DonutChart from "@/components/charts/DonutChart.vue";
 
 import {useDashboard} from "@/hooks/useDashboard.ts";
+import PageTopPart from "@/components/PageTopPart.vue";
+import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 const {filter, filterHandler} = useDashboard();
 
 const data1 = ref<number[]>([21, 22, 10, 28, 16, 21, 13])
@@ -38,24 +38,21 @@ const donutData = [
 const donutSeries = computed(() => donutData.map(item => item.value));
 const donutLabels = computed(() => donutData.map(item => item.name));
 const donutDifferecne = computed(() => donutData.map(item => item.difference));
+
+const searchQuery = ref("")
 </script>
 
 <template>
-  <Header title="Дашборд"/>
-  <div class="dashboard-filter">
 
-    <div class="dashboard-filter__left">
-      <!-- <filter-device-types/> -->
-    </div>
+  <page-top-part
+    heading="Заголовок"
+    v-model:from-date="filter.fromDate"
+    v-model:to-date="filter.toDate"
+    v-model:search-query="searchQuery"
+    @filter-changed="filterHandler"
+  />
 
-    <filter-date-component
-      v-model:from-date="filter.fromDate"
-      v-model:to-date="filter.toDate"
-      @filter-changed="filterHandler"
-    />
-  </div>
-
-  <main class="charts-wrapper">
+  <main class="charts-wrapper" style="display: none">
     <column-chart
       title="Заголовок 1"
       type="area"

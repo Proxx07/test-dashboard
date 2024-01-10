@@ -49,7 +49,6 @@ const dateHandler = (item: string[]) => {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  margin-bottom: -1px;
 }
 
 .calendar {
@@ -58,20 +57,23 @@ const dateHandler = (item: string[]) => {
 
 .date-button {
   border-radius: 0;
-  border-top: 1px solid var(--LayoutBorderColor);
-  border-right: 1px solid var(--LayoutBorderColor);
-  border-bottom: 1px solid var(--LayoutBorderColor);
-  background: var(--white);
-
+  border-top: 1px solid var(--bg-2);
+  border-right: 1px solid var(--bg-2);
+  border-bottom: 1px solid var(--bg-2);
+  background: transparent;
+  color: var(--secondary-color);
   &:first-child {
-    border-left: 1px solid var(--LayoutBorderColor);
-    border-radius: .4rem 0 0 .4rem;
+    border-left: 1px solid var(--bg-2);
+    border-radius: var(--radius-s) 0 0 var(--radius-s);
   }
 
-  &:hover,
   &.active {
-    background: var(--VioletTransparent);
-    color: var(--VioletText);
+    background: var(--primary-color);
+    color: var(--dark-color);
+  }
+
+  &:not(.active):hover {
+    color: var(--primary-color);
   }
 }
 </style>

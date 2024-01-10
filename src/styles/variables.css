@@ -8,8 +8,10 @@
   --accent: rgba(0, 137, 188, 1);
   --bg-10: rgba(var(--white), 0.1);
   --bg-5: rgba(var(--white), 0.05);
+  --bg-2: rgba(var(--white), 0.02);
 
   --form-bg: rgba(28, 29, 37, 1);
+  --popover-bg: #282930;
 
   --primary-color: rgba(var(--white), 1);
   --secondary-color: rgba(var(--white), 0.5);

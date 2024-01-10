@@ -73,7 +73,6 @@ label {
   font-size: inherit;
   outline: none;
   padding: .6rem 1.6rem;
-  transition: all 0.3s;
   background: var(--bg-5);
   flex-grow: 1;
   min-height: 4.4rem;

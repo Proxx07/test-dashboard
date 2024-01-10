@@ -6,7 +6,6 @@ import DonutChart from "@/components/charts/DonutChart.vue";
 
 import {useDashboard} from "@/hooks/useDashboard.ts";
 import PageTopPart from "@/components/PageTopPart.vue";
-import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 const {filter, filterHandler} = useDashboard();
 
 const data1 = ref<number[]>([21, 22, 10, 28, 16, 21, 13])
@@ -51,6 +50,9 @@ const searchQuery = ref("")
     v-model:search-query="searchQuery"
     @filter-changed="filterHandler"
   />
+
+  {{filter}}
+  {{searchQuery}}
 
   <main class="charts-wrapper" style="display: none">
     <column-chart

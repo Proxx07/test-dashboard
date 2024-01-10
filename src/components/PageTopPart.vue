@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 
 import FilterDeviceTypes from "@/components/filters/FilterDeviceTypes.vue";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
-import VInput from "@/components/UI/VInput.vue";
 
 const props = defineProps<{
   heading: string
@@ -28,6 +27,32 @@ onMounted(() => {
   columns.value = wrapper.value.querySelectorAll(':scope > div').length || 1;
 })
 
+const search = computed({
+  get() {
+    return props.searchQuery
+  },
+  set(value) {
+    emit('update:searchQuery', value)
+  }
+});
+// todo make smarter with array of dates
+const dateFrom = computed({
+  get(){
+    return props.fromDate
+  },
+  set(value) {
+    emit('update:fromDate', value)
+  }
+});
+
+const dateTo = computed({
+  get(){
+    return props.toDate
+  },
+  set(value) {
+    emit('update:toDate', value)
+  }
+});
 </script>
 
 <template>
@@ -36,9 +61,8 @@ onMounted(() => {
       <h1> {{ heading }} </h1>
 
       <v-input
-        v-model="props.searchQuery"
+        v-model="search"
         placeholder="Поиск"
-        @update:modelValue="emit('update:searchQuery', $event)"
       />
     </div>
     <div class="wrapper__middle" v-if="!props.device">
@@ -46,10 +70,8 @@ onMounted(() => {
     </div>
     <div class="wrapper__right" v-if="props.fromDate || props.toDate">
       <filter-date-component
-        v-model:from-date="props.fromDate"
-        v-model:to-date="props.toDate"
-        @update:from-date="emit('update:fromDate', $event)"
-        @update:to-date="emit('update:toDate', $event)"
+        v-model:from-date="dateFrom"
+        v-model:to-date="dateTo"
         @filter-changed="emit('filterChanged')"
       />
     </div>

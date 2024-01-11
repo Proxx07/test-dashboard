@@ -73,10 +73,10 @@ label {
   width: 100%;
   font-size: inherit;
   outline: none;
-  padding: .6rem 1.6rem;
+  padding: .8rem 1.8rem;
   background: var(--bg-5);
   flex-grow: 1;
-  min-height: 4.4rem;
+  min-height: 5rem;
   transition: var(--transition-slow);
   &::placeholder {
     transition: var(--transition-fast);

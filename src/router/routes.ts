@@ -5,7 +5,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: 'main',
-    component: () => import("@/pages/Reports.vue"),
+    component: () => import("@/pages/Transactions.vue"),
     meta: {
       layout: 'Default'
     },
@@ -23,7 +23,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/dashboard",
     name: "dashboard",
-    component: () => import("@/pages/Main.vue"),
+    component: () => import("@/pages/Dashboard.vue"),
     meta: {
       access: accesses.READ_DASHBOARD
     }
@@ -46,7 +46,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/test",
     name: "test",
-    component: () => import("@/pages/Dashboard.vue"),
+    component: () => import("@/pages/DashboardTest.vue"),
   },
 
   {

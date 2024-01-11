@@ -1,9 +1,10 @@
-import {computed, onMounted, ref} from "vue";
-import {declination} from "@/utils/scripts.ts";
+import $axios from "@/api/axios.ts";
 import {AxiosResponse} from "axios";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
-import $axios from "@/api/axios.ts";
 import {IProject} from "@/models/interfaces/projectsIntefaces.ts";
+
+import {computed, onMounted, ref} from "vue";
+
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
 export const useProjects = () => {
@@ -26,10 +27,6 @@ export const useProjects = () => {
   )
   })
 
-  const headerSubtitle = computed(() => {
-    return `( ${1} ${declination(1, ['проект', 'проекта', 'проектов'])} )`
-  });
-
   const fetchData = async () => {
     isFetching.value = true
     try {
@@ -49,7 +46,6 @@ export const useProjects = () => {
   return {
     list,
     totalPages,
-    headerSubtitle,
     options,
     fetchData,
   }

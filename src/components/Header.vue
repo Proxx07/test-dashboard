@@ -4,6 +4,7 @@ import User from "@/components/UI/User.vue";
 import {useAuth} from "@/hooks/useAuth.ts";
 import {useProjectsStore, useUserStore} from "@/stores";
 import {useProjects} from "@/hooks/useProjects.ts";
+import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
 const { logOut } = useAuth();
 const { options } = useProjects();
@@ -24,6 +25,7 @@ const projectsStore = useProjectsStore();
 
     <div class="header__right">
       <v-select
+        v-if="checkUserAccess(accesses.READ_PROJECTS)"
         v-model="projectsStore.activeProject"
         placeholder="Выберите проект"
         :options="options"
@@ -40,7 +42,7 @@ const projectsStore = useProjectsStore();
 .header {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  padding-bottom: 1.2rem;
+  padding-bottom: 2.2rem;
   &__left {
     .logo {
       display: flex;

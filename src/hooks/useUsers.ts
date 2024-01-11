@@ -1,11 +1,13 @@
-import {computed, onMounted, ref} from "vue";
-import {IUser, IUserFilter, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
+import $axios from "@/api/axios.ts";
+import {AxiosError, AxiosResponse} from "axios";
 import {IListResponse, IResponse} from "@/models/interfaces/tableInterfaces.ts";
-import {declination, getDateInterval} from "@/utils/scripts.ts";
+import {IUser, IUserFilter, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
+
+import {computed, onMounted, ref} from "vue";
+
+import {getDateInterval} from "@/utils/scripts.ts";
 import {useRouter} from "vue-router";
 import {useToast} from "@/hooks/useToast.ts";
-import {AxiosError, AxiosResponse} from "axios";
-import $axios from "@/api/axios.ts";
 
 const $toast = useToast()
 
@@ -17,11 +19,7 @@ export const useUsers = () => {
   const totalPages = ref<number>(1);
 
   const usersCount = ref<number>(0);
-  const headerSubtitle = computed(() => {
-    return usersCount.value
-      ? `( ${usersCount.value} ${declination(usersCount.value, ['пользователь', 'пользователя', 'пользователей'])} )`
-      : ""
-  });
+
 
   const filter = ref<IUserFilter>({
     page: "1",
@@ -54,14 +52,14 @@ export const useUsers = () => {
     list,
     isFetching,
     filter,
-    headerSubtitle,
+
     totalPages,
     fetchData,
     listItemHandler,
   }
 }
 
-export const useUser = (id: string | void) => {
+export const useUser = (userID: string | void) => {
   const $router = useRouter()
 
   const setUser = (user: IUser | void): IUserWithPassword => {
@@ -76,9 +74,9 @@ export const useUser = (id: string | void) => {
   }
 
   const user = ref<IUserWithPassword>(setUser())
-  const buttonText = computed(() => !id ? "Cоздать" : "Редактировать")
+  const buttonText = computed(() => !userID ? "Cоздать" : "Редактировать")
 
-  const getUser = async () => {
+  const getUser = async (id = userID) => {
     if (!id) return
     try {
       const {data: {result}}: AxiosResponse<IResponse<IUser>> = await $axios.get(`/users/${id}`)
@@ -104,7 +102,7 @@ export const useUser = (id: string | void) => {
     }
   }
 
-  const putUser = async () => {
+  const putUser = async (id = userID) => {
     user.value.phone = user.value.phone.replace(/[^+\d]/g, '').substring(1);
 
     try {
@@ -118,7 +116,7 @@ export const useUser = (id: string | void) => {
     }
   }
 
-  const deleteUser = async () => {
+  const deleteUser = async (id = userID) => {
     if (!confirm('Вы действительно хотите удалить пользователя?')) return
 
     try {
@@ -134,7 +132,7 @@ export const useUser = (id: string | void) => {
   }
 
   const submitForm = async () => {
-    if (id) {
+    if (userID) {
       await putUser()
     } else {
       await postUser()
@@ -153,6 +151,7 @@ export const useUser = (id: string | void) => {
     getUser,
     postUser,
     putUser,
+
     deleteUser,
     submitForm,
   }

@@ -11,8 +11,8 @@ const {user, buttonText, deleteUser, submitForm} = useUser($router.currentRoute.
 <div class="user-form">
   <form @submit.prevent="submitForm">
 
-    <v-input  v-model="user.name" label="Имя" class="test-name" required/>
-    <v-input  v-model="user.email" type="email" label="Email" required/>
+    <v-input v-model="user.name" label="Имя" class="test-name" required/>
+    <v-input v-model="user.email" type="email" label="Email" required/>
 
     <v-input
       v-model="user.phone"

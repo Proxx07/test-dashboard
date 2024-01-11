@@ -7,14 +7,21 @@ const props = defineProps<{
   tableHeaders: ITableHead[]
   tableList: any[]
   loading: boolean,
+
+  lazyLoading?: boolean
 }>()
 
 const emit = defineEmits<{
   (e: 'rowClicked', item: any): void
+  (e: 'loadMore'): void
 }>()
 
 const rowClickHandler = (item: any) => {
   emit('rowClicked', item)
+}
+
+const loadMore = () => {
+  emit('loadMore')
 }
 </script>
 
@@ -35,16 +42,23 @@ const rowClickHandler = (item: any) => {
         </td>
       </tr>
 
-      <tr
-        v-else-if="tableList.length"
-        v-for="item in tableList"
-        class="table-row"
-        @click="rowClickHandler(item)"
-      >
-        <td v-for="header in tableHeaders">
-          {{ item[header.value] || header?.defaultText || "-" }}
-        </td>
-      </tr>
+      <template v-else-if="tableList.length">
+        <tr
+          v-for="item in tableList"
+          class="table-row"
+          @click="rowClickHandler(item)"
+        >
+          <td v-for="header in tableHeaders" :key="header.value">
+            {{ item[header.value] || header?.defaultText || "-" }}
+          </td>
+        </tr>
+
+        <tr v-if="lazyLoading">
+          <td :colspan="tableHeaders.length" style="padding: 0;">
+            <v-preloader v-intersection="loadMore" type="line"/>
+          </td>
+        </tr>
+      </template>
 
       <tr v-else>
         <td :colspan="tableHeaders.length" align="center">
@@ -59,47 +73,54 @@ const rowClickHandler = (item: any) => {
 
 <style lang="scss" scoped>
 table {
-  font-size: 1.3rem;
-  font-weight: normal;
   text-align: left;
   width: 100%;
-  border-collapse: collapse;
-  border-radius: .4rem .4rem 0 0;
   overflow: hidden;
-  line-height: 1.7;
-
+  font: var(--font-m);
+  border-collapse: separate;
+  border-spacing: 0 .6rem;
   &.center {
     text-align: center;
   }
 
   thead {
-    background: var(--VioletTransparent);
-    font-weight: 600;
+    font: var(--font-m-m);
+    th {
+      background: var(--bg-10);
+      &:first-child {
+        border-radius: var(--radius-m) 0 0 var(--radius-m);
+      }
+      &:last-child {
+        border-radius: 0 var(--radius-m) var(--radius-m) 0;
+      }
+    }
   }
 
   tbody {
-    background: var(--WhiteBg);
+    .table-row {
+      cursor: pointer;
+      transition: var(--transition-fast);
+      &:hover {
+        background: var(--bg-2);
+      }
 
-    & > tr {
-      border-bottom: 1px solid var(--ContentBorderColor);
-
-      &.table-row {
-        cursor: pointer;
-        transition: all .3s;
-        &:hover {
-          background: rgba(0, 0, 0, 0.025);
+      td {
+        background: var(--bg-5);
+        padding-top: 1.8rem;
+        padding-bottom: 1.8rem;
+        &:first-child {
+          border-radius: var(--radius-m) 0 0 var(--radius-m);
+        }
+        &:last-child {
+          border-radius: 0 var(--radius-m) var(--radius-m) 0;
         }
       }
     }
   }
 
-  th {
-    padding: 1.6rem;
-    font-weight: 600;
-  }
-
-  td {
+  th, td {
     padding: 1.5rem;
+    font-weight: inherit;
   }
 }
 </style>

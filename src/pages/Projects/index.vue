@@ -1,21 +1,16 @@
 <script setup lang="ts">
-import Header from "@/components/Header.vue";
 import Project from "@/components/Project.vue";
-import VPagination from "@/components/VPagination.vue";
 import {useProjects} from "@/hooks/useProjects.ts";
+import PageTopPart from "@/components/PageTopPart.vue";
 
-const {list, headerSubtitle} = useProjects()
+const { list } = useProjects()
 </script>
 
 <template>
-  <Header title="Проекты" :subtitle="headerSubtitle"/>
-  <main>
-    <div class="projects-list" v-for="item in list" :key="item.name">
-      <project :project="item" />
-    </div>
+  <page-top-part heading="Проекты"/>
+  <main class="projects-list">
+      <project v-for="item in list" :project="item" :key="item.name"/>
   </main>
-
-  <v-pagination :total-pages="0"/>
 </template>
 
 <style scoped>

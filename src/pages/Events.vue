@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import Header from "@/components/Header.vue";
+import PageTopPart from "@/components/PageTopPart.vue";
 </script>
 
 <template>
-  <Header title="События"/>
+  <page-top-part
+    heading="События"
+  />
 </template>
 
 <style scoped>

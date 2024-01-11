@@ -1,18 +1,21 @@
 import $axios from "@/api/axios.ts";
 
-import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {AxiosResponse} from "axios";
-import {IErrorItem, IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
+import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
+import {IFilter, IStatistic} from "@/models/interfaces/mainPageInterfaces.ts";
+import {transationsStatisticThead} from "@/models/staticContent/mainPageContent.ts";
 
 import {computed, onMounted, ref, watch} from "vue";
 
 import {getDateInterval} from "@/utils/scripts.ts";
+import {checkUserAccess} from "@/utils/roles.ts";
+
 import {useProjectsStore} from "@/stores";
 
-export const useErrorsStatistic = () => {
+export const useTransactions = ()=> {
   const projectStore = useProjectsStore();
 
-  const list = ref<IErrorItem[]>([]);
+  const list = ref<IStatistic[]>([]);
   const isFetching = ref<boolean>(false)
 
   const filter = computed<IFilter>(() => ({
@@ -21,14 +24,14 @@ export const useErrorsStatistic = () => {
     projectId: projectStore.activeProject
   }));
 
-  const sortedList = computed(() => {
-    return list.value.sort((a: IErrorItem, b: IErrorItem) => a.count - b.count)
+  const tableHeaders = transationsStatisticThead.filter(header => {
+    return header?.access && checkUserAccess(header?.access) || !header?.access
   });
 
   const fetchData = async () => {
     isFetching.value = true
     try {
-      const {data: {result}}: AxiosResponse<IResponse<IErrorItem[]>> = await $axios.post('/statistic/by_check', filter.value)
+      const {data: {result}}: AxiosResponse<IResponse<IStatistic[]>> = await $axios.post('/statistic/by_date', filter.value)
       list.value = result
     }
     finally {
@@ -40,8 +43,7 @@ export const useErrorsStatistic = () => {
     await fetchData()
   };
 
-
-  watch(() => projectStore.activeProject,  async () => {
+  watch(() => projectStore.activeProject, async () => {
     await fetchData()
   })
 
@@ -50,9 +52,10 @@ export const useErrorsStatistic = () => {
   });
 
   return {
+    list,
     filter,
-    sortedList,
     isFetching,
+    tableHeaders,
     fetchData,
     filterHandler,
   }

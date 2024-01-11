@@ -1,11 +1,14 @@
-import {ref} from "vue";
-import {useRouter} from "vue-router";
-import {AuthorizedUser, AuthUserInterface} from "@/models/auth/authUser.ts";
-import {AUTH_TOKEN_NAME, USER_ID_KEY, USER_ROLE} from "@/models/staticContent/constants.ts";
-import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
-import {useToast} from "@/hooks/useToast.ts";
-import {AxiosError, AxiosResponse} from "axios";
 import $axios from "@/api/axios.ts";
+
+import {AxiosError, AxiosResponse} from "axios";
+import {AuthorizedUser, AuthUserInterface} from "@/models/auth/authUser.ts";
+import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
+import {AUTH_TOKEN_NAME, USER_ID_KEY, USER_ROLE} from "@/models/staticContent/constants.ts";
+
+import {ref} from "vue";
+
+import {useRouter} from "vue-router";
+import {useToast} from "@/hooks/useToast.ts";
 
 const $toast = useToast()
 export const useAuth = () => {

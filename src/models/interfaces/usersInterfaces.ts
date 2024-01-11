@@ -1,4 +1,3 @@
-import {LocationQueryValue} from "vue-router";
 import {roles} from "@/utils/roles.ts";
 
 export interface IUser {
@@ -16,7 +15,7 @@ export interface IUserWithPassword extends IUser {
 
 
 export interface IUserFilter {
-  page: LocationQueryValue,
+  page: string,
   search: string,
   fromDate: string,
   toDate: string

@@ -1,31 +1,27 @@
 <script setup lang="ts">
-import Navigation from "@/components/Navigation.vue";
 import Header from "@/components/Header.vue";
-
+import Footer from "@/components/Footer.vue";
 </script>
 
 <template>
   <div class="app-inner">
     <Header/>
+
     <div class="site-content">
       <slot/>
     </div>
 
-    <footer class="footer">
-      <Navigation/>
-    </footer>
+    <Footer/>
   </div>
 </template>
 
 
-<style lang="scss">
+<style scoped lang="scss">
 .app-inner {
+  max-height: 100vh;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   padding: 2.4rem;
-}
-
-.footer {
-  position: fixed;
-  bottom: 0;
 }
 </style>

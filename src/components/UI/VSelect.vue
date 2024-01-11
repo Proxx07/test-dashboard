@@ -19,7 +19,7 @@ const props = defineProps<{
 const changeHandler = (e: Event) => {
   const $val = (e.target as HTMLSelectElement).value
   const value = isNaN(Number($val)) ? $val : +$val
-  if (props.modelValue) {
+  if (props.modelValue !== undefined) {
     emit('update:modelValue', value)
   }
   emit('change', value)
@@ -62,7 +62,7 @@ label {
 .label-text {
   cursor: pointer;
   .required-mark {
-    color: var(--errorSolid);
+    color: var(--error-solid);
   }
 }
 
@@ -71,6 +71,7 @@ label {
   outline: none;
   padding: 1.3rem 1.8rem;
   flex-grow: 1;
+  background: var(--bg-5);
 }
 
 </style>

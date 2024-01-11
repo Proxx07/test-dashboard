@@ -7,6 +7,21 @@
 @import "toast.css";
 @import "charts.css";
 
+@mixin styled-scroll {
+  &::-webkit-scrollbar-track {
+    visibility: hidden;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5rem;
+    background-color: var(--accent);
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -39,13 +54,15 @@ h1, h2, h3, h4, h5, h6 {
   font: var(--font-l);
 }
 
-//.site-content {
-//  display: flex;
-//  flex-direction: column;
-//  main {
-//    flex-grow: 1;
-//    overflow-y: auto;
-//    padding-top: 2.4rem;
-//    margin-bottom: 3.2rem;
-//  }
-//}
+.site-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: auto;
+  main {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-bottom: 12rem;
+    @include styled-scroll;
+  }
+}

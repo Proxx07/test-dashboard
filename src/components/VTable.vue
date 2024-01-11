@@ -75,7 +75,6 @@ const loadMore = () => {
 table {
   text-align: left;
   width: 100%;
-  overflow: hidden;
   font: var(--font-m);
   border-collapse: separate;
   border-spacing: 0 .6rem;
@@ -85,6 +84,9 @@ table {
 
   thead {
     font: var(--font-m-m);
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(2rem);
     th {
       background: var(--bg-10);
       &:first-child {

@@ -65,7 +65,7 @@ label {
 .label-text {
   cursor: pointer;
   .required-mark {
-    color: var(--errorSolid);
+    color: var(--error-solid);
   }
 }
 

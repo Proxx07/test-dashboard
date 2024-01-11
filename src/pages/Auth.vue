@@ -5,7 +5,7 @@ import AuthorizationForm from "@/components/AuthorizationForm.vue";
 
 <template>
   <div class="wrapper">
-    <v-icon :icon="logo"/>
+    <v-icon class="no-fill" :icon="logo"/>
     <authorization-form/>
   </div>
 </template>

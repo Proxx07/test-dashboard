@@ -32,7 +32,7 @@ export const useTransactions = ()=> {
     isFetching.value = true
     try {
       const {data: {result}}: AxiosResponse<IResponse<IStatistic[]>> = await $axios.post('/statistic/by_date', filter.value)
-      list.value = result
+      list.value = [result]
     }
     finally {
       isFetching.value = false

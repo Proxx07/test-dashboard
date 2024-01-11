@@ -76,10 +76,10 @@ export const useUser = (userID: string | void) => {
   const user = ref<IUserWithPassword>(setUser())
   const buttonText = computed(() => !userID ? "Cоздать" : "Редактировать")
 
-  const getUser = async (id = userID) => {
-    if (!id) return
+  const getUser = async () => {
+    if (!userID) return
     try {
-      const {data: {result}}: AxiosResponse<IResponse<IUser>> = await $axios.get(`/users/${id}`)
+      const {data: {result}}: AxiosResponse<IResponse<IUser>> = await $axios.get(`/users/${userID}`)
       user.value = setUser(result)
     }
     catch (e) {
@@ -102,11 +102,11 @@ export const useUser = (userID: string | void) => {
     }
   }
 
-  const putUser = async (id = userID) => {
+  const putUser = async () => {
     user.value.phone = user.value.phone.replace(/[^+\d]/g, '').substring(1);
 
     try {
-      await $axios.put(`/users/${id}`, user.value)
+      await $axios.put(`/users/${userID}`, user.value)
       await $router.push({name: "users"})
       $toast.success("Пользователь обновлён")
     }
@@ -116,11 +116,11 @@ export const useUser = (userID: string | void) => {
     }
   }
 
-  const deleteUser = async (id = userID) => {
+  const deleteUser = async () => {
     if (!confirm('Вы действительно хотите удалить пользователя?')) return
 
     try {
-      await $axios.delete(`/users/${id}`)
+      await $axios.delete(`/users/${userID}`)
       await $router.push({name: "users"})
       $toast.success("Пользователь удалён")
     }

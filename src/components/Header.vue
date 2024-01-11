@@ -18,7 +18,7 @@ const projectsStore = useProjectsStore();
 
     <div class="header__left">
       <router-link to="/" class="logo">
-        <v-icon :icon="logo" class="icon"/>
+        <v-icon :icon="logo" class="icon no-fill"/>
         Able <span class="id">ID</span>
       </router-link>
     </div>

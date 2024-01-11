@@ -7,15 +7,13 @@ import {usersThead} from "@/models/staticContent/usersPageContent.ts";
 import {useUsers} from "@/hooks/useUsers.ts";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
-const {filter, list, isFetching, listItemHandler} = useUsers()
+const {list, isFetching, listItemHandler} = useUsers()
 
 </script>
 
 <template>
   <div class="users-top">
     <page-top-part
-      v-model:from-date="filter.fromDate"
-      v-model:to-date="filter.toDate"
       heading="Пользователи"
       class="filter"
     />

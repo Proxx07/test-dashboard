@@ -15,6 +15,11 @@ span {
   :deep(svg path[stroke]) {
     stroke: currentColor;
   }
+  &:not(.no-fill) {
+    :deep(svg path[fill]) {
+      fill: currentColor;
+    }
+  }
   /*
   :deep(svg:not([fill="none"])) {
     fill: currentColor;

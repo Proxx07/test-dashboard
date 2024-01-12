@@ -1,15 +1,19 @@
-import {ref} from "vue";
-import {useRouter} from "vue-router";
-import {AuthorizedUser, AuthUserInterface} from "@/models/auth/authUser.ts";
-import {AUTH_TOKEN_NAME, USER_ID_KEY, USER_ROLE} from "@/models/staticContent/constants.ts";
-import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
-import {useToast} from "@/hooks/useToast.ts";
-import {AxiosError, AxiosResponse} from "axios";
 import $axios from "@/api/axios.ts";
+
+import {AxiosError, AxiosResponse} from "axios";
+import {AuthorizedUser, AuthUserInterface} from "@/models/auth/authUser.ts";
+import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
+import {AUTH_TOKEN_NAME, USER_ID_KEY, USER_ROLE} from "@/models/staticContent/constants.ts";
+
+import {ref} from "vue";
+
+import {useRouter} from "vue-router";
+import {useToast} from "@/hooks/useToast.ts";
 
 const $toast = useToast()
 export const useAuth = () => {
-  const $router = useRouter()
+  const $router = useRouter();
+
   const error = ref<boolean>(false)
   const authUser = ref<AuthUserInterface>({
     phone: '+998',
@@ -20,9 +24,11 @@ export const useAuth = () => {
     authUser.value.phone = authUser.value.phone.replace(/[^+\d]/g, '').substring(1);
     try {
       const { data: {result, message} }: AxiosResponse<IResponse<AuthorizedUser>> = await $axios.post('auth/sign-in', authUser.value)
+
       localStorage.setItem(AUTH_TOKEN_NAME, result.access_token)
       localStorage.setItem(USER_ID_KEY, result.id)
       localStorage.setItem(USER_ROLE, `${result.role}`)
+
       await $router.push({path: '/'})
       $toast.success(`Вы ${message.toLowerCase()} авторизоавлись`)
     }

@@ -1,0 +1,63 @@
+:root {
+/* ================== colors ================== */
+
+  --white: 255, 255, 255;
+
+  --site-bg: #101119;
+
+  --accent: rgba(0, 137, 188, 1);
+  --bg-10: rgba(var(--white), 0.1);
+  --bg-5: rgba(var(--white), 0.05);
+  --bg-2: rgba(var(--white), 0.02);
+
+  --form-bg: rgba(28, 29, 37, 1);
+  --popover-bg: #282930;
+
+  --primary-color: rgba(var(--white), 1);
+  --secondary-color: rgba(var(--white), 0.5);
+  --dark-color: rgba(0, 0, 0, 1);
+  --logo-color: #E2FF14;
+
+  --positive: rgba(23, 217, 90, 1);
+  --negative: rgba(217, 23, 23, 1);
+
+  --error-solid: rgba(231, 76, 60, 1);
+  --error-transparent: rgba(255, 0, 0, .15);
+
+/* ================ colors end ================= */
+
+/*  ================== fonts ================== */
+
+  --primary-font: 'Montserrat', sans-serif;
+
+  /* --font-{size}-{weight} */
+  --font-logo: normal normal 600 2rem/1.3 var(--primary-font);
+
+  --font-s: normal 500 1rem/1.33 var(--primary-font);
+  --font-xs: normal 500 1.2rem/1.33 var(--primary-font);
+  --font-xs-m: normal 600 1.2rem/1.33 var(--primary-font);
+
+  --font-m: normal 500 1.4rem/1.5 var(--primary-font);
+  --font-m-m: normal 600 1.4rem/1.5 var(--primary-font);
+  --font-m-b: normal bold 1.4rem/1.5 var(--primary-font);
+  --font-xm: normal 500 1.6rem/1.5 var(--primary-font);
+  --font-xm-m: normal 600 1.6rem/1.5 var(--primary-font);
+  --font-xxm: normal 600 2.6rem/1.3 var(--primary-font);
+
+  --font-l: normal 600 3rem/1.26 var(--primary-font);
+  --font-xl: normal 600 4.2rem/1.09 var(--primary-font);
+  --font-xxl: normal 600 5.6rem/1.03 var(--primary-font);
+
+/*  ================== fonts end =============== */
+
+
+/*  ================== other ================ */
+
+  --radius-s: .4rem;
+  --radius-m: .8rem;
+
+  --transition-slow: all 0.4s;
+  --transition-fast: all 0.2s;
+
+/*  =============== other end =============== */
+}

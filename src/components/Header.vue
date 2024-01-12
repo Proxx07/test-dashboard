@@ -1,67 +1,74 @@
 <script setup lang="ts">
-interface HeaderProps {
-  title?: string,
-  subtitle?: string
-}
+import logo from "@/assets/icons/AbleLogo.svg?raw"
+import User from "@/components/UI/User.vue";
+import {useAuth} from "@/hooks/useAuth.ts";
+import {useProjectsStore, useUserStore} from "@/stores";
+import {useProjects} from "@/hooks/useProjects.ts";
+import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
-const props = withDefaults(defineProps<HeaderProps>(), {
-  title: "",
-  subtitle: ""
-});
+const { logOut } = useAuth();
+const { options } = useProjects();
+const userStore = useUserStore();
+const projectsStore = useProjectsStore();
 
 </script>
 
 <template>
   <header class="header">
+
     <div class="header__left">
-      <div class="site-name-wrapper">
-        <span class="site-name"> Able ID </span>
-      </div>
-
-      <div v-if="props.title || props.subtitle" class="page-header">
-        <h1 v-if="props.title" class="header__title">
-          {{props.title}}
-        </h1>
-        <div class="header__description" v-if="props.subtitle">
-          {{props.subtitle}}
-        </div>
-      </div>
-
+      <router-link to="/" class="logo">
+        <v-icon :icon="logo" class="icon no-fill"/>
+        Able <span class="id">ID</span>
+      </router-link>
     </div>
+
+    <div class="header__right">
+      <v-select
+        v-if="checkUserAccess(accesses.READ_PROJECTS)"
+        v-model="projectsStore.activeProject"
+        placeholder="Выберите проект"
+        :options="options"
+        @change="projectsStore.setActiveProject"
+      />
+
+      <User :name="userStore.user.name" @user-clicked="logOut"/>
+    </div>
+
   </header>
 </template>
 
-<style lang="scss">
-.site-name {
-  color: var(--VioletText);
-  font-size: 2.4rem;
-  text-decoration: none;
-  display: block;
-  padding: 0 0 1.4rem;
-  font-weight: 600;
-}
-
-.page-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
+<style lang="scss" scoped>
 .header {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 0 2.4rem;
-  margin-bottom: 1.8rem;
-  &__description {
-    font-weight: 600;
-    font-size: 1.5em;
-    color: var(--TextColorAccent);
-    opacity: 0.5;
+  grid-template-columns: 1fr 3fr;
+  padding-bottom: 2.2rem;
+  &__left {
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      font: var(--font-logo);
+      color: var(--primary-color);
+      .icon {
+        margin-right: .8rem;
+      }
+      .id {
+        color: var(--logo-color);
+      }
+    }
   }
 
-  &__left {
-    display: grid;
-    grid-gap: 1rem 0;
+  &__right {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2.4rem;
+    :deep(select) {
+      font: var(--font-m);
+      background: var(--bg-10);
+      padding: .8rem 1.2rem;
+      min-width: 20rem;
+    }
   }
 }
 </style>

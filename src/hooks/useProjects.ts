@@ -1,19 +1,35 @@
-import {computed, onMounted, ref} from "vue";
-import {declination} from "@/utils/scripts.ts";
+import $axios from "@/api/axios.ts";
 import {AxiosResponse} from "axios";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
-import $axios from "@/api/axios.ts";
-import {IProject} from "@/models/interfaces/projectsIntefaces.ts";
+import {IMockProject, IProject} from "@/models/interfaces/projectsIntefaces.ts";
+
+import {computed, onMounted, ref} from "vue";
+
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
 export const useProjects = () => {
-  const list = ref([
+  const list = ref<IMockProject[]>([
     {
+      id: "9DyBcQaAA_bTD65l8E8PU",
       logo: "",
       name: "UZIMEI",
-      site: "https://uzimei.uz"
+      mail: "info@uzimei.uz",
+      phone: "1170",
+      site: "https://uzimei.uz",
+      status: 1,
     }
   ]);
+  if (import.meta.env.MODE === 'development') {
+    list.value.push({
+      id: "test_id",
+      logo: "",
+      name: "Test project",
+      mail: "test@test.test",
+      site: "https://neotech.uz",
+      status: 0,
+    })
+  }
+
   const isFetching = ref<boolean>(false);
   const totalPages = ref<number>(1);
 
@@ -25,10 +41,6 @@ export const useProjects = () => {
     })
   )
   })
-
-  const headerSubtitle = computed(() => {
-    return `( ${1} ${declination(1, ['проект', 'проекта', 'проектов'])} )`
-  });
 
   const fetchData = async () => {
     isFetching.value = true
@@ -49,8 +61,47 @@ export const useProjects = () => {
   return {
     list,
     totalPages,
-    headerSubtitle,
     options,
+
     fetchData,
+  }
+}
+
+export const useProject = () => {
+  const setProject = (project: IMockProject | void): IMockProject => {
+    return {
+      id: project?.id || "",
+      name: project?.name || "",
+      logo: project?.logo || "",
+      mail: project?.mail || "",
+      phone: project?.phone || "",
+      site: project?.site || "",
+      status: project?.status || 0,
+    }
+  }
+  const isPreviewOpened = ref(false);
+  const activeProject = ref<IMockProject>(setProject())
+
+
+  /*const getProject = async (projectID: string) => {
+    const {data: {result}}: AxiosResponse<IResponse<IProject>> = await $axios.get(`/projects/${projectID}`)
+    console.log(result)
+  }*/
+
+  const previewHandler = (value: IMockProject) => {
+    isPreviewOpened.value = true
+    activeProject.value = setProject(value)
+  }
+
+  const editHandler = (value: IMockProject) => {
+    console.log(value)
+  }
+
+  return {
+    isPreviewOpened,
+    activeProject,
+
+    previewHandler,
+    editHandler,
   }
 }

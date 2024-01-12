@@ -16,8 +16,8 @@
 .apexcharts-tooltip .apexcharts-tooltip-title {
   font-weight: 800;
   padding: .6rem 1.1rem;
-  /*color: var(--white);*/
 }
+
 .apexcharts-tooltip .apexcharts-tooltip-series-group {
   padding: 0 1.1rem;
 }

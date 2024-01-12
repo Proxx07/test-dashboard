@@ -55,17 +55,17 @@ label, .label-text {
 }
 
 label {
-  font-size: 1.4rem;
-  line-height: 2.15;
+  font: var(--font-xm);
   display: flex;
   flex-direction: column;
+  gap: 1.2rem;
+  position: relative;
 }
 
 .label-text {
-  font-weight: 600;
   cursor: pointer;
   .required-mark {
-    color: var(--errorSolid);
+    color: var(--error-solid);
   }
 }
 
@@ -73,15 +73,14 @@ label {
   width: 100%;
   font-size: inherit;
   outline: none;
-  padding: .6rem 1.6rem;
-  transition: all 0.3s;
-  background: var(--WhiteBg);
+  padding: .8rem 1.8rem;
+  background: var(--bg-5);
   flex-grow: 1;
-  min-height: 4.4rem;
+  min-height: 5rem;
+  transition: var(--transition-slow);
   &::placeholder {
-    font-weight: 400;
-    transition: all 0.3s;
-    color: var(--TextColorGray);
+    transition: var(--transition-fast);
+    color: var(--secondary-color);
   }
 
   &:focus {
@@ -102,7 +101,6 @@ label {
 
 
 label.error .text-field {
-  border-color: var(--errorSolid);
-  background-color: var(--errorTransparent);
+  background-color: var(--error-transparent);
 }
 </style>

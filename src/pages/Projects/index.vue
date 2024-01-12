@@ -1,27 +1,31 @@
 <script setup lang="ts">
-import Header from "@/components/Header.vue";
-import Project from "@/components/Project.vue";
-import VPagination from "@/components/VPagination.vue";
-import {useProjects} from "@/hooks/useProjects.ts";
+import Project from "@/components/projects/Project.vue";
+import {useProjects, useProject} from "@/hooks/useProjects.ts";
+import PageTopPart from "@/components/PageTopPart.vue";
+import PopupModal from "@/components/UI/PopupModal.vue";
+import ProjectPreview from "@/components/projects/ProjectPreview.vue";
 
-const {list, headerSubtitle} = useProjects()
+const { list } = useProjects();
+const {activeProject, isPreviewOpened, previewHandler, editHandler} = useProject();
+
 </script>
 
 <template>
-  <Header title="Проекты" :subtitle="headerSubtitle"/>
-  <main>
-    <div class="projects-list" v-for="item in list" :key="item.name">
-      <project :project="item" />
-    </div>
+  <page-top-part heading="Проекты"/>
+  <main class="projects-list">
+    <project v-for="item in list" :project="item" :key="item.id" @preview="previewHandler" @edit="editHandler"/>
   </main>
 
-  <v-pagination :total-pages="0"/>
+  <popup-modal v-model="isPreviewOpened" :title="`ID: ${activeProject.id}`">
+    <project-preview :project="activeProject"/>
+  </popup-modal>
 </template>
 
 <style scoped>
 .projects-list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   grid-gap: 2.4rem;
 }
 </style>

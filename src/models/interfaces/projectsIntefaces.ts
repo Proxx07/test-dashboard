@@ -18,3 +18,15 @@ export interface IProject {
   successUrl: string
   rate: IRateWithRequests
 }
+
+
+export interface IMockProject {
+  id: string,
+  name: string,
+  logo: string,
+  mail: string,
+  phone?: string,
+  site: string,
+  status: 0 | 1
+}
+export type IAvatar = Pick<IMockProject, 'name' | 'logo' | 'status'>

@@ -1,9 +1,10 @@
-//import clock from '@/assets/icons/clock.svg?raw';
-import briefcase from '@/assets/icons/briefcase.svg?raw';
-import database from '@/assets/icons/database.svg?raw';
-import users from '@/assets/icons/users.svg?raw';
-import arrow from '@/assets/icons/arrow.svg?raw';
 import {accesses} from "@/utils/roles.ts";
+
+import dashboardIcon from "@/assets/icons/dashboard.svg?raw"
+import usersIcon from "@/assets/icons/users.svg?raw"
+import eventsIcon from "@/assets/icons/events.svg?raw"
+import projectsIcon from "@/assets/icons/projects.svg?raw"
+//import settingsIcon from "@/assets/icons/settings.svg?raw"
 
 export interface INavigation {
   name: string
@@ -13,34 +14,35 @@ export interface INavigation {
 }
 export const navigation: INavigation[] = [
   {
-    name: "Транзакции",
+    name: "События",
     link: "/",
-    icon: arrow
+    icon: eventsIcon,
   },
 
   {
     name: "Дашборд",
     link: "/dashboard",
-    icon: database,
-    access: accesses.READ_DASHBOARD
+    access: accesses.READ_DASHBOARD,
+    icon: dashboardIcon,
   },
-
-  /*{
-    name: "События",
-    link: "/events",
-    icon: clock
-  },*/
 
   {
     name: "Пользователи",
     link: "/users",
-    icon: users,
-    access: accesses.READ_USER
+    access: accesses.READ_USER,
+    icon: usersIcon,
   },
 
   {
     name: "Проекты",
     link: "/projects",
-    icon: briefcase
+    icon: projectsIcon,
   },
+/*
+  {
+    name: "Настройки",
+    link: "/settings",
+    icon: settingsIcon,
+  }
+*/
 ]

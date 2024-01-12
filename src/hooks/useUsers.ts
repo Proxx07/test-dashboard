@@ -1,34 +1,25 @@
-import {computed, onMounted, ref} from "vue";
-import {IUser, IUserFilter, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
+import $axios from "@/api/axios.ts";
+import {AxiosError, AxiosResponse} from "axios";
 import {IListResponse, IResponse} from "@/models/interfaces/tableInterfaces.ts";
-import {declination, getDateInterval} from "@/utils/scripts.ts";
+import {IUser, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
+
+import {computed, onMounted, ref} from "vue";
+
 import {useRouter} from "vue-router";
 import {useToast} from "@/hooks/useToast.ts";
-import {AxiosError, AxiosResponse} from "axios";
-import $axios from "@/api/axios.ts";
+import {useFilter} from "@/hooks/useFilter.ts";
 
 const $toast = useToast()
 
 export const useUsers = () => {
-  const $router = useRouter()
+  const $router = useRouter();
+  const {filter, page, dateInterval} = useFilter();
 
   const list = ref<IUser[]>([]);
   const isFetching = ref<boolean>(false);
   const totalPages = ref<number>(1);
 
   const usersCount = ref<number>(0);
-  const headerSubtitle = computed(() => {
-    return usersCount.value
-      ? `( ${usersCount.value} ${declination(usersCount.value, ['пользователь', 'пользователя', 'пользователей'])} )`
-      : ""
-  });
-
-  const filter = ref<IUserFilter>({
-    page: "1",
-    search: "",
-    fromDate: getDateInterval(1)[0],
-    toDate: getDateInterval(1)[1],
-  });
 
   const fetchData = async () => {
     isFetching.value = true
@@ -53,15 +44,16 @@ export const useUsers = () => {
   return {
     list,
     isFetching,
-    filter,
-    headerSubtitle,
+
+    dateInterval,
+    page,
     totalPages,
     fetchData,
     listItemHandler,
   }
 }
 
-export const useUser = (id: string) => {
+export const useUser = (userID: string | void) => {
   const $router = useRouter()
 
   const setUser = (user: IUser | void): IUserWithPassword => {
@@ -76,12 +68,12 @@ export const useUser = (id: string) => {
   }
 
   const user = ref<IUserWithPassword>(setUser())
-  const buttonText = computed(() => !id ? "Cоздать" : "Редактировать")
+  const buttonText = computed(() => !userID ? "Cоздать" : "Редактировать")
 
   const getUser = async () => {
-    if (!id) return
+    if (!userID) return
     try {
-      const {data: {result}}: AxiosResponse<IResponse<IUser>> = await $axios.get(`/users/${id}`)
+      const {data: {result}}: AxiosResponse<IResponse<IUser>> = await $axios.get(`/users/${userID}`)
       user.value = setUser(result)
     }
     catch (e) {
@@ -108,7 +100,7 @@ export const useUser = (id: string) => {
     user.value.phone = user.value.phone.replace(/[^+\d]/g, '').substring(1);
 
     try {
-      await $axios.put(`/users/${id}`, user.value)
+      await $axios.put(`/users/${userID}`, user.value)
       await $router.push({name: "users"})
       $toast.success("Пользователь обновлён")
     }
@@ -122,7 +114,7 @@ export const useUser = (id: string) => {
     if (!confirm('Вы действительно хотите удалить пользователя?')) return
 
     try {
-      await $axios.delete(`/users/${id}`)
+      await $axios.delete(`/users/${userID}`)
       await $router.push({name: "users"})
       $toast.success("Пользователь удалён")
     }
@@ -133,9 +125,8 @@ export const useUser = (id: string) => {
 
   }
 
-
   const submitForm = async () => {
-    if (id) {
+    if (userID) {
       await putUser()
     } else {
       await postUser()
@@ -149,10 +140,12 @@ export const useUser = (id: string) => {
   return {
     user,
     buttonText,
+    setUser,
 
     getUser,
     postUser,
     putUser,
+
     deleteUser,
     submitForm,
   }

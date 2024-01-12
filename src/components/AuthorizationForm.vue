@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import {useAuth} from "@/hooks/useAuth.ts";
 import CopyrightForDev from "@/components/CopyrightForDev.vue";
+
 const {error, authUser, authSubmit, resetError} = useAuth()
 </script>
 
 <template>
   <form class="auth-form" @submit.prevent="authSubmit">
-    <h1> Able ID </h1>
-
     <div class="auth-form__fields">
       <v-input
         v-model="authUser.phone"
@@ -30,36 +29,24 @@ const {error, authUser, authSubmit, resetError} = useAuth()
 
       <copyright-for-dev/>
 
-      <v-button type="submit" class="auth-form__button transparent"> Вход </v-button>
+      <v-button type="submit" class="primary large"> Вход </v-button>
     </div>
   </form>
 </template>
 
 <style lang="scss" scoped>
-h1 {
-  font-size: 2.8rem;
-  color: var(--VioletText);
-  margin-bottom: 2.4rem;
-}
-
 .auth-form {
   width: 100%;
-  max-width: 40rem;
+  max-width: 43rem;
   text-align: center;
+  padding: 2.4rem;
+  border-radius: var(--radius-m);
+  background: var(--form-bg);
 
   &__fields {
     display: flex;
     flex-direction: column;
-    background: var(--WhiteBg);
-    padding: 2.4rem;
-    border-radius: .4rem;
     gap: 2.4rem
-  }
-
-  &__button {
-    padding: 1rem;
-    font-size: 1.5rem;
-    //margin-top: 2.6rem;
   }
 }
 </style>

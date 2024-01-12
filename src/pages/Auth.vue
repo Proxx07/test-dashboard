@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import logo from "@/assets/icons/logo-with-text.svg?raw";
 import AuthorizationForm from "@/components/AuthorizationForm.vue";
 </script>
 
 <template>
   <div class="wrapper">
-    <AuthorizationForm/>
+    <v-icon class="no-fill" :icon="logo"/>
+    <authorization-form/>
   </div>
 </template>
 
@@ -13,8 +15,10 @@ import AuthorizationForm from "@/components/AuthorizationForm.vue";
   min-height: 100vh;
   width: 100vw;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  gap: 3.2rem;
 }
 </style>

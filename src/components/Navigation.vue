@@ -1,84 +1,54 @@
 <script setup lang="ts">
 import {navigation} from "@/models/staticContent/navigation.ts";
-import burgerIcon from "@/assets/icons/burger.svg?raw";
-import closeIcon from "@/assets/icons/close.svg?raw"
-import logOutIcon from "@/assets/icons/logout.svg?raw";
-import {useAuth} from "@/hooks/useAuth.ts";
 import {checkUserAccess} from "@/utils/roles.ts";
-const {logOut} = useAuth()
-
-const props = defineProps<{
-  burgerClosed: boolean
-}>()
+import VIcon from "@/components/UI/VIcon.vue";
 </script>
 
 <template>
   <nav class="navigation">
-    <div class="navigation__menu-item">
-      <span class="navigation__menu-item-link burger-button" @click="$emit('burger-click')">
-        <span class="icon" v-html="props.burgerClosed ? burgerIcon : closeIcon"/>
-      </span>
-    </div>
-
     <ul class="navigation__menu">
       <template v-for="item in navigation" :key="item.link">
-        <li class="navigation__menu-item" v-if="checkUserAccess(item.access)">
-          <router-link :to="item.link" class="navigation__menu-item-link">
-            <span v-if="item.icon" v-html="item.icon" class="icon" />
-            {{item.name}}
+        <li v-if="checkUserAccess(item.access)">
+          <router-link :to="item.link" class="navigation__menu-link">
+            <v-icon v-if="item.icon" :icon="item.icon" class="icon"/>
+            <span> {{item.name}} </span>
           </router-link>
         </li>
       </template>
     </ul>
-
-    <div class="empty"></div>
-
-    <div class="navigation__menu-item">
-      <span class="navigation__menu-item-link" @click="logOut">
-        <span v-html="logOutIcon" class="icon"></span>
-        Выйти
-      </span>
-    </div>
   </nav>
 </template>
 
-<style lang="scss">
-
+<style scoped lang="scss">
 .navigation {
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 64px;
+  background: var(--bg-10);
+  backdrop-filter: blur(10px);
+  border-radius: 10rem;
+  pointer-events: all;
   &__menu {
-    list-style: none;
-    gap: 12px 0;
     display: flex;
-    flex-direction: column;
-    &-item {
-      &-link {
-        padding: 1rem 0;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 1.6rem;
-        color: var(--AccentColor);
-        font-size: 1.5rem;
-        transition: all 0.2s;
-        cursor: pointer;
-        .icon {
-          font-size: 0;
-          transition: all 0.3s;
-        }
-        svg path {
-          transition: all 0.3s;
-        }
+    list-style: none;
+    &-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      padding: 1.3rem 2.4rem;
+      text-decoration: none;
+      min-width: 15rem;
 
-        &:hover,
-        &.router-link-active {
-          color: var(--VioletText);
-          svg path {
-            fill: var(--VioletText);
-          }
+      font: var(--font-xs);
+      color: var(--secondary-color);
+      transition: var(--transition-slow);
+
+      &.router-link-exact-active {
+        color: var(--primary-color);
+        .icon {
+          color: var(--accent);
         }
+      }
+      &:hover {
+        color: var(--primary-color);
       }
     }
   }

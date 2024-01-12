@@ -6,7 +6,7 @@ import DonutChart from "@/components/charts/DonutChart.vue";
 
 import {useDashboard} from "@/hooks/useDashboard.ts";
 import PageTopPart from "@/components/PageTopPart.vue";
-const {filter, filterHandler} = useDashboard();
+const {dateInterval, filterHandler} = useDashboard();
 
 const data1 = ref<number[]>([21, 22, 10, 28, 16, 21, 13])
 const categories1 = ref<string[]>(['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вск'])
@@ -39,19 +39,18 @@ const donutLabels = computed(() => donutData.map(item => item.name));
 const donutDifferecne = computed(() => donutData.map(item => item.difference));
 
 const searchQuery = ref("")
+
 </script>
 
 <template>
-
   <page-top-part
     heading="Заголовок"
-    v-model:from-date="filter.fromDate"
-    v-model:to-date="filter.toDate"
+    v-model:date="dateInterval"
     v-model:search-query="searchQuery"
     @filter-changed="filterHandler"
   />
 
-  <main class="charts-wrapper" style="display: none">
+  <main class="charts-wrapper">
     <column-chart
       title="Заголовок 1"
       type="area"
@@ -105,19 +104,9 @@ const searchQuery = ref("")
 </template>
 
 <style scoped lang="scss">
-.dashboard-filter {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.4rem;
-  border-bottom: 1px solid var(--LayoutBorderColor);
-  &__left {
-    max-width: 30rem;
-  }
-}
-
 .charts-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, calc(35% - 1.6rem)) calc(30% - 1.6rem);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2.4rem;
   max-width: 100%;
   overflow-x: hidden;

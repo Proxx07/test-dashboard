@@ -4,14 +4,13 @@ import PageTopPart from "@/components/PageTopPart.vue";
 import {eventsThead} from "@/models/staticContent/eventsTable.ts";
 import {useErrorsStatistic} from "@/hooks/useErrorsStatistic.ts";
 
-const {sortedList, isFetching, filter, filterHandler} = useErrorsStatistic();
+const {sortedList, isFetching, dateInterval, filterHandler} = useErrorsStatistic();
 </script>
 
 <template>
   <page-top-part
     heading="Статистика ошибок"
-    v-model:from-date="filter.fromDate"
-    v-model:to-date="filter.toDate"
+    v-model:date="dateInterval"
     @filter-changed="filterHandler"
   />
 

@@ -1,32 +1,25 @@
 import $axios from "@/api/axios.ts";
 import {AxiosError, AxiosResponse} from "axios";
 import {IListResponse, IResponse} from "@/models/interfaces/tableInterfaces.ts";
-import {IUser, IUserFilter, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
+import {IUser, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
 
 import {computed, onMounted, ref} from "vue";
 
-import {getDateInterval} from "@/utils/scripts.ts";
 import {useRouter} from "vue-router";
 import {useToast} from "@/hooks/useToast.ts";
+import {useFilter} from "@/hooks/useFilter.ts";
 
 const $toast = useToast()
 
 export const useUsers = () => {
-  const $router = useRouter()
+  const $router = useRouter();
+  const {filter, page, dateInterval} = useFilter();
 
   const list = ref<IUser[]>([]);
   const isFetching = ref<boolean>(false);
   const totalPages = ref<number>(1);
 
   const usersCount = ref<number>(0);
-
-
-  const filter = ref<IUserFilter>({
-    page: "1",
-    search: "",
-    fromDate: getDateInterval(1)[0],
-    toDate: getDateInterval(1)[1],
-  });
 
   const fetchData = async () => {
     isFetching.value = true
@@ -51,8 +44,9 @@ export const useUsers = () => {
   return {
     list,
     isFetching,
-    filter,
 
+    dateInterval,
+    page,
     totalPages,
     fetchData,
     listItemHandler,

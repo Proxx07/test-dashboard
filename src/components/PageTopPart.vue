@@ -6,15 +6,13 @@ import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 const props = defineProps<{
   heading: string
 
-  fromDate?: string
-  toDate?: string
+  date?: [string, string]
   device?: string
   searchQuery?: string
 }>();
 
 const emit = defineEmits<{
-  (e: 'update:fromDate', value: string): void
-  (e: 'update:toDate', value: string): void
+  (e: 'update:date', value: [string, string]): void
   (e: 'update:searchQuery', value: string): void
   (e: 'update:device', value: string): void
   (e: 'filterChanged'): void
@@ -35,22 +33,13 @@ const search = computed({
   }
 });
 
-// todo make smarter with array of dates
-const dateFrom = computed({
-  get(){
-    return props.fromDate || ""
+const dateFromTo = computed({
+  get(): [string, string] {
+    return props.date || ["", ""];
   },
-  set(value) {
-    emit('update:fromDate', value)
-  }
-});
 
-const dateTo = computed({
-  get(){
-    return props.toDate || ""
-  },
-  set(value) {
-    emit('update:toDate', value)
+  set(value: [string, string]) {
+    emit('update:date', value)
   }
 });
 </script>
@@ -68,10 +57,9 @@ const dateTo = computed({
       <filter-device-types/>
     </div>
 
-    <div v-if="props.fromDate !== undefined" class="wrapper__right">
+    <div v-if="props.date !== undefined" class="wrapper__right">
       <filter-date-component
-        v-model:from-date="dateFrom"
-        v-model:to-date="dateTo"
+        v-model:date="dateFromTo"
         @filter-changed="emit('filterChanged')"
       />
     </div>

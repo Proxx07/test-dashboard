@@ -2,24 +2,17 @@ import $axios from "@/api/axios.ts";
 
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {AxiosResponse} from "axios";
-import {IErrorItem, IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
+import {IErrorItem} from "@/models/interfaces/mainPageInterfaces.ts";
 
 import {computed, onMounted, ref, watch} from "vue";
 
-import {getDateInterval} from "@/utils/scripts.ts";
-import {useProjectsStore} from "@/stores";
+import {useFilter} from "@/hooks/useFilter.ts";
 
 export const useErrorsStatistic = () => {
-  const projectStore = useProjectsStore();
+  const {filter, dateInterval} = useFilter();
 
-  const list = ref<IErrorItem[]>([]);
+  const list = ref<IErrorItem[]>([])
   const isFetching = ref<boolean>(false)
-
-  const filter = computed<IFilter>(() => ({
-    fromDate: getDateInterval(1)[0],
-    toDate: getDateInterval(0)[1],
-    projectId: projectStore.activeProject
-  }));
 
   const sortedList = computed(() => {
     return list.value.sort((a: IErrorItem, b: IErrorItem) => a.count - b.count)
@@ -41,7 +34,7 @@ export const useErrorsStatistic = () => {
   };
 
 
-  watch(() => projectStore.activeProject,  async () => {
+  watch(() => filter.value.projectId,  async () => {
     await fetchData()
   })
 
@@ -50,9 +43,10 @@ export const useErrorsStatistic = () => {
   });
 
   return {
-    filter,
+    dateInterval,
     sortedList,
     isFetching,
+
     fetchData,
     filterHandler,
   }

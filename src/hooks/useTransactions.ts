@@ -2,27 +2,20 @@ import $axios from "@/api/axios.ts";
 
 import {AxiosResponse} from "axios";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
-import {IFilter, IStatistic} from "@/models/interfaces/mainPageInterfaces.ts";
+import {IStatistic} from "@/models/interfaces/mainPageInterfaces.ts";
 import {transationsStatisticThead} from "@/models/staticContent/mainPageContent.ts";
 
-import {computed, onMounted, ref, watch} from "vue";
+import { onMounted, ref, watch } from "vue";
 
-import {getDateInterval} from "@/utils/scripts.ts";
 import {checkUserAccess} from "@/utils/roles.ts";
+import {useFilter} from "@/hooks/useFilter.ts";
 
-import {useProjectsStore} from "@/stores";
 
 export const useTransactions = ()=> {
-  const projectStore = useProjectsStore();
+  const {filter, dateInterval} = useFilter();
 
   const list = ref<IStatistic[]>([]);
   const isFetching = ref<boolean>(false)
-
-  const filter = computed<IFilter>(() => ({
-    fromDate: getDateInterval(1)[0],
-    toDate: getDateInterval(0)[1],
-    projectId: projectStore.activeProject
-  }));
 
   const tableHeaders = transationsStatisticThead.filter(header => {
     return header?.access && checkUserAccess(header?.access) || !header?.access
@@ -43,7 +36,7 @@ export const useTransactions = ()=> {
     await fetchData()
   };
 
-  watch(() => projectStore.activeProject, async () => {
+  watch(() => filter.value.projectId, async () => {
     await fetchData()
   })
 
@@ -53,9 +46,11 @@ export const useTransactions = ()=> {
 
   return {
     list,
-    filter,
     isFetching,
     tableHeaders,
+
+    dateInterval,
+
     fetchData,
     filterHandler,
   }

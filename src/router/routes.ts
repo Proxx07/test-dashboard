@@ -29,14 +29,6 @@ export const routes: RouteRecordRaw[] = [
     }
   },
 
-  /*
-  {
-    path: "/events",
-    name: "events",
-    component: () => import("@/pages/Events.vue")
-  },
-  */
-
   {
     path: "/projects",
     name: "projects",
@@ -74,13 +66,13 @@ export const routes: RouteRecordRaw[] = [
       access: accesses.UPDATE_USER
     }
   },
-/*
+
   {
     path: "/settings",
     name: "settings",
     component: () => import("@/pages/Settings.vue")
   },
-*/
+
   {
     path: "/no-permission",
     name: "no-permission",

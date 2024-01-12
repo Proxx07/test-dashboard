@@ -2,14 +2,10 @@ export interface IFilterTypes {
   name: string
   value: string
 }
-
-export interface IDate {
+export interface IFilter {
+  projectId?: string | number | null
   fromDate: string,
   toDate: string,
-}
-
-export interface IFilter extends IDate {
-  projectId?: string | number | null
 }
 
 export interface IErrorItem {

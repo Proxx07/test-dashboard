@@ -4,14 +4,13 @@ import PageTopPart from "@/components/PageTopPart.vue";
 
 import {useTransactions} from "@/hooks/useTransactions.ts";
 
-const {list, tableHeaders, isFetching, filter, filterHandler} = useTransactions()
+const {list, tableHeaders, isFetching, dateInterval, filterHandler} = useTransactions()
 </script>
 
 <template>
   <page-top-part
     heading="Транзакции"
-    v-model:from-date="filter.fromDate"
-    v-model:to-date="filter.toDate"
+    v-model:date="dateInterval"
     @filter-changed="filterHandler"
   />
 

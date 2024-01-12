@@ -1,8 +1,6 @@
-//import clock from '@/assets/icons/clock.svg?raw';
 import briefcase from '@/assets/icons/briefcase.svg?raw';
 import database from '@/assets/icons/database.svg?raw';
 import users from '@/assets/icons/users.svg?raw';
-import arrow from '@/assets/icons/arrow.svg?raw';
 import {accesses} from "@/utils/roles.ts";
 
 export interface INavigation {
@@ -15,7 +13,7 @@ export const navigation: INavigation[] = [
   {
     name: "Транзакции",
     link: "/",
-    icon: arrow
+    icon: database
   },
 
   {

@@ -18,6 +18,9 @@
   --dark-color: rgba(0, 0, 0, 1);
   --logo-color: #E2FF14;
 
+  --positive: rgba(23, 217, 90, 1);
+  --negative: rgba(217, 23, 23, 1);
+
   --error-solid: rgba(231, 76, 60, 1);
   --error-transparent: rgba(255, 0, 0, .15);
 

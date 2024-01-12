@@ -24,6 +24,7 @@ import VIcon from "@/components/UI/VIcon.vue";
   background: var(--bg-10);
   backdrop-filter: blur(10px);
   border-radius: 10rem;
+  pointer-events: all;
   &__menu {
     display: flex;
     list-style: none;

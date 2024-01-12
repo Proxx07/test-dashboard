@@ -14,6 +14,7 @@ import Navigation from "@/components/Navigation.vue";
   left: 0;
   right: 0;
   bottom: 0;
+  pointer-events: none;
   display: flex;
   justify-content: center;
   padding: 8rem 0 5rem;

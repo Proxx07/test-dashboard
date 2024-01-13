@@ -19,7 +19,6 @@ export default {
   cursor: pointer;
   padding: .8rem 2rem .7rem;
   font: var(--font-m-m);
-  transition: var(--transition-slow);
   &.primary {
     --bg: var(--accent);
     --cl: var(--primary-color);

@@ -37,7 +37,7 @@ const loadMore = () => {
     <tbody>
 
       <tr v-if="props.loading">
-        <td :colspan="tableHeaders.length" align="center">
+        <td :colspan="tableHeaders.length" align="center" style="height: 10rem;">
           <v-preloader/>
         </td>
       </tr>

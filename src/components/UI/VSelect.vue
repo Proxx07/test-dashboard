@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import VPreloader from "@/components/UI/VPreloader.vue";
 interface selectOption {
   name: string,
   value: any
@@ -13,7 +14,9 @@ const props = defineProps<{
   modelValue?: any,
   options: selectOption[],
   label?: string,
-  placeholder?: string
+  placeholder?: string,
+
+  loading?: boolean
 }>()
 
 const changeHandler = (e: Event) => {
@@ -32,12 +35,12 @@ const changeHandler = (e: Event) => {
      {{label}}
      <span class="required-mark" v-if="$attrs.hasOwnProperty('required')"> *</span>
    </span>
-   <select v-bind="$attrs" class="select-field" @change="changeHandler">
+   <select v-bind="$attrs" class="select-field" @change="changeHandler" :disabled="loading">
     <option v-if="placeholder || label" :selected="!modelValue" hidden disabled value="">
       {{placeholder ? placeholder : label}}
     </option>
 
-     <option
+    <option
        v-for="option in options"
        :selected="modelValue === option.value"
        :value="option.value"
@@ -46,6 +49,9 @@ const changeHandler = (e: Event) => {
        {{option.name}}
      </option>
    </select>
+   <span v-if="loading" class="loader">
+     <v-preloader size="small"/>
+   </span>
  </label>
 </template>
 
@@ -57,6 +63,7 @@ label, .label-text {
 label {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .label-text {
@@ -71,7 +78,23 @@ label {
   outline: none;
   padding: 1.3rem 1.8rem;
   flex-grow: 1;
-  background: var(--bg-5);
+  background-color: var(--bg-5);
+  background-image: url('@/assets/icons/select-arrow.svg');
+  background-position: right .5rem center;
+  background-repeat: no-repeat;
+  -webkit-appearance: none;
+  &[disabled] {
+    background-image: none;
+  }
 }
 
+.loader {
+  position: absolute;
+  background: rgb(40 41 49);
+  width: 2rem;
+  height: 2rem;
+  padding: 1rem;
+  right: .5rem;
+  top: calc(50% - 1rem);
+}
 </style>

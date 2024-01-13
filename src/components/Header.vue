@@ -7,7 +7,7 @@ import {useProjects} from "@/hooks/useProjects.ts";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
 const { logOut } = useAuth();
-const { options } = useProjects();
+const { options, isFetching } = useProjects();
 const userStore = useUserStore();
 const projectsStore = useProjectsStore();
 
@@ -29,6 +29,7 @@ const projectsStore = useProjectsStore();
         v-model="projectsStore.activeProject"
         placeholder="Выберите проект"
         :options="options"
+        :loading="isFetching"
         @change="projectsStore.setActiveProject"
       />
 
@@ -65,7 +66,7 @@ const projectsStore = useProjectsStore();
     gap: 2.4rem;
     :deep(select) {
       font: var(--font-m);
-      background: var(--bg-10);
+      background-color: var(--bg-10);
       padding: .8rem 1.2rem;
       min-width: 20rem;
     }

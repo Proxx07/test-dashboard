@@ -62,6 +62,7 @@ export const useProjects = () => {
     list,
     totalPages,
     options,
+    isFetching,
 
     fetchData,
   }

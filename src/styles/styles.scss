@@ -45,9 +45,9 @@ input, button, select, textarea, button {
   font: var(--font-xm);
   border-radius: var(--radius-s);
   color: var(--primary-color);
-
   background: none;
   border: 0;
+  transition: var(--transition-slow);
 }
 
 h1, h2, h3, h4, h5, h6 {

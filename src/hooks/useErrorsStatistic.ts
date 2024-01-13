@@ -1,7 +1,6 @@
 import $axios from "@/api/axios.ts";
 
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
-import {AxiosResponse} from "axios";
 import {IErrorItem} from "@/models/interfaces/mainPageInterfaces.ts";
 
 import {computed, onMounted, ref, watch} from "vue";
@@ -21,7 +20,7 @@ export const useErrorsStatistic = () => {
   const fetchData = async () => {
     isFetching.value = true
     try {
-      const {data: {result}}: AxiosResponse<IResponse<IErrorItem[]>> = await $axios.post('/statistic/by_check', filter.value)
+      const {data: {result}} = await $axios.post<IResponse<IErrorItem[]>>('/statistic/by_check', filter.value)
       list.value = result
     }
     finally {

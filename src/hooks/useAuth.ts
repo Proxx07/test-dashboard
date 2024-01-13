@@ -1,6 +1,6 @@
 import $axios from "@/api/axios.ts";
 
-import {AxiosError, AxiosResponse} from "axios";
+import {AxiosError} from "axios";
 import {AuthorizedUser, AuthUserInterface} from "@/models/auth/authUser.ts";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {AUTH_TOKEN_NAME, USER_ID_KEY, USER_ROLE} from "@/models/staticContent/constants.ts";
@@ -23,7 +23,7 @@ export const useAuth = () => {
   const authSubmit = async () => {
     authUser.value.phone = authUser.value.phone.replace(/[^+\d]/g, '').substring(1);
     try {
-      const { data: {result, message} }: AxiosResponse<IResponse<AuthorizedUser>> = await $axios.post('auth/sign-in', authUser.value)
+      const { data: {result, message} } = await $axios.post<IResponse<AuthorizedUser>>('auth/sign-in', authUser.value)
 
       localStorage.setItem(AUTH_TOKEN_NAME, result.access_token)
       localStorage.setItem(USER_ID_KEY, result.id)

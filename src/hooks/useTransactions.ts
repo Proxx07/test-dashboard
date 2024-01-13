@@ -1,18 +1,19 @@
 import $axios from "@/api/axios.ts";
 
-import {AxiosResponse} from "axios";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {IStatistic} from "@/models/interfaces/mainPageInterfaces.ts";
 import {transationsStatisticThead} from "@/models/staticContent/mainPageContent.ts";
 
-import { onMounted, ref, watch } from "vue";
+import {onMounted, ref, watch} from "vue";
 
 import {checkUserAccess} from "@/utils/roles.ts";
 import {useFilter} from "@/hooks/useFilter.ts";
+import {useAbortController} from "@/hooks/useAbortController.ts";
 
 
 export const useTransactions = ()=> {
   const {filter, dateInterval} = useFilter();
+  const {signal} = useAbortController();
 
   const list = ref<IStatistic[]>([]);
   const isFetching = ref<boolean>(false)
@@ -23,10 +24,12 @@ export const useTransactions = ()=> {
 
   const fetchData = async () => {
     isFetching.value = true
+
     try {
-      const {data: {result}}: AxiosResponse<IResponse<IStatistic>> = await $axios.post('/statistic/by_date', filter.value)
+      const {data: {result}} = await $axios.post<IResponse<IStatistic>>('/statistic/by_date', filter.value, {signal})
       list.value = [result]
     }
+
     finally {
       isFetching.value = false
     }

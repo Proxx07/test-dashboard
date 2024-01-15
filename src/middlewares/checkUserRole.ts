@@ -3,11 +3,12 @@ import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {IUser} from "@/models/interfaces/usersInterfaces.ts";
 
 import {AUTH_TOKEN_NAME, USER_ROLE} from "@/models/staticContent/constants.ts";
+import {Cookies} from "@/plugins/cookies.ts";
 
 import {checkUserAccess} from "@/utils/roles.ts";
 
 export const checkUserRole = async (to: any) => {
-  const isUser = localStorage.getItem(AUTH_TOKEN_NAME)
+  const isUser = Cookies.get(AUTH_TOKEN_NAME)
   if (to.name === 'auth') {
     if (isUser) return {name: 'main'}
   }
@@ -23,7 +24,7 @@ export const checkUserRole = async (to: any) => {
       return {name: "no-permission"}
     }
     catch (e) {
-      localStorage.removeItem(AUTH_TOKEN_NAME)
+      Cookies.remove(AUTH_TOKEN_NAME)
       localStorage.removeItem(USER_ROLE)
       return {name: 'auth'}
     }

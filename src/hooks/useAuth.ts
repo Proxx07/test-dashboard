@@ -4,6 +4,7 @@ import {AxiosError} from "axios";
 import {AuthorizedUser, AuthUserInterface} from "@/models/auth/authUser.ts";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {AUTH_TOKEN_NAME, USER_ROLE} from "@/models/staticContent/constants.ts";
+import {Cookies} from "@/plugins/cookies.ts";
 
 import {ref} from "vue";
 
@@ -25,7 +26,7 @@ export const useAuth = () => {
     try {
       const { data: {result} } = await $axios.post<IResponse<AuthorizedUser>>('auth/sign-in', authUser.value)
 
-      localStorage.setItem(AUTH_TOKEN_NAME, result.access_token)
+      Cookies.set(AUTH_TOKEN_NAME, `${result.access_token}`, 24)
       localStorage.setItem(USER_ROLE, `${result.role}`)
 
       await $router.push({path: '/'})
@@ -45,9 +46,9 @@ export const useAuth = () => {
     error.value = false
   }
   const logOut = async () => {
-
     if (!confirm('Вы уверены, что хотите выйти?')) return
-    localStorage.removeItem(AUTH_TOKEN_NAME)
+
+    Cookies.remove(AUTH_TOKEN_NAME)
     localStorage.removeItem(USER_ROLE)
     await $router.push('/auth')
   }

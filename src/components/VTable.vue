@@ -49,7 +49,7 @@ const loadMore = () => {
           @click="rowClickHandler(item)"
         >
           <td v-for="header in tableHeaders" :key="header.value">
-            {{ item[header.value] || header?.defaultText || "-" }}
+            {{ item[header.value] ?? header?.defaultText ?? "-" }}
           </td>
         </tr>
 

@@ -1,14 +1,13 @@
 import axios from 'axios';
-import {AUTH_TOKEN_NAME} from "@/models/staticContent/constants.ts";
-
-const URL: string = import.meta.env.MODE === 'production' ? 'https://faceid-admin.theable.tech' : 'https://faceid-admin-dev.theable.tech'
+import {AUTH_TOKEN_NAME, API_URL} from "@/models/staticContent/constants.ts";
+import {Cookies} from "@/plugins/cookies.ts";
 
 const $axios = axios.create({
-  baseURL: URL
+  baseURL: API_URL,
 });
 
 $axios.interceptors.request.use((config) => {
-  const token = localStorage.getItem(AUTH_TOKEN_NAME);
+  const token = Cookies.get(AUTH_TOKEN_NAME);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }

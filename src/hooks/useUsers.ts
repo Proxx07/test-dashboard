@@ -1,5 +1,5 @@
 import $axios from "@/api/axios.ts";
-import {AxiosError, AxiosResponse} from "axios";
+import {AxiosError} from "axios";
 import {IListResponse, IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {IUser, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
 
@@ -24,7 +24,7 @@ export const useUsers = () => {
   const fetchData = async () => {
     isFetching.value = true
     try {
-      const {data: {result}}: AxiosResponse<IResponse<IListResponse<IUser[]>>> = await $axios.get('/users', {params: filter.value})
+      const {data: {result}} = await $axios.get<IResponse<IListResponse<IUser[]>>>('/users', {params: filter.value})
       list.value = result.result
       usersCount.value = result.count
     }
@@ -73,7 +73,7 @@ export const useUser = (userID: string | void) => {
   const getUser = async () => {
     if (!userID) return
     try {
-      const {data: {result}}: AxiosResponse<IResponse<IUser>> = await $axios.get(`/users/${userID}`)
+      const {data: {result}} = await $axios.get<IResponse<IUser>>(`/users/${userID}`)
       user.value = setUser(result)
     }
     catch (e) {

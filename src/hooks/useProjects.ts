@@ -1,5 +1,4 @@
 import $axios from "@/api/axios.ts";
-import {AxiosResponse} from "axios";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {IMockProject, IProject} from "@/models/interfaces/projectsIntefaces.ts";
 
@@ -45,7 +44,7 @@ export const useProjects = () => {
   const fetchData = async () => {
     isFetching.value = true
     try {
-      const {data: {result}}: AxiosResponse<IResponse<IProject[]>> = await $axios.get('/projects')
+      const {data: {result}} = await $axios.get<IResponse<IProject[]>>('/projects')
       selectOptions.value = result
     }
     finally {
@@ -85,7 +84,7 @@ export const useProject = () => {
 
 
   /*const getProject = async (projectID: string) => {
-    const {data: {result}}: AxiosResponse<IResponse<IProject>> = await $axios.get(`/projects/${projectID}`)
+    const {data: {result}} = await $axios.get<IResponse<IProject>>(`/projects/${projectID}`)
     console.log(result)
   }*/
 

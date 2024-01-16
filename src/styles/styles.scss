@@ -39,6 +39,10 @@ body {
   font-family: var(--primary-font);
   background: var(--site-bg);
   color: var(--primary-color);
+
+  &.overflow {
+    overflow: hidden;
+  }
 }
 
 input, button, select, textarea, button {

@@ -1,28 +1,34 @@
 <script setup lang="ts">
-import {onBeforeUnmount, onMounted, Transition} from "vue";
+import {Transition, watch} from "vue";
 import closeIcon from "@/assets/icons/close.svg?raw"
 
 const props = defineProps<{
-  title: string,
-  modelValue: boolean
-}>()
+  title?: string,
+  modelValue: boolean,
+}>();
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void
   (e: 'close'): void
-}>()
+}>();
 
 const close = () => {
   emit('update:modelValue', false)
   emit('close')
 }
 
-onMounted(() => {
-  document.addEventListener("keydown", e => e.keyCode === 27 && close())
+const closeHandler = (e: KeyboardEvent) => e.keyCode === 27 && close()
+
+watch(() => props.modelValue, (newValue) => {
+  if (newValue) {
+    document.addEventListener("keydown", closeHandler)
+    document.body.classList.add('overflow')
+  }
+  else {
+    document.removeEventListener('keydown', closeHandler)
+    document.body.classList.remove('overflow')
+  }
 });
-onBeforeUnmount(() => {
-  document.removeEventListener('keydown', close)
-})
 </script>
 
 <template>
@@ -32,8 +38,8 @@ onBeforeUnmount(() => {
 
       <div class="inner">
         <div class="body">
-          <div class="title">
-            {{ props.title }}
+          <div class="title" v-if="title">
+            {{ title }}
             <v-icon :icon="closeIcon" class="close" @click="close"/>
           </div>
 
@@ -48,12 +54,12 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 .fade-enter-active {
-  transition: var(--transition-slow);
+  transition: var(--transition-fast);
 }
 
 .fade-enter-from, .fade-leave-to {
   opacity: 0;
-  transition: var(--transition-slow);
+  transition: var(--transition-fast);
 }
 
 .popup-modal {
@@ -89,21 +95,26 @@ onBeforeUnmount(() => {
   }
 
   .title {
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 4rem 1.5rem 2rem;
     border-radius: var(--radius-m);
     background: var(--bg-10);
-    display: flex;
-    align-items: center;
     gap: 2rem;
     font: var(--font-m-m);
     margin-bottom: .6rem;
+    position: relative;
   }
 
   .close {
     cursor: pointer;
-    width: 2rem;
-    height: 2rem;
-    margin-left: auto;
+    width: 4rem;
+    height: 4rem;
+    right: 0;
+    top: 50%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-50%);
     color: var(--primary-color)
   }
 }

@@ -10,12 +10,14 @@ import {ref} from "vue";
 
 import {useRouter} from "vue-router";
 import {useToast} from "@/hooks/useToast.ts";
+import {useConfirm} from "@/hooks/UI/useConfirm.ts";
 
-const $toast = useToast()
 export const useAuth = () => {
   const $router = useRouter();
+  const $toast = useToast();
+  const {confirmOpened, closeConfirm, openConfirm} = useConfirm();
 
-  const error = ref<boolean>(false)
+  const error = ref<boolean>(false);
   const authUser = ref<AuthUserInterface>({
     phone: '+998',
     password: '',
@@ -42,12 +44,13 @@ export const useAuth = () => {
       error.value = true
     }
   }
+
   const resetError = () => {
     error.value = false
   }
-  const logOut = async () => {
-    if (!confirm('Вы уверены, что хотите выйти?')) return
 
+  const logOut = async () => {
+    closeConfirm()
     Cookies.remove(AUTH_TOKEN_NAME)
     localStorage.removeItem(USER_ROLE)
     await $router.push('/auth')
@@ -56,8 +59,13 @@ export const useAuth = () => {
   return {
     error,
     authUser,
+    confirmOpened,
+
     authSubmit,
     resetError,
-    logOut
+    logOut,
+
+    openConfirm,
+    closeConfirm,
   }
 }

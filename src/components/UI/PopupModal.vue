@@ -33,14 +33,16 @@ watch(() => props.modelValue, (newValue) => {
 
 <template>
   <Transition name="fade">
+
     <div v-if="modelValue" class="popup-modal" :class="{'open': modelValue}" id="popup-form">
       <div class="backdrop" @click="close"></div>
 
       <div class="inner">
         <div class="body">
+          {{modelValue}}
           <div class="title" v-if="title">
             {{ title }}
-            <v-icon :icon="closeIcon" class="close" @click="close"/>
+            <v-icon v-if="title" :icon="closeIcon" class="close" @click="close"/>
           </div>
 
           <div class="form-content">

@@ -6,17 +6,22 @@ import {useAuth} from "@/hooks/useAuth.ts";
 import {useProjectsStore, useUserStore} from "@/stores";
 import {useProjects} from "@/hooks/useProjects.ts";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
+import {$confirmation} from "@/plugins/ConfirmationPlugin.ts";
 
 const { logOut, confirmOpened, openConfirm, closeConfirm } = useAuth();
 const { options, isFetching } = useProjects();
 const userStore = useUserStore();
 const projectsStore = useProjectsStore();
 
+
+
+setTimeout(() => {
+  $confirmation("Conf title", "Conf description")
+}, 2000)
 </script>
 
 <template>
   <header class="header">
-
     <div class="header__left">
       <router-link to="/" class="logo">
         <v-icon :icon="logo" class="icon no-fill"/>
@@ -37,9 +42,11 @@ const projectsStore = useProjectsStore();
       <User :name="userStore.user.name" @user-clicked="openConfirm"/>
     </div>
 
-    <popup-modal v-model="confirmOpened">
-      <Confirmation title="Выйти" description="Вы точно хотите выйти?" @accept="logOut" @reject="closeConfirm"/>
-    </popup-modal>
+<!--    <teleport to="body">-->
+<!--      <popup-modal v-model="confirmOpened">-->
+<!--        <Confirmation title="Выйти" description="Вы точно хотите выйти?" @accept="logOut" @reject="closeConfirm"/>-->
+<!--      </popup-modal>-->
+<!--    </teleport>-->
   </header>
 </template>
 

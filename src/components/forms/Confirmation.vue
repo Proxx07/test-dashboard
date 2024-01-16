@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed} from "vue";
+import {computed, useSlots} from "vue";
 
 const props = defineProps<{
   title: string,
@@ -14,6 +14,7 @@ const emit = defineEmits<{
 const descriptionResult = computed(() => {
   return Array.isArray(props.description) ? props.description.join('<br>') : props.description
 })
+
 </script>
 
 <template>
@@ -26,13 +27,12 @@ const descriptionResult = computed(() => {
   <div class="confirmation__body" v-html="descriptionResult"/>
 
   <div class="confirmation__buttons">
-    <v-button class="primary" @click="emit('accept')">
-      Да
-    </v-button>
 
-    <v-button class="secondary" @click="emit('reject')">
-      Нет
-    </v-button>
+    <slot>
+      <v-button class="primary" @click="emit('accept')"> Да </v-button>
+      <v-button class="secondary" @click="emit('reject')"> Нет </v-button>
+    </slot>
+
   </div>
 
 </div>
@@ -55,7 +55,7 @@ const descriptionResult = computed(() => {
     display: flex;
     flex-wrap: wrap;
     gap: 1.4rem;
-    button {
+    :deep(button) {
       flex-grow: 1;
     }
   }

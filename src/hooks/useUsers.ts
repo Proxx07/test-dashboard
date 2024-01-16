@@ -8,6 +8,7 @@ import {computed, onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import {useToast} from "@/hooks/useToast.ts";
 import {useFilter} from "@/hooks/useFilter.ts";
+import {useConfirm} from "@/hooks/UI/useConfirm.ts";
 
 const $toast = useToast()
 
@@ -54,7 +55,9 @@ export const useUsers = () => {
 }
 
 export const useUser = (userID: string | void) => {
-  const $router = useRouter()
+  const $router = useRouter();
+
+  const {confirmOpened, openConfirm, closeConfirm} = useConfirm();
 
   const setUser = (user: IUser | void): IUserWithPassword => {
     return {
@@ -65,10 +68,10 @@ export const useUser = (userID: string | void) => {
       role: user ? user.role : null,
       password: ""
     }
-  }
+  };
 
-  const user = ref<IUserWithPassword>(setUser())
-  const buttonText = computed(() => !userID ? "Cоздать" : "Редактировать")
+  const user = ref<IUserWithPassword>(setUser());
+  const buttonText = computed(() => !userID ? "Cоздать" : "Редактировать");
 
   const getUser = async () => {
     if (!userID) return
@@ -111,8 +114,7 @@ export const useUser = (userID: string | void) => {
   }
 
   const deleteUser = async () => {
-    if (!confirm('Вы действительно хотите удалить пользователя?')) return
-
+    closeConfirm()
     try {
       await $axios.delete(`/users/${userID}`)
       await $router.push({name: "users"})
@@ -122,7 +124,6 @@ export const useUser = (userID: string | void) => {
       const err = e as AxiosError<{message: string[]}>
       $toast.error(err.response?.data.message.join('\n'))
     }
-
   }
 
   const submitForm = async () => {
@@ -148,5 +149,9 @@ export const useUser = (userID: string | void) => {
 
     deleteUser,
     submitForm,
+
+    confirmOpened,
+    openConfirm,
+    closeConfirm,
   }
 }

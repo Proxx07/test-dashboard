@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import logo from "@/assets/icons/AbleLogo.svg?raw"
 import User from "@/components/UI/User.vue";
+import Confirmation from "@/components/forms/Confirmation.vue";
 import {useAuth} from "@/hooks/useAuth.ts";
 import {useProjectsStore, useUserStore} from "@/stores";
 import {useProjects} from "@/hooks/useProjects.ts";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
-const { logOut } = useAuth();
+const { logOut, confirmOpened, openConfirm, closeConfirm } = useAuth();
 const { options, isFetching } = useProjects();
 const userStore = useUserStore();
 const projectsStore = useProjectsStore();
@@ -33,9 +34,12 @@ const projectsStore = useProjectsStore();
         @change="projectsStore.setActiveProject"
       />
 
-      <User :name="userStore.user.name" @user-clicked="logOut"/>
+      <User :name="userStore.user.name" @user-clicked="openConfirm"/>
     </div>
 
+    <popup-modal v-model="confirmOpened">
+      <Confirmation title="Выйти" description="Вы точно хотите выйти?" @accept="logOut" @reject="closeConfirm"/>
+    </popup-modal>
   </header>
 </template>
 

@@ -39,7 +39,6 @@ watch(() => props.modelValue, (newValue) => {
 
       <div class="inner">
         <div class="body">
-          {{modelValue}}
           <div class="title" v-if="title">
             {{ title }}
             <v-icon v-if="title" :icon="closeIcon" class="close" @click="close"/>
@@ -55,69 +54,15 @@ watch(() => props.modelValue, (newValue) => {
 </template>
 
 <style scoped lang="scss">
-.fade-enter-active {
-  transition: var(--transition-fast);
-}
-
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
-  transition: var(--transition-fast);
-}
-
-.popup-modal {
-  --backdrop-bg: rgba(0, 0, 0, 0.8);
-  --content-bg: var(--form-bg);
-
-  position: fixed;
-  inset: 0;
-  padding: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: auto;
-  z-index: 1000;
-
-  .backdrop {
-    position: fixed;
-    inset: 0;
-    background: var(--backdrop-bg);
-  }
-
-  .inner {
-    max-height: 100%;
-    max-width: 110rem;
-    min-width: 40rem;
-  }
-
-  .body {
-    background: var(--content-bg);
-    position: relative;
-    padding: 2.4rem;
-    border-radius: var(--radius-m);
-  }
-
-  .title {
-    padding: 1.5rem 4rem 1.5rem 2rem;
-    border-radius: var(--radius-m);
-    background: var(--bg-10);
-    gap: 2rem;
-    font: var(--font-m-m);
-    margin-bottom: .6rem;
-    position: relative;
-  }
-
-  .close {
-    cursor: pointer;
-    width: 4rem;
-    height: 4rem;
-    right: 0;
-    top: 50%;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: translateY(-50%);
-    color: var(--primary-color)
-  }
+@import "@/styles/mixins";
+@include popup-modal;
+.title {
+  padding: 1.5rem 4rem 1.5rem 2rem;
+  border-radius: var(--radius-m);
+  background: var(--bg-10);
+  gap: 2rem;
+  font: var(--font-m-m);
+  margin-bottom: .6rem;
+  position: relative;
 }
 </style>

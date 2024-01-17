@@ -4,11 +4,11 @@ import {IListResponse, IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {IUser, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
 
 import {computed, onMounted, ref} from "vue";
+import {$confirm} from "@/plugins/ConfirmationPlugin.ts";
 
 import {useRouter} from "vue-router";
 import {useToast} from "@/hooks/useToast.ts";
 import {useFilter} from "@/hooks/useFilter.ts";
-import {useConfirm} from "@/hooks/UI/useConfirm.ts";
 
 const $toast = useToast()
 
@@ -56,8 +56,6 @@ export const useUsers = () => {
 
 export const useUser = (userID: string | void) => {
   const $router = useRouter();
-
-  const {confirmOpened, openConfirm, closeConfirm} = useConfirm();
 
   const setUser = (user: IUser | void): IUserWithPassword => {
     return {
@@ -109,20 +107,24 @@ export const useUser = (userID: string | void) => {
     }
     catch (e) {
       const err = e as AxiosError<{message: string[]}>
-      $toast.error(err.response?.data.message.join('\n'))
+      const errorText = err.response?.data.message
+      $toast.error(Array.isArray(errorText) ? errorText.join('\n') : errorText)
     }
   }
 
   const deleteUser = async () => {
-    closeConfirm()
+    const ok = await $confirm('Удаление пользователя!', 'Вы действительно хотите удалить пользователя?')
+    if (!ok) return
+
     try {
       await $axios.delete(`/users/${userID}`)
       await $router.push({name: "users"})
       $toast.success("Пользователь удалён")
     }
     catch (e) {
-      const err = e as AxiosError<{message: string[]}>
-      $toast.error(err.response?.data.message.join('\n'))
+      const err = e as AxiosError<{message: string}>
+      const errorText = err.response?.data.message
+      $toast.error(errorText)
     }
   }
 
@@ -149,9 +151,5 @@ export const useUser = (userID: string | void) => {
 
     deleteUser,
     submitForm,
-
-    confirmOpened,
-    openConfirm,
-    closeConfirm,
   }
 }

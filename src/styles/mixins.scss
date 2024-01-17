@@ -1,0 +1,73 @@
+@mixin popup-modal {
+  .fade-enter-active {
+    transition: var(--transition-fast);
+  }
+
+  .fade-enter-from, .fade-leave-to {
+    opacity: 0;
+    transition: var(--transition-fast);
+  }
+
+  .popup-modal {
+    --backdrop-bg: rgba(0, 0, 0, 0.8);
+    --content-bg: var(--form-bg);
+
+    position: fixed;
+    inset: 0;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    z-index: 1000;
+
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: var(--backdrop-bg);
+    }
+
+    .inner {
+      max-height: 100%;
+      max-width: 110rem;
+      min-width: 40rem;
+    }
+
+    .body {
+      background: var(--content-bg);
+      position: relative;
+      padding: 2.4rem;
+      border-radius: var(--radius-m);
+    }
+
+    .close {
+      cursor: pointer;
+      width: 4rem;
+      height: 4rem;
+      right: 0;
+      top: 50%;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform: translateY(-50%);
+      color: var(--primary-color)
+    }
+  }
+}
+
+
+@mixin styled-scroll {
+  &::-webkit-scrollbar-track {
+    visibility: hidden;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5rem;
+    background-color: var(--accent);
+  }
+}

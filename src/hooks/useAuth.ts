@@ -7,16 +7,14 @@ import {AUTH_TOKEN_NAME, USER_ROLE} from "@/models/staticContent/constants.ts";
 import {Cookies} from "@/plugins/cookies.ts";
 
 import {ref} from "vue";
+import {$confirm} from "@/plugins/ConfirmationPlugin.ts";
 
 import {useRouter} from "vue-router";
 import {useToast} from "@/hooks/useToast.ts";
-import {useConfirm} from "@/hooks/UI/useConfirm.ts";
-import {$confirmation} from "@/plugins/ConfirmationPlugin.ts";
 
 export const useAuth = () => {
   const $router = useRouter();
   const $toast = useToast();
-  const {confirmOpened, closeConfirm, openConfirm} = useConfirm();
 
   const error = ref<boolean>(false);
   const authUser = ref<AuthUserInterface>({
@@ -51,8 +49,8 @@ export const useAuth = () => {
   }
 
   const logOut = async () => {
-    closeConfirm()
-    //if (!$confirmation("Реально хочешь выйти?", "А, чорт?")) return
+    const ok = await $confirm('Выйти', 'Вы точно хотите выйти?');
+    if (!ok) return
     Cookies.remove(AUTH_TOKEN_NAME)
     localStorage.removeItem(USER_ROLE)
     await $router.push('/auth')
@@ -61,13 +59,9 @@ export const useAuth = () => {
   return {
     error,
     authUser,
-    confirmOpened,
 
     authSubmit,
     resetError,
     logOut,
-
-    openConfirm,
-    closeConfirm,
   }
 }

@@ -1,23 +1,17 @@
 <script setup lang="ts">
 import logo from "@/assets/icons/AbleLogo.svg?raw"
 import User from "@/components/UI/User.vue";
-import Confirmation from "@/components/forms/Confirmation.vue";
+
 import {useAuth} from "@/hooks/useAuth.ts";
 import {useProjectsStore, useUserStore} from "@/stores";
 import {useProjects} from "@/hooks/useProjects.ts";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
-import {$confirmation} from "@/plugins/ConfirmationPlugin.ts";
 
-const { logOut, confirmOpened, openConfirm, closeConfirm } = useAuth();
+const { logOut } = useAuth();
 const { options, isFetching } = useProjects();
 const userStore = useUserStore();
 const projectsStore = useProjectsStore();
 
-
-
-setTimeout(() => {
-  $confirmation("Conf title", "Conf description")
-}, 2000)
 </script>
 
 <template>
@@ -39,14 +33,8 @@ setTimeout(() => {
         @change="projectsStore.setActiveProject"
       />
 
-      <User :name="userStore.user.name" @user-clicked="openConfirm"/>
+      <User :name="userStore.user.name" @user-clicked="logOut"/>
     </div>
-
-<!--    <teleport to="body">-->
-<!--      <popup-modal v-model="confirmOpened">-->
-<!--        <Confirmation title="Выйти" description="Вы точно хотите выйти?" @accept="logOut" @reject="closeConfirm"/>-->
-<!--      </popup-modal>-->
-<!--    </teleport>-->
   </header>
 </template>
 
@@ -57,7 +45,7 @@ setTimeout(() => {
   padding-bottom: 2.2rem;
   &__left {
     .logo {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       text-decoration: none;
       font: var(--font-logo);

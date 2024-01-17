@@ -2,11 +2,9 @@
 import {useRouter} from "vue-router";
 import {useUser} from "@/hooks/useUsers.ts";
 import {rolesList} from "@/utils/roles.ts";
-import PopupModal from "@/components/UI/PopupModal.vue";
-import Confirmation from "@/components/forms/Confirmation.vue";
 
 const $router = useRouter();
-const {user, buttonText, deleteUser, submitForm, confirmOpened, closeConfirm, openConfirm} = useUser($router.currentRoute.value.params.id as string)
+const {user, buttonText, deleteUser, submitForm} = useUser($router.currentRoute.value.params.id as string)
 </script>
 
 <template>
@@ -42,20 +40,11 @@ const {user, buttonText, deleteUser, submitForm, confirmOpened, closeConfirm, op
         {{buttonText}}
       </v-button>
 
-      <v-button v-if="$router.currentRoute.value.params.id" class="secondary" @click.prevent="openConfirm">
+      <v-button v-if="$router.currentRoute.value.params.id" class="secondary" @click.prevent="deleteUser">
         Удалить
       </v-button>
     </div>
   </form>
-
-  <popup-modal v-model="confirmOpened">
-    <Confirmation
-      title="Удаление пользователя!"
-      :description="[`ID: ${$router.currentRoute.value.params.id}`, 'Вы действительно хотите удалить пользователя?']"
-      @reject="closeConfirm"
-      @accept="deleteUser"
-    />
-  </popup-modal>
 </div>
 </template>
 

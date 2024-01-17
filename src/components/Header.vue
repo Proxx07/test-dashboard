@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import logo from "@/assets/icons/AbleLogo.svg?raw"
 import User from "@/components/UI/User.vue";
-import Confirmation from "@/components/forms/Confirmation.vue";
+
 import {useAuth} from "@/hooks/useAuth.ts";
 import {useProjectsStore, useUserStore} from "@/stores";
 import {useProjects} from "@/hooks/useProjects.ts";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
-const { logOut, confirmOpened, openConfirm, closeConfirm } = useAuth();
+const { logOut } = useAuth();
 const { options, isFetching } = useProjects();
 const userStore = useUserStore();
 const projectsStore = useProjectsStore();
@@ -16,7 +16,6 @@ const projectsStore = useProjectsStore();
 
 <template>
   <header class="header">
-
     <div class="header__left">
       <router-link to="/" class="logo">
         <v-icon :icon="logo" class="icon no-fill"/>
@@ -34,12 +33,8 @@ const projectsStore = useProjectsStore();
         @change="projectsStore.setActiveProject"
       />
 
-      <User :name="userStore.user.name" @user-clicked="openConfirm"/>
+      <User :name="userStore.user.name" @user-clicked="logOut"/>
     </div>
-
-    <popup-modal v-model="confirmOpened">
-      <Confirmation title="Выйти" description="Вы точно хотите выйти?" @accept="logOut" @reject="closeConfirm"/>
-    </popup-modal>
   </header>
 </template>
 
@@ -50,7 +45,7 @@ const projectsStore = useProjectsStore();
   padding-bottom: 2.2rem;
   &__left {
     .logo {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       text-decoration: none;
       font: var(--font-logo);

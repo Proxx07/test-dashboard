@@ -3,24 +3,10 @@
 @import url('vue3-toastify/dist/index.css');
 
 @import "variables.css";
+@import "mixins";
 @import "calendar.css";
 @import "toast.css";
 @import "charts.css";
-
-@mixin styled-scroll {
-  &::-webkit-scrollbar-track {
-    visibility: hidden;
-  }
-
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 5rem;
-    background-color: var(--accent);
-  }
-}
 
 * {
   box-sizing: border-box;

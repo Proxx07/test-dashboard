@@ -64,6 +64,7 @@ label {
   display: flex;
   flex-direction: column;
   position: relative;
+  font: var(--font-xm);
 }
 
 .label-text {

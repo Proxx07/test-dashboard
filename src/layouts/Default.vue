@@ -6,12 +6,12 @@ import Footer from "@/components/Footer.vue";
 <template>
   <div class="app-inner">
     <Header/>
-
     <div class="site-content">
       <slot/>
     </div>
-
     <Footer/>
+
+    <div id="confirmations-wrapper"></div>
   </div>
 </template>
 

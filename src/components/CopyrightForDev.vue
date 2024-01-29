@@ -5,7 +5,7 @@ const isDev = import.meta.env.MODE === 'development'
 <template>
   <div v-if="isDev" class="copyright">
     OOO "THE ABLE TECHNOLOGIES" <br>
-    ABLE ID ver 1.0 <br>
+    ABLE ID ver 2.0 <br>
     Республика Узбекистан
   </div>
 </template>

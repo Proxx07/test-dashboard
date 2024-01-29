@@ -4,14 +4,16 @@ import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {IStatistic} from "@/models/interfaces/mainPageInterfaces.ts";
 import {transationsStatisticThead} from "@/models/staticContent/mainPageContent.ts";
 
-import {onMounted, ref, watch} from "vue";
+import { ref, watch } from "vue";
 
 import {checkUserAccess} from "@/utils/roles.ts";
 import {useFilter} from "@/hooks/useFilter.ts";
 import {useAbortController} from "@/hooks/useAbortController.ts";
+//import {useToast} from "@/hooks/useToast.ts";
 
 
 export const useTransactions = ()=> {
+  //const $toast = useToast();
   const {filter, dateInterval} = useFilter();
   const {signal} = useAbortController();
 
@@ -23,6 +25,12 @@ export const useTransactions = ()=> {
   });
 
   const fetchData = async () => {
+    /*
+    if (!filter.value.projectId) {
+      $toast.warning('Выберите пожалуйста проект!')
+      return
+    }
+    */
     isFetching.value = true
 
     try {
@@ -43,9 +51,11 @@ export const useTransactions = ()=> {
     await fetchData()
   })
 
+  /*
   onMounted(() => {
     fetchData()
   });
+  */
 
   return {
     list,

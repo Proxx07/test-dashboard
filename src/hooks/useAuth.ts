@@ -18,12 +18,11 @@ export const useAuth = () => {
 
   const error = ref<boolean>(false);
   const authUser = ref<AuthUserInterface>({
-    phone: '+998',
+    email: '',
     password: '',
   });
 
   const authSubmit = async () => {
-    authUser.value.phone = authUser.value.phone.replace(/[^+\d]/g, '').substring(1);
     try {
       const { data: {result} } = await $axios.post<IResponse<AuthorizedUser>>('auth/sign-in', authUser.value)
 
@@ -36,7 +35,7 @@ export const useAuth = () => {
     catch (e) {
       const err = e as AxiosError<{message: string[]}>
       if (err.response?.status !== 400) {
-        $toast.error('Некорректный номер или пароль')
+        $toast.error('Некорректный логин или пароль')
       } else {
         $toast.error(err.response.data.message.join('\n'))
       }

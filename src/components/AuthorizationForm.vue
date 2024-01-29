@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {useAuth} from "@/hooks/useAuth.ts";
 import CopyrightForDev from "@/components/CopyrightForDev.vue";
+import VInput from "@/components/UI/VInput.vue";
 
 const {error, authUser, authSubmit, resetError} = useAuth()
 </script>
@@ -8,15 +9,25 @@ const {error, authUser, authSubmit, resetError} = useAuth()
 <template>
   <form class="auth-form" @submit.prevent="authSubmit">
     <div class="auth-form__fields">
+      <!--
+        <v-input
+          v-model="authUser.phone"
+          phone
+          label="Номер телефона"
+          data-maska="+998(##)-###-##-##"
+          pattern=".{18}"
+          title="Номер телефона должен состоять из 12 цифр"
+          :class="['auth-form__name', error && 'error']"
+          @focus="resetError"
+        />
+      -->
+
       <v-input
-        v-model="authUser.phone"
-        phone
-        label="Номер телефона"
-        data-maska="+998(##)-###-##-##"
-        pattern=".{18}"
-        title="Номер телефона должен состоять из 12 цифр"
-        :class="['auth-form__name', error && 'error']"
-        @focus="resetError"
+        v-model="authUser.email"
+        type="email"
+        label="Почта"
+        placeholder="test@example.com"
+        :class="['auth-form__email', error && 'error']"
       />
 
       <v-input
@@ -37,7 +48,6 @@ const {error, authUser, authSubmit, resetError} = useAuth()
 <style lang="scss" scoped>
 .auth-form {
   width: 100%;
-  max-width: 43rem;
   text-align: center;
   padding: 2.4rem;
   border-radius: var(--radius-m);

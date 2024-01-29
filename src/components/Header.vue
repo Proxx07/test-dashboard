@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import logo from "@/assets/icons/AbleLogo.svg?raw"
 import User from "@/components/UI/User.vue";
+import AbleLogo from "@/components/AbleLogo.vue";
 
 import {useAuth} from "@/hooks/useAuth.ts";
 import {useProjectsStore, useUserStore} from "@/stores";
@@ -17,15 +17,14 @@ const projectsStore = useProjectsStore();
 <template>
   <header class="header">
     <div class="header__left">
-      <router-link to="/" class="logo">
-        <v-icon :icon="logo" class="icon no-fill"/>
-        Able <span class="id">ID</span>
+      <router-link to="/" class="logo-link">
+        <able-logo/>
       </router-link>
     </div>
 
     <div class="header__right">
       <v-select
-        v-if="checkUserAccess(accesses.READ_PROJECTS)"
+        v-if="checkUserAccess(accesses.READ_PROJECTS) && projectsStore.isProjectFieldEnabled"
         v-model="projectsStore.activeProject"
         placeholder="Выберите проект"
         :options="options"
@@ -43,20 +42,11 @@ const projectsStore = useProjectsStore();
   display: grid;
   grid-template-columns: 1fr 3fr;
   padding-bottom: 2.2rem;
-  &__left {
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      text-decoration: none;
-      font: var(--font-logo);
-      color: var(--primary-color);
-      .icon {
-        margin-right: .8rem;
-      }
-      .id {
-        color: var(--logo-color);
-      }
-    }
+  align-items: center;
+
+  .logo-link {
+    display: inline-block;
+    font-size: 0;
   }
 
   &__right {

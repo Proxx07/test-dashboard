@@ -84,6 +84,9 @@ label {
   background-position: right .5rem center;
   background-repeat: no-repeat;
   -webkit-appearance: none;
+  option {
+    background: #282931;
+  }
   &[disabled] {
     background-image: none;
   }

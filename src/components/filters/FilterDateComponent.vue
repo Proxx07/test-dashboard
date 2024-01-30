@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import VueDatePicker from "@vuepic/vue-datepicker";
 import {filterDateTypes} from "@/models/staticContent/mainPageContent.ts";
+import {IFilterDate} from "@/models/interfaces/mainPageInterfaces.ts";
 
 const props = defineProps<{
   date: [string, string]
@@ -14,15 +15,17 @@ const dateHandler = (item: [string, string]) => {
   emit('update:date', item)
   emit('filterChanged')
 }
+
+const isActive = (item: IFilterDate): boolean => props.date[0] === item.value[0] && props.date[1] === item.value[1]
 </script>
 
 <template>
   <div class="filter">
     <v-button
       v-for="item in filterDateTypes"
+      :class="['date-button', isActive(item) && 'active']"
+      :disabled="isActive(item)"
       :key="item.value.join('-')"
-      :class="{'active': props.date[0] === item.value[0] && props.date[1] === item.value[1]}"
-      class="date-button"
       @click="dateHandler(item.value)"
     >
       {{ item.name }}

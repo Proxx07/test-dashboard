@@ -9,8 +9,9 @@ const {list, tableHeaders, isFetching, dateInterval, filterHandler} = useTransac
 
 <template>
   <page-top-part
-    heading="Транзакции"
     v-model:date="dateInterval"
+    heading="Транзакции"
+    :isLoading="isFetching"
     @filter-changed="filterHandler"
   />
 

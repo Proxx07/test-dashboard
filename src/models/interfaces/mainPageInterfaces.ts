@@ -2,6 +2,12 @@ export interface IFilterTypes {
   name: string
   value: string
 }
+
+export interface IFilterDate {
+  name: string
+  value: [string, string]
+}
+
 export interface IFilter {
   projectId?: string | number | null
   fromDate: string,

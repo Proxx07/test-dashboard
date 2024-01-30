@@ -9,8 +9,9 @@ const {sortedList, isFetching, dateInterval, filterHandler} = useErrorsStatistic
 
 <template>
   <page-top-part
-    heading="Статистика ошибок"
     v-model:date="dateInterval"
+    heading="Статистика ошибок"
+    :isLoading="isFetching"
     @filter-changed="filterHandler"
   />
 

@@ -1,4 +1,4 @@
-import {IFilterTypes} from "@/models/interfaces/mainPageInterfaces.ts";
+import {IFilterDate, IFilterTypes} from "@/models/interfaces/mainPageInterfaces.ts";
 import {getDateInterval} from "@/utils/scripts.ts";
 import {ITableHead} from "@/models/interfaces/tableInterfaces.ts";
 import {accesses} from "@/utils/roles.ts";
@@ -24,7 +24,7 @@ export const filterAppTypes: IFilterTypes[] = [
   }
 ];
 
-export const filterDateTypes = [
+export const filterDateTypes: IFilterDate[] = [
   {
     name: "День",
     value: getDateInterval(1)

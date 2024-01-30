@@ -9,6 +9,7 @@ const props = defineProps<{
   date?: [string, string]
   device?: string
   searchQuery?: string
+  isLoading?: boolean
 }>();
 
 const emit = defineEmits<{
@@ -45,19 +46,19 @@ const dateFromTo = computed({
 </script>
 
 <template>
-  <div class="wrapper" ref="wrapper" :style="{'--cols': columns}">
+  <div :class="['wrapper', isLoading && 'disabled']" ref="wrapper" :style="{'--cols': columns}">
 
     <div class="wrapper__left">
       <h1> {{ heading }} </h1>
 
-      <v-input v-if="props.searchQuery !== undefined" v-model="search" placeholder="Поиск" />
+      <v-input v-if="props.searchQuery !== undefined" v-model="search" placeholder="Поиск" class="interaction-element"/>
     </div>
 
-    <div v-if="props.device !== undefined" class="wrapper__middle">
+    <div v-if="props.device !== undefined" class="wrapper__middle interaction-element">
       <filter-device-types/>
     </div>
 
-    <div v-if="props.date !== undefined" class="wrapper__right">
+    <div v-if="props.date !== undefined" class="wrapper__right interaction-element">
       <filter-date-component
         v-model:date="dateFromTo"
         @filter-changed="emit('filterChanged')"
@@ -73,6 +74,16 @@ const dateFromTo = computed({
   grid-template-columns: repeat(var(--cols), 1fr);
   gap: 2.4rem;
   padding-bottom: 1rem;
+
+  &.disabled {
+    pointer-events: none;
+    user-select: none;
+    .interaction-element {
+      opacity: 0.8;
+      transition: var(--transition-fast);
+    }
+  }
+
   &__left {
     display: flex;
     align-items: center;

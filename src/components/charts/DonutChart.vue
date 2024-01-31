@@ -6,7 +6,6 @@ import ChartStats from "@/components/charts/ChartStats.vue";
 const props = defineProps<{
   data: number[]
   categories: Array<string | number>
-  difference: any[]
 }>()
 
 const chartOptions = {
@@ -62,7 +61,7 @@ const chartOptions = {
       Типы ошибок распознования
     </div>
 
-    <chart-stats class="chart__info" :series="data" :difference="difference" :categories="categories" :colors="chartOptions.colors"/>
+    <chart-stats class="chart__info" :series="data" :categories="categories" :colors="chartOptions.colors"/>
 
     <div class="chart__body">
       <vue-apex-charts type="donut" :options="chartOptions" :series="chartOptions.series"/>

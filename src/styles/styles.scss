@@ -44,6 +44,10 @@ h1, h2, h3, h4, h5, h6 {
   font: var(--font-l);
 }
 
+.styled-scroll {
+  @include styled-scroll;
+}
+
 .site-content {
   display: flex;
   flex-direction: column;

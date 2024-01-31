@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VPreloader from "@/components/UI/VPreloader.vue";
 interface selectOption {
   name: string,
   value: any

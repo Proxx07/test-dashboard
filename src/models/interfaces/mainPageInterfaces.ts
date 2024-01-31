@@ -16,8 +16,8 @@ export interface IFilter {
 
 export interface IErrorItem {
   count: number
-  errorCode: number
-  type: string | null
+  errorCode?: number
+  type: string
 }
 
 export interface IStatistic {

@@ -1,14 +1,17 @@
-<script setup lang="ts"></script>
-
 <template>
-  <div class="empty-text"> Пусто... <span>&#128511;</span> </div>
+  <div class="empty-text">
+    <slot>
+      Пусто... <span class="smile">&#128511;</span>
+    </slot>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .empty-text {
   font-size: 2rem;
-  span {
-    font-size: 2.5rem;
-  }
+  text-align: center;
+}
+.smile {
+  font-size: 2.5rem;
 }
 </style>

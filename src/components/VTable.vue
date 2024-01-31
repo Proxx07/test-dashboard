@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {ITableHead} from "@/models/interfaces/tableInterfaces.ts";
 import EmptyText from "@/components/EmptyText.vue";
-import VPreloader from "@/components/UI/VPreloader.vue";
 
 const props = defineProps<{
   tableHeaders: ITableHead[]

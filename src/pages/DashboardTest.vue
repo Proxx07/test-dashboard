@@ -36,7 +36,6 @@ const donutData = [
 
 const donutSeries = computed(() => donutData.map(item => item.value));
 const donutLabels = computed(() => donutData.map(item => item.name));
-const donutDifferecne = computed(() => donutData.map(item => item.difference));
 
 const searchQuery = ref("")
 
@@ -97,7 +96,6 @@ const searchQuery = ref("")
     <donut-chart
       :data="donutSeries"
       :categories="donutLabels"
-      :difference="donutDifferecne"
     />
 
   </main>

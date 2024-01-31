@@ -36,7 +36,7 @@ const isActive = (item: IFilterDate): boolean => props.date[0] === item.value[0]
         v-model="props.date"
         :enable-time-picker="false"
         :clearable="false"
-        :month-change-on-scroll="false"
+        :month-change-on-scroll="true"
         locale="ru"
         model-type="yyyy-MM-dd"
         range no-today auto-apply

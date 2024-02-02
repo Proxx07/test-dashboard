@@ -51,7 +51,7 @@ const loaderType = computed(() => props.type || 'circle');
   }
 
   &.line {
-    width: 100%;
+    max-width: 100%;
     min-height: .2rem;
     margin: 0 .2rem;
     position: relative;

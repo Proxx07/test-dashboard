@@ -2,6 +2,7 @@ import $axios from "@/api/axios.ts";
 import {AxiosError} from "axios";
 import {IListResponse, IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {IUser, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
+import {IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
 
 import {computed, onMounted, ref} from "vue";
 import {$confirm} from "@/plugins/ConfirmationPlugin.ts";
@@ -14,23 +15,31 @@ const $toast = useToast()
 
 export const useUsers = () => {
   const $router = useRouter();
-  const {filter, page, dateInterval} = useFilter();
+  const {page, search} = useFilter();
 
   const list = ref<IUser[]>([]);
-  const isFetching = ref<boolean>(false);
-  const totalPages = ref<number>(1);
+  const isLoadMore = ref<boolean>(true);
 
-  const usersCount = ref<number>(0);
+  const filter = computed<IFilter>(() => {
+    return {
+      page: page.value,
+      search: search.value,
+    }
+  });
 
   const fetchData = async () => {
-    isFetching.value = true
+    await new Promise(resolve => setTimeout(resolve, 500))
+
     try {
       const {data: {result}} = await $axios.get<IResponse<IListResponse<IUser[]>>>('/users', {params: filter.value})
-      list.value = result.result
-      usersCount.value = result.count
-    }
-    finally {
-      isFetching.value = false
+
+      list.value = Array.isArray(result.result) ? [...list.value, ...result.result] : [...list.value]
+      isLoadMore.value = list.value.length < result.count
+      page.value += 1
+
+    } catch (_) {
+      $toast.error('Что-то пошло не так')
+      isLoadMore.value = false
     }
   };
 
@@ -38,27 +47,20 @@ export const useUsers = () => {
     await $router.push({name: "user-edit", params: {id: value.id}})
   }
 
-  onMounted(() => {
-    fetchData()
-  });
-
   return {
     list,
-    isFetching,
+    isLoadMore,
 
-    dateInterval,
-    page,
-    totalPages,
     fetchData,
     listItemHandler,
   }
 }
 
-export const useUser = (userID: string | void) => {
+export const useUser = () => {
   const $router = useRouter();
-
-  const setUser = (user: IUser | void): IUserWithPassword => {
+  const setUser = (user?: IUser): IUserWithPassword => {
     return {
+      ...(user?.id && { id: user.id }),
       name: user?.name || "",
       phone: user?.phone || "998",
       email: user?.email || "",
@@ -69,12 +71,12 @@ export const useUser = (userID: string | void) => {
   };
 
   const user = ref<IUserWithPassword>(setUser());
-  const buttonText = computed(() => !userID ? "Cоздать" : "Редактировать");
+  const buttonText = computed(() => !user.value.id ? "Cоздать" : "Редактировать");
 
-  const getUser = async () => {
-    if (!userID) return
+  const getUser = async (id: string = $router.currentRoute.value.params.id as string) => {
+    if (!id) return
     try {
-      const {data: {result}} = await $axios.get<IResponse<IUser>>(`/users/${userID}`)
+      const {data: {result}} = await $axios.get<IResponse<IUser>>(`/users/${id}`)
       user.value = setUser(result)
     }
     catch (e) {
@@ -101,7 +103,7 @@ export const useUser = (userID: string | void) => {
     user.value.phone = user.value.phone.replace(/[^+\d]/g, '').substring(1);
 
     try {
-      await $axios.put(`/users/${userID}`, user.value)
+      await $axios.put(`/users/${user.value.id}`, user.value)
       await $router.push({name: "users"})
       $toast.success("Пользователь обновлён")
     }
@@ -117,7 +119,7 @@ export const useUser = (userID: string | void) => {
     if (!ok) return
 
     try {
-      await $axios.delete(`/users/${userID}`)
+      await $axios.delete(`/users/${user.value.id}`)
       await $router.push({name: "users"})
       $toast.success("Пользователь удалён")
     }
@@ -129,7 +131,7 @@ export const useUser = (userID: string | void) => {
   }
 
   const submitForm = async () => {
-    if (userID) {
+    if (user.value.id) {
       await putUser()
     } else {
       await postUser()
@@ -138,7 +140,7 @@ export const useUser = (userID: string | void) => {
 
   onMounted(() => {
     getUser()
-  })
+  });
 
   return {
     user,

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import {ITableHead} from "@/models/interfaces/tableInterfaces.ts";
-import EmptyText from "@/components/EmptyText.vue";
+//import EmptyText from "@/components/EmptyText.vue";
 
 const props = defineProps<{
   tableHeaders: ITableHead[]
   tableList: any[]
-  loading: boolean,
+  loading?: boolean,
 
   lazyLoading?: boolean
 }>()
@@ -41,7 +41,7 @@ const loadMore = () => {
         </td>
       </tr>
 
-      <template v-else-if="tableList.length">
+      <template v-else>
         <tr
           v-for="item in tableList"
           class="table-row"
@@ -51,20 +51,19 @@ const loadMore = () => {
             {{ item[header.value] ?? header?.defaultText ?? "-" }}
           </td>
         </tr>
-
         <tr v-if="lazyLoading">
           <td :colspan="tableHeaders.length" style="padding: 0;">
             <v-preloader v-intersection="loadMore" type="line"/>
           </td>
         </tr>
       </template>
-
+<!--
       <tr v-else>
         <td :colspan="tableHeaders.length" align="center">
           <empty-text/>
         </td>
       </tr>
-
+-->
     </tbody>
 
   </table>

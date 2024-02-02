@@ -25,12 +25,6 @@ export const useTransactions = ()=> {
   });
 
   const fetchData = async () => {
-    /*
-    if (!filter.value.projectId) {
-      $toast.warning('Выберите пожалуйста проект!')
-      return
-    }
-    */
     isFetching.value = true
 
     try {

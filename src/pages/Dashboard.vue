@@ -22,6 +22,7 @@ const {sortedList, isFetching, dateInterval, filterHandler, series, categories} 
   <main class="table-with-chart">
 
     <div class="chart-wrapper styled-scroll" :class="{'fill-bg': isFetching || !series.length}">
+
       <v-preloader v-if="isFetching"/>
 
       <circle-chart v-else-if="series.length" :data="series" :categories="categories"/>
@@ -30,6 +31,7 @@ const {sortedList, isFetching, dateInterval, filterHandler, series, categories} 
         За текущий период <br> ошибок не найдено...
       </empty-text>
     </div>
+
     <div class="table-wrapper styled-scroll">
       <v-table :table-headers="eventsThead" :table-list="sortedList" :loading="isFetching"/>
     </div>

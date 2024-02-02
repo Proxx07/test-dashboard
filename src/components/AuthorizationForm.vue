@@ -10,7 +10,7 @@ const {error, authUser, authSubmit, resetError} = useAuth()
   <form class="auth-form" @submit.prevent="authSubmit">
     <div class="auth-form__fields">
       <!--
-        <v-input
+      <v-input
           v-model="authUser.phone"
           phone
           label="Номер телефона"
@@ -20,7 +20,7 @@ const {error, authUser, authSubmit, resetError} = useAuth()
           :class="['auth-form__name', error && 'error']"
           @focus="resetError"
         />
-      -->
+        -->
 
       <v-input
         v-model="authUser.email"

@@ -3,7 +3,7 @@ import $axios from "@/api/axios.ts";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {IErrorItem} from "@/models/interfaces/mainPageInterfaces.ts";
 
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, ref, watch} from "vue";
 
 import {useFilter} from "@/hooks/useFilter.ts";
 import {useAbortController} from "@/hooks/useAbortController.ts";
@@ -56,10 +56,6 @@ export const useErrorsStatistic = () => {
 
   watch(() => filter.value.projectId,  async () => {
     await fetchData()
-  })
-
-  onMounted(() => {
-    fetchData()
   });
 
   return {

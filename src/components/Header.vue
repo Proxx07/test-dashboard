@@ -12,6 +12,7 @@ const { options, isFetching } = useProjects();
 const userStore = useUserStore();
 const projectsStore = useProjectsStore();
 
+userStore.getUser()
 </script>
 
 <template>

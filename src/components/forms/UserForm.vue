@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import {useRouter} from "vue-router";
 import {useUser} from "@/hooks/useUsers.ts";
+import {useProjects} from "@/hooks/useProjects.ts";
 import {rolesList} from "@/utils/roles.ts";
 
 const $router = useRouter();
-const {user, buttonText, deleteUser, submitForm} = useUser($router.currentRoute.value.params.id as string)
+const {user, buttonText, deleteUser, submitForm} = useUser();
+const {options} = useProjects();
 </script>
 
 <template>
@@ -24,7 +26,10 @@ const {user, buttonText, deleteUser, submitForm} = useUser($router.currentRoute.
       required
     />
 
-    <v-select v-model="user.role" :options="rolesList" label="Роли" placeholder="Выберите" required/>
+    <div class="selects-wrapper">
+      <v-select v-model="user.role" :options="rolesList" label="Роли" placeholder="Выберите" required/>
+      <v-select v-model="user.projectId" :options="options" label="Проекты" placeholder="Выберите" required/>
+    </div>
 
     <v-input
       v-model="user.password"
@@ -59,11 +64,17 @@ const {user, buttonText, deleteUser, submitForm} = useUser($router.currentRoute.
   }
 }
 form {
-  padding: 2.4rem;
+  padding: 1.2rem 0;
   background: var(--WhiteBg);
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
+  gap: 2rem;
+}
+
+.selects-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
 </style>

@@ -7,7 +7,7 @@ import {usersThead} from "@/models/staticContent/usersPageContent.ts";
 import {useUsers} from "@/hooks/useUsers.ts";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
-const {list, isFetching, listItemHandler} = useUsers()
+const {list, isLoadMore, fetchData, listItemHandler} = useUsers()
 
 </script>
 
@@ -29,8 +29,9 @@ const {list, isFetching, listItemHandler} = useUsers()
     <v-table
       :table-headers="usersThead"
       :table-list="list"
-      :loading="isFetching"
+      :lazy-loading="isLoadMore"
       @row-clicked="listItemHandler"
+      @load-more="fetchData"
     />
   </main>
 

@@ -9,9 +9,11 @@ export interface IFilterDate {
 }
 
 export interface IFilter {
+  page?: number
   projectId?: string | number | null
-  fromDate: string,
-  toDate: string,
+  fromDate?: string
+  search?: string
+  toDate?: string
 }
 
 export interface IErrorItem {

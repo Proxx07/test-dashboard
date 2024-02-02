@@ -9,7 +9,7 @@ import {useProjectsStore} from "@/stores";
 export const useFilter = () => {
   const projectStore = useProjectsStore();
 
-  const page = ref<string>("1")
+  const page = ref<number>(1)
   const search = ref<string>("")
   const dateInterval = ref<[string, string]>([getDateInterval(1)[0], getDateInterval(0)[1]])
 

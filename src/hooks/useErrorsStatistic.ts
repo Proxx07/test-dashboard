@@ -9,11 +9,19 @@ import {useFilter} from "@/hooks/useFilter.ts";
 import {useAbortController} from "@/hooks/useAbortController.ts";
 
 export const useErrorsStatistic = () => {
-  const {filter, dateInterval} = useFilter();
+  const {dateInterval, projectID} = useFilter();
   const {signal} = useAbortController();
 
   const list = ref<IErrorItem[]>([])
   const isFetching = ref<boolean>(false)
+
+  const filter = computed(() => {
+    return {
+      fromDate: dateInterval.value[0],
+      toDate: dateInterval.value[1],
+      projectId: projectID.value,
+    }
+  });
 
   const sortedList = computed<IErrorItem[]>(() => {
     return [...list.value].sort((a: IErrorItem, b: IErrorItem) => a.count - b.count)
@@ -21,7 +29,7 @@ export const useErrorsStatistic = () => {
 
   const dataForChart = computed<IErrorItem[]>(()  => {
     const sortedArray = [...list.value].sort((a: IErrorItem, b: IErrorItem) => b.count - a.count)
-    const topErrors = sortedArray.slice(0, 5)
+    const topErrors = sortedArray.slice(0, 5);
 
     const sumOfRemaining = sortedArray.slice(5).reduce((acc, current) => {
       return acc + current.count
@@ -33,7 +41,8 @@ export const useErrorsStatistic = () => {
     }
 
     return sortedArray.length > 5 ? [...topErrors, remain] : [...topErrors]
-  })
+  });
+
 
   const series = computed(() => dataForChart.value.map(({count}) => count));
   const categories = computed(() => dataForChart.value.map(({type}) => type));

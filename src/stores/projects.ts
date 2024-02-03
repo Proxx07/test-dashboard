@@ -12,7 +12,7 @@ export const useProjectsStore = defineStore('projects', () => {
   }
 
   const isProjectFieldEnabled = computed<boolean>(() => {
-    const enableInRoutes: string[] = ['main', 'dashboard']
+    const enableInRoutes: string[] = ['main', 'dashboard'] // route names
     return enableInRoutes.includes($router.currentRoute.value.name as string)
   })
 

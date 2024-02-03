@@ -1,9 +1,9 @@
 import {useFilter} from "@/hooks/useFilter.ts";
 
 export const useDashboard = () => {
-  const {dateInterval, filter} = useFilter();
+  const {dateInterval} = useFilter();
   const filterHandler = () => {
-    console.log(filter.value)
+    console.log('Filter changed')
   }
 
   return {

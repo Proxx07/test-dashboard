@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   colors: string[]
-  series: number[]
+  series: Array<string | number>
   categories: Array<string | number>
 }>()
 </script>

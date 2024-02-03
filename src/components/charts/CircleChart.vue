@@ -8,6 +8,12 @@ const props = defineProps<{
   categories: Array<string | number>
 }>()
 
+const totalCounts = computed(() => props.data.reduce((acc, numb) => acc + numb, 0))
+const listData = computed(() => props.data.map(i => {
+  const percent = (i / totalCounts.value * 100).toFixed(2)
+  return `${percent}%`
+}));
+
 const chartOptions = computed(() => {
   return {
     series: props.data,
@@ -38,7 +44,8 @@ const chartOptions = computed(() => {
       show: false,
     },
   }
-})
+});
+
 </script>
 
 <template>
@@ -48,7 +55,7 @@ const chartOptions = computed(() => {
     </div>
 
     <div class="chart-stats">
-      <chart-stats :series="chartOptions.series" :categories="chartOptions.labels" :colors="chartOptions.colors"/>
+      <chart-stats :series="listData" :categories="chartOptions.labels" :colors="chartOptions.colors"/>
     </div>
   </div>
 </template>

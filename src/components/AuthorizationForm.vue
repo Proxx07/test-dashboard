@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {useAuth} from "@/hooks/useAuth.ts";
 import CopyrightForDev from "@/components/CopyrightForDev.vue";
-import VInput from "@/components/UI/VInput.vue";
 
 const {error, authUser, authSubmit, resetError} = useAuth()
 </script>

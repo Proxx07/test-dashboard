@@ -1,18 +1,23 @@
 <script setup lang="ts">
+import {storeToRefs} from 'pinia';
+
 import User from "@/components/UI/User.vue";
 import AbleLogo from "@/components/AbleLogo.vue";
 
-import {useAuth} from "@/hooks/useAuth.ts";
 import {useProjectsStore, useUserStore} from "@/stores";
+
+import {useAuth} from "@/hooks/useAuth.ts";
 import {useProjects} from "@/hooks/useProjects.ts";
+
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
 const { logOut } = useAuth();
 const { options, isFetching } = useProjects();
-const userStore = useUserStore();
-const projectsStore = useProjectsStore();
 
-userStore.getUser()
+const userStore = useUserStore();
+
+const projectsStore = useProjectsStore();
+const {isProjectFieldEnabled, activeProject} = storeToRefs(projectsStore);
 </script>
 
 <template>
@@ -25,8 +30,8 @@ userStore.getUser()
 
     <div class="header__right">
       <v-select
-        v-if="checkUserAccess(accesses.READ_PROJECTS) && projectsStore.isProjectFieldEnabled"
-        v-model="projectsStore.activeProject"
+        v-if="checkUserAccess(accesses.READ_PROJECTS) && isProjectFieldEnabled"
+        v-model="activeProject"
         placeholder="Выберите проект"
         :options="options"
         :loading="isFetching"

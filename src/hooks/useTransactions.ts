@@ -4,21 +4,27 @@ import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {IStatistic} from "@/models/interfaces/mainPageInterfaces.ts";
 import {transationsStatisticThead} from "@/models/staticContent/mainPageContent.ts";
 
-import { ref, watch } from "vue";
+import {computed, ref, watch} from "vue";
 
 import {checkUserAccess} from "@/utils/roles.ts";
 import {useFilter} from "@/hooks/useFilter.ts";
 import {useAbortController} from "@/hooks/useAbortController.ts";
-//import {useToast} from "@/hooks/useToast.ts";
 
 
 export const useTransactions = ()=> {
-  //const $toast = useToast();
-  const {filter, dateInterval} = useFilter();
+  const {dateInterval, projectID} = useFilter();
   const {signal} = useAbortController();
 
   const list = ref<IStatistic[]>([]);
-  const isFetching = ref<boolean>(false)
+  const isFetching = ref<boolean>(false);
+
+  const filter = computed(() => {
+    return {
+      fromDate: dateInterval.value[0],
+      toDate: dateInterval.value[1],
+      projectId: projectID.value,
+    }
+  });
 
   const tableHeaders = transationsStatisticThead.filter(header => {
     return header?.access && checkUserAccess(header?.access) || !header?.access
@@ -43,13 +49,7 @@ export const useTransactions = ()=> {
 
   watch(() => filter.value.projectId, async () => {
     await fetchData()
-  })
-
-  /*
-  onMounted(() => {
-    fetchData()
   });
-  */
 
   return {
     list,

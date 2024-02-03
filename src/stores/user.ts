@@ -27,7 +27,8 @@ export const useUserStore = defineStore('user', () => {
   return {
     user,
     setStoreUser,
+    setActiveProject,
 
-    getUser
+    getUser,
   }
 })

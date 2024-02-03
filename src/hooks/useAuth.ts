@@ -53,6 +53,7 @@ export const useAuth = () => {
     Cookies.remove(AUTH_TOKEN_NAME)
     localStorage.removeItem(USER_ROLE)
     await $router.push('/auth')
+    window.location.reload()
   }
 
   return {

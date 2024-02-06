@@ -41,12 +41,12 @@ const {sortedList, isFetching, dateInterval, filterHandler, series, categories} 
 <style lang="scss" scoped>
 .table-with-chart {
   display: grid;
-  grid-template-columns: 32rem auto;
-  gap: 2.4rem;
+  grid-template-columns: 32.5rem auto;
+  gap: 2rem;
   padding-bottom: 0;
   overflow: hidden;
   :deep(.chart) {
-    max-height: 100vh;
+    min-height: 100vh;
   }
 }
 .chart-wrapper {
@@ -54,6 +54,7 @@ const {sortedList, isFetching, dateInterval, filterHandler, series, categories} 
   border-radius: var(--radius-m);
   transition: var(--transition-slow);
   color: var(--primary-color);
+  padding-right: .5rem;
 
   &.fill-bg {
     background: var(--bg-10);

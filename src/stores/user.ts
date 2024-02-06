@@ -5,7 +5,7 @@ import {IUser} from "@/models/interfaces/usersInterfaces.ts";
 import {ref} from "vue";
 
 import {defineStore} from "pinia";
-import {useUser} from "@/hooks/useUsers.ts";
+import {useUser} from "@/hooks/useSingleUser.ts";
 import {useProjectsStore} from "@/stores/projects.ts";
 
 export const useUserStore = defineStore('user', () => {

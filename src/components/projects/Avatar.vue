@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import {IAvatar} from "@/models/interfaces/projectsIntefaces.ts";
+import {computed} from "vue";
 const props = defineProps<IAvatar>();
-
+const chipType = computed(() => props.status ? 'positive' : 'negative')
 </script>
 
 <template>
   <div class="avatar">
     <div class="logo">
-      <img v-if="props.logo" :src="logo" :alt="name">
+      <img v-if="logo" :src="logo" :alt="name">
       <span v-else> Logo </span>
     </div>
 
     <div class="details">
       <div class="name"> {{name}} </div>
-      <div class="status" :class="{'active': status}">
+      <v-chip :type="chipType">
         {{status ? "Активный" : "Отключен"}}
+      </v-chip>
       </div>
-    </div>
   </div>
 </template>
 
@@ -53,29 +54,6 @@ const props = defineProps<IAvatar>();
   .name {
     font: var(--font-xm);
     padding-bottom: .6rem;
-  }
-
-  .status {
-    --status-color: var(--negative);
-    display: inline-block;
-    padding: .4rem .8rem;
-    border-radius: 10rem;
-    position: relative;
-    overflow: hidden;
-    font: var(--font-xs-m);
-    color: var(--status-color);
-    &.active {
-      --status-color: var(--positive);
-    }
-
-    &:before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      opacity: 0.1;
-      pointer-events: none;
-      background: var(--status-color);
-    }
   }
 }
 </style>

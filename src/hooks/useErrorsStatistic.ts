@@ -49,7 +49,6 @@ export const useErrorsStatistic = () => {
 
   const fetchData = async () => {
     isFetching.value = true
-    list.value = []
     try {
       const {data: {result}} = await $axios.post<IResponse<IErrorItem[]>>('/statistic/by_check', filter.value, {signal})
       list.value = result

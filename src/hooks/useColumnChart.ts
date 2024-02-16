@@ -1,13 +1,15 @@
-import {formatters} from "@/utils/scripts.ts";
 import {computed} from "vue";
+import {formatters} from "@/utils/scripts.ts";
+import {seriesType} from "@/models/interfaces/chartTypes.ts";
 
 export interface IChartProps {
   title: string,
 
-  data: number[],
+  series: seriesType[],
   categories: Array<number | string>,
   type: 'bar' | 'area',
 
+  colors?: string[],
   formatterX?: keyof typeof formatters,
   formatterY?: keyof typeof formatters,
   tooltipNote?: string,
@@ -20,61 +22,43 @@ export interface IChartProps {
   },
 }
 export const useColumnChart = (props: IChartProps) => {
+  const chartColors= props.colors ?? ['rgba(0, 137, 188, 1)', 'rgba(217, 23, 23, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 74, 230, 1)', 'rgba(23, 217, 90, 1)', 'rgba(141, 141, 141, 1)'];
+
+  const seriesWithDefaultName = computed<seriesType[]>(() => {
+    return props.series.map(item => !item.name ? {...item, name: props.tooltipNote ?? ""} : item)
+  });
 
   const options = computed(() => {
     return {
-      series: [{
-        name: props.tooltipNote ?? "",
-        data: props.data,
-      }],
+      series: seriesWithDefaultName.value,
       chartOptions: {
+        theme: { mode: "dark" },
         chart: {
-          height: 350,
           type: props.type,
-          zoom: {
-            enabled: false
-          },
-          toolbar: {
-            show: false
-          }
+          height: 350,
+          stacked: true,
+          zoom: { enabled: false },
+          toolbar: { show: false }
         },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          curve: 'straight'
-        },
+        dataLabels: { enabled: false },
+
+        colors: chartColors,
         grid: {
-          borderColor: linesColor,
+          borderColor: "rgba(255, 255, 255, 0.5)",
         },
+
         xaxis: {
           categories: props.categories,
-          axisBorder: {
-            show: false
-          },
-          axisTicks: {
-            show: false
-          },
+          axisBorder: { show: false },
+          axisTicks: { show: false },
           labels: {
-            ...labelStyles
+            style: {
+              fontSize: '1rem',
+              fontFamily: 'Montserrat, sans-serif',
+            }
           }
         },
-        yaxis: [
-          {
-            tickAmount: 6,
-            ...axisYBorderOptions,
-            labels: {
-              ...labelStyles
-            }
-          },
-          {
-            opposite: true,
-            ...axisYBorderOptions,
-            labels: {
-              show: false
-            },
-          }
-        ],
+
         tooltip: {
           x: {
             formatter: props.formatterX && formatters[props.formatterX],
@@ -87,27 +71,6 @@ export const useColumnChart = (props: IChartProps) => {
       },
     }
   });
-
-  const linesColor = "#ECECEC"
-
-  const axisYBorderOptions = {
-    show: true,
-    axisBorder: {
-      show: true,
-      color: linesColor,
-      offsetY: 2
-    },
-    axisTicks: {
-      show: false
-    },
-  }
-
-  const labelStyles = {
-    style: {
-      fontSize: '1rem',
-      fontFamily: 'Montserrat, sans-serif',
-    }
-  }
 
   return {
     options

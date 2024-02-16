@@ -20,18 +20,17 @@ export const declination = (value: number, words: [string, string, string]): str
 export const formatters = {
   weeks: (str: string | number) => {
     const s = `${str}`.toLowerCase();
-    switch (s) {
-      case 'пн': case '1': return 'Понедельник';
-      case 'вт': case '2': return 'Вторник';
-      case 'ср': case '3': return 'Среда';
-      case 'чт': case '4': return 'Четверг';
-      case 'пт': case '5': return 'Пятница';
-      case 'сб': case '6': return 'Суббота';
-      case 'вск': case '7': return 'Воскресенье';
 
-      default:
-        return str;
-    }
+    return (
+      (s === 'пн' || s === '1') ? 'Понедельник' :
+      (s === 'вт' || s === '2') ? 'Вторник' :
+      (s === 'ср' || s === '3') ? 'Среда' :
+      (s === 'чт' || s === '4') ? 'Четверг' :
+      (s === 'пт' || s === '5') ? 'Пятница' :
+      (s === 'сб' || s === '6') ? 'Суббота' :
+      (s === 'вск' || s === '7') ? 'Воскресенье' :
+      str
+    )
   },
 
   percent: (str: string | number) => {

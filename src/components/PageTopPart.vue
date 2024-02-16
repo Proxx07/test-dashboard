@@ -43,6 +43,16 @@ const dateFromTo = computed({
     emit('update:date', value)
   }
 });
+
+const device = computed({
+  get(): string {
+    return props.device
+  },
+
+  set(value: string) {
+    emit('update:device', value)
+  }
+})
 </script>
 
 <template>

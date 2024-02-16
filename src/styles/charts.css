@@ -1,3 +1,4 @@
+
 .apexcharts-tooltip-marker {
   display: none !important;
 }
@@ -8,6 +9,7 @@
   min-width: 14.5rem;
   border: 0 !important;
 }
+
 .apexcharts-tooltip * {
   font-family: inherit !important;
   font-size: inherit !important;
@@ -27,4 +29,8 @@
 
 .apexcharts-tooltip .apexcharts-tooltip-text-y-value {
   margin-left: 0;
+}
+
+.apexcharts-canvas > svg {
+  background: transparent !important;
 }

@@ -1,50 +1,24 @@
 <script setup lang="ts">
-import {computed, ref} from "vue";
-import {seriesType} from "@/models/interfaces/chartTypes.ts";
-
 import PageTopPart from "@/components/PageTopPart.vue";
 import ColumnChart from "@/components/charts/ColumnChart.vue";
-import DonutChart from "@/components/charts/DonutChart.vue";
 
-import {useDashboard} from "@/hooks/useDashboard.ts";
-const {dateInterval, filterHandler} = useDashboard();
+import {useDashboard} from "@/hooks/charts/useDashboard.ts";
 
-const data1 = ref<seriesType[]>([
-  {
-    name: "Успешные",
-    data: [21, 22, 10, 28, 16, 21, 13],
-  },
-  {
-    name: "Неуспешные",
-    data: [20, 23, 22, 10, 30, 45, 50],
-  }
-])
-const categories1 = ref<string[]>(['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вск'])
+const {
+  dateInterval, isLoading, categories,
 
-// const data2 = ref<number[]>([20, 23, 22, 10, 30, 45, 50, 1, 10, 20])
-// const categories2 = ref<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
+  eventsData, eventsDifference, eventsTotal,
+  livenessData, livenessDifference, livenessTotal,
+  matchingData, matchingDifference, matchingTotal,
+  devicesData, devicesDifference, devicesTotal,
+  browsersData, browsersDifference, browsersTotal,
+  errorsSeries, errorCategories,
 
-const donutData = [
-  {
-    name: 'Неправильное положение лица',
-    value: 30,
-    difference: {
-      type: 'inc',
-      value: 20
-    }
-  },
+  filterHandler
+} = useDashboard();
 
-  {
-    name: 'Низкое качество изображения',
-    value: 70,
-    difference: {
-      type: 'dec',
-      value: 15
-    }
-  }
-];
-const donutSeries = computed(() => donutData.map(item => item.value));
-const donutLabels = computed(() => donutData.map(item => item.name));
+const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 74, 230, 1)'];
+
 </script>
 
 <template>
@@ -56,49 +30,106 @@ const donutLabels = computed(() => donutData.map(item => item.name));
 
   <main class="charts-wrapper">
     <column-chart
-      title="Заголовок 2"
-      tooltip-note="Количество"
+      title="События"
       type="bar"
-      formatter-x="weeks"
-      :series="data1"
-      :categories="categories1"
+      :categories="categories"
+      :loading="isLoading"
+      :series="eventsData"
+      :percent="eventsDifference"
+      :count="eventsTotal"
     />
 
+    <column-chart
+      title="Количество Liveness"
+      type="bar"
+      :categories="categories"
+      :loading="isLoading"
+      :series="livenessData"
+      :percent="livenessDifference"
+      :count="livenessTotal"
+    />
 
-<!--    <column-chart-->
-<!--      title="Заголовок 1"-->
-<!--      type="area"-->
-<!--      note="Частота попыток несанкционированного доступа (выражена в %)"-->
-<!--      :percent="{value: '20', increase: true}"-->
-<!--      formatter-x="weeks"-->
-<!--      formatter-y="percent"-->
-<!--      :data="data1"-->
-<!--      :categories="categories1"-->
-<!--    />-->
+    <column-chart
+      title="Количество Matching"
+      type="bar"
+      :categories="categories"
+      :loading="isLoading"
+      :series="matchingData"
+      :percent="matchingDifference"
+      :count="matchingTotal"
+    />
+
+    <column-chart
+      title="Типы ошибок"
+      type="donut"
+      note="Топ 5 ошибок"
+      class="error-statistics"
+      :loading="isLoading"
+      :series="errorsSeries"
+      :categories="errorCategories"
+    />
+
+    <div class="empty" style="background: #fff;"></div>
+
+    <column-chart
+      title="Мобильные устройства"
+      type="bar"
+      :colors="chartColors"
+      :categories="categories"
+      :loading="isLoading"
+      :series="devicesData"
+      :percent="devicesDifference"
+      :count="devicesTotal"
+    />
+
+    <column-chart
+      title="Веб-браузер"
+      type="bar"
+      :colors="chartColors"
+      :categories="categories"
+      :loading="isLoading"
+      :series="browsersData"
+      :percent="browsersDifference"
+      :count="browsersTotal"
+    />
+
+    <div class="empty" style="background: #fff;"></div>
 
 
-<!--    <column-chart-->
-<!--      title="Заголовок 3"-->
-<!--      tooltip-note="Количество"-->
-<!--      type="bar"-->
-<!--      :data="data2"-->
-<!--      :categories="categories2"-->
-<!--    />-->
+    <!--    <column-chart-->
+    <!--      title="Заголовок 1"-->
+    <!--      type="area"-->
+    <!--      note="Частота попыток несанкционированного доступа (выражена в %)"-->
+    <!--      :percent="{value: '20', increase: true}"-->
+    <!--      formatter-x="weeks"-->
+    <!--      formatter-y="percent"-->
+    <!--      :data="data1"-->
+    <!--      :categories="categories1"-->
+    <!--    />-->
 
-<!--    <column-chart-->
-<!--      title="Заголовок 4"-->
-<!--      type="area"-->
-<!--      count="70"-->
-<!--      :percent="{value: '20', increase: false}"-->
-<!--      formatter-y="percent"-->
-<!--      :data="data2"-->
-<!--      :categories="categories2"-->
-<!--    />-->
 
-<!--    <donut-chart-->
-<!--      :data="donutSeries"-->
-<!--      :categories="donutLabels"-->
-<!--    />-->
+    <!--    <column-chart-->
+    <!--      title="Заголовок 3"-->
+    <!--      tooltip-note="Количество"-->
+    <!--      type="bar"-->
+    <!--      :data="data2"-->
+    <!--      :categories="categories2"-->
+    <!--    />-->
+
+    <!--    <column-chart-->
+    <!--      title="Заголовок 4"-->
+    <!--      type="area"-->
+    <!--      count="70"-->
+    <!--      :percent="{value: '20', increase: false}"-->
+    <!--      formatter-y="percent"-->
+    <!--      :data="data2"-->
+    <!--      :categories="categories2"-->
+    <!--    />-->
+
+    <!--    <donut-chart-->
+    <!--      :data="donutSeries"-->
+    <!--      :categories="donutLabels"-->
+    <!--    />-->
 
   </main>
 </template>
@@ -106,9 +137,18 @@ const donutLabels = computed(() => donutData.map(item => item.name));
 <style scoped lang="scss">
 .charts-wrapper {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 2.4rem;
   max-width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  padding-top: 1.5rem;
   overflow-x: hidden;
 }
+
+.error-statistics {
+  background: var(--bg-5);
+  border-radius: var(--radius-m);
+  grid-area: 2 / 1 / 3 / 3;
+  min-height: 29rem;
+}
+
 </style>

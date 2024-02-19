@@ -1,14 +1,21 @@
 <script setup lang="ts">
+import up from "@/assets/icons/arrow-up.svg?raw";
+import down from "@/assets/icons/arrow-down.svg?raw";
+import {computed} from "vue";
+
 const props = defineProps<{
   type: 'positive' | 'negative'
-  icon?: string
+  icon?: boolean
   noBg?: boolean
 }>();
+
+const iconType = computed<string>(() => props.type === 'positive' ? up : down);
+
 </script>
 
 <template>
   <div class="status" :class="[props.type, !noBg && 'with-bg']">
-    <v-icon v-if="icon" class="icon" :icon="props.icon"/>
+    <v-icon v-if="icon" class="icon" :icon="iconType"/>
     <slot/>
   </div>
 </template>

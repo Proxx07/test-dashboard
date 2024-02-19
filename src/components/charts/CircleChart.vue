@@ -18,17 +18,10 @@ const chartOptions = computed(() => {
   return {
     series: props.data,
     labels: props.categories,
-    chart: {
-      type: 'donut',
-    },
-    tooltip: {
-      enabled: false
-    },
+    chart: { type: 'donut' },
+    tooltip: { enabled: false },
     colors: ['rgba(0, 137, 188, 1)', 'rgba(217, 23, 23, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 74, 230, 1)', 'rgba(23, 217, 90, 1)', 'rgba(141, 141, 141, 1)'],
-
-    dataLabels: {
-      enabled: false
-    },
+    dataLabels: { enabled: false },
 
     plotOptions: {
       pie: {
@@ -36,13 +29,8 @@ const chartOptions = computed(() => {
       }
     },
 
-    stroke: {
-      width: 0,
-    },
-
-    legend: {
-      show: false,
-    },
+    stroke: { width: 0 },
+    legend: { show: false },
   }
 });
 

@@ -28,7 +28,7 @@ export const useErrorsStatistic = () => {
   });
 
   const dataForChart = computed<IErrorItem[]>(()  => {
-    const sortedArray = [...list.value].sort((a: IErrorItem, b: IErrorItem) => b.count - a.count)
+    const sortedArray = [...sortedList.value].reverse()
     const topErrors = sortedArray.slice(0, 5);
 
     const sumOfRemaining = sortedArray.slice(5).reduce((acc, current) => {

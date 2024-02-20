@@ -7,32 +7,31 @@ export const useChartOptions = (props: IChartConfigProps) => {
 
   const chartOptions = computed(() => {
     return {
-      labels: props.categories,
+      ...(props.categories && {labels: props.categories}),
+      colors: colors,
       theme: { mode: "dark" },
       chart: {
         type: props.type,
         stacked: true,
         zoom: { enabled: false },
         toolbar: { show: false },
-        offsetY: 10
+        offsetY: props.type === 'donut' ? 20 : 10,
       },
       plotOptions: {
         bar: {
+          horizontal: props.type === 'bar' && props.horizontal,
           borderRadius: 4,
           borderRadiusApplication: 'end',
           borderRadiusWhenStacked: 'last',
         },
       },
-      dataLabels: { enabled: false },
-      colors: colors,
-      stroke: { width: 0 },
       grid: {
         borderColor: "rgba(255, 255, 255, 0.5)",
       },
 
-      legend: {
-        show: false,
-      },
+      stroke: { width: 0 },
+      dataLabels: { enabled: false },
+      legend: { show: false },
 
       xaxis: {
         axisBorder: { show: false },

@@ -12,7 +12,8 @@ export const generateDates = (startDate: string, endDate: string): string[] => {
     start.setDate(start.getDate() + 1)
   }
 
-  return dates;
+  if (dates.length > 2) return dates;
+  return Array.from({length: 24}, (_, i) => `${i < 9 ? '0'+i:i}:00`)
 }
 
 export const getEventsData = (length: number): seriesType[] => ([
@@ -76,5 +77,6 @@ export const getErrorsStatistics = (): seriesType[] => {
     data: getRandomArray(1)[0],
     name: "OTHER_ERRORS",
   });
+
   return sortedErrors
 }

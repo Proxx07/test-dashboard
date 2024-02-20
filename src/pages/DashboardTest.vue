@@ -12,7 +12,7 @@ const {
   matchingData, matchingDifference, matchingTotal,
   devicesData, devicesDifference, devicesTotal,
   browsersData, browsersDifference, browsersTotal,
-  errorsSeries, errorCategories,
+  errorsSeries, errorCategories, errorNote,
 
   filterHandler
 } = useDashboard();
@@ -62,8 +62,9 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
     <column-chart
       title="Типы ошибок"
       type="donut"
-      note="Топ 5 ошибок"
+      direction="row"
       class="error-statistics"
+      :note="errorNote"
       :loading="isLoading"
       :series="errorsSeries"
       :categories="errorCategories"
@@ -94,43 +95,6 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
     />
 
     <div class="empty" style="background: #fff;"></div>
-
-
-    <!--    <column-chart-->
-    <!--      title="Заголовок 1"-->
-    <!--      type="area"-->
-    <!--      note="Частота попыток несанкционированного доступа (выражена в %)"-->
-    <!--      :percent="{value: '20', increase: true}"-->
-    <!--      formatter-x="weeks"-->
-    <!--      formatter-y="percent"-->
-    <!--      :data="data1"-->
-    <!--      :categories="categories1"-->
-    <!--    />-->
-
-
-    <!--    <column-chart-->
-    <!--      title="Заголовок 3"-->
-    <!--      tooltip-note="Количество"-->
-    <!--      type="bar"-->
-    <!--      :data="data2"-->
-    <!--      :categories="categories2"-->
-    <!--    />-->
-
-    <!--    <column-chart-->
-    <!--      title="Заголовок 4"-->
-    <!--      type="area"-->
-    <!--      count="70"-->
-    <!--      :percent="{value: '20', increase: false}"-->
-    <!--      formatter-y="percent"-->
-    <!--      :data="data2"-->
-    <!--      :categories="categories2"-->
-    <!--    />-->
-
-    <!--    <donut-chart-->
-    <!--      :data="donutSeries"-->
-    <!--      :categories="donutLabels"-->
-    <!--    />-->
-
   </main>
 </template>
 
@@ -140,6 +104,7 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
   gap: 2.4rem;
   max-width: 100%;
   grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
   padding-top: 1.5rem;
   overflow-x: hidden;
 }

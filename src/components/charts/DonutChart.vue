@@ -5,7 +5,7 @@ import ChartStats from "@/components/charts/ChartStats.vue";
 
 const props = defineProps<{
   data: number[]
-  categories: Array<string | number>
+  categories: string[]
 }>()
 
 const chartOptions = {

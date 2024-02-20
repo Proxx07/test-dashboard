@@ -5,7 +5,7 @@ import ChartStats from "@/components/charts/ChartStats.vue";
 
 const props = defineProps<{
   data: number[]
-  categories: Array<string | number>
+  categories: string[]
 }>()
 
 const totalCounts = computed(() => props.data.reduce((acc, numb) => acc + numb, 0))
@@ -43,7 +43,7 @@ const chartOptions = computed(() => {
     </div>
 
     <div class="chart-stats">
-      <chart-stats :series="listData" :categories="chartOptions.labels" :colors="chartOptions.colors"/>
+      <chart-stats :series="listData" :categories="chartOptions.labels" :colors="chartOptions.colors" borders/>
     </div>
   </div>
 </template>

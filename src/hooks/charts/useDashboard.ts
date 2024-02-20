@@ -7,6 +7,7 @@ import {
   getEventsData, getDevicesData, getBrowsersData,
   getErrorsStatistics,
 } from "@/api/mockData/eventsData.ts";
+import {declination} from "@/utils/scripts.ts";
 
 export const useDashboard = () => {
   const {dateInterval} = useFilter();
@@ -53,6 +54,7 @@ export const useDashboard = () => {
   const errorsData = ref<seriesType[]>(getErrorsStatistics());
   const errorsSeries = computed(() => errorsData.value.map(i => i.data as number))
   const errorCategories = computed(() => errorsData.value.map(i => i.name))
+  const errorNote = "Топ 5 " + declination(5,['ошибка', 'ошибки', 'ошибок'])
 
   const filterHandler = async () => {
     isLoading.value = true
@@ -101,6 +103,7 @@ export const useDashboard = () => {
 
     errorsSeries,
     errorCategories,
+    errorNote,
 
     categories,
     isLoading,

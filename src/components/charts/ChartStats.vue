@@ -40,9 +40,7 @@ onMounted(() => {
 
       <div class="stats__item-value">
         <v-preloader v-if="loading" type="dots"/>
-        <template v-else>
-          {{ series[i] }}
-        </template>
+        {{ !loading ? series[i] : "" }}
       </div>
 
       <div class="stats__item-title">
@@ -52,9 +50,7 @@ onMounted(() => {
             :style="{'--marker-color': colors[i % colors.length]}"
           />
         <v-preloader v-if="loading" type="dots"/>
-        <template v-else>
-          {{ categories[i] }}
-        </template>
+        {{ !loading ? categories[i] : "" }}
       </div>
     </div>
   </div>

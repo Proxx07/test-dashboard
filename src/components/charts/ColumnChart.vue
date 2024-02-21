@@ -30,7 +30,7 @@ watch(() => props.loading, () => {
 </script>
 
 <template>
-  <div class="chart">
+  <div :class="['chart', horizontal && 'horizontal']">
     <div class="chart__title">
       <div class="chart__title-name">
         {{ title }}
@@ -40,9 +40,7 @@ watch(() => props.loading, () => {
         <div class="chart__title-details">
           <div class="chart__count" v-if="count !== undefined">
             <v-preloader type="dots" v-if="loading"/>
-            <template v-else>
-              {{`${count}`}}
-            </template>
+            {{ !loading ? `${count}` : "" }}
           </div>
           <div class="chart__note" v-if="note">
             {{ note }}

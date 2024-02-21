@@ -5,9 +5,11 @@ import {seriesType} from "@/models/interfaces/chartTypes.ts";
 import {
   getEventsDifference, generateDates,
   getEventsData, getDevicesData, getBrowsersData,
-  getErrorsStatistics,
+  //getErrorsStatistics,
+  getFaceDetectionData,
 } from "@/api/mockData/eventsData.ts";
 import {declination} from "@/utils/scripts.ts";
+import {useErrorsStatistic} from "@/hooks/dashboards/useErrorStatistics.ts";
 
 export const useDashboard = () => {
   const {dateInterval} = useFilter();
@@ -51,10 +53,25 @@ export const useDashboard = () => {
     return browsersData.value.reduce((acc: number[], {data}) => acc.concat(data), []).reduce((acc, curr) => acc+= curr);
   });
 
-  const errorsData = ref<seriesType[]>(getErrorsStatistics());
-  const errorsSeries = computed(() => errorsData.value.map(i => i.data as number))
-  const errorCategories = computed(() => errorsData.value.map(i => i.name))
-  const errorNote = "Топ 5 " + declination(5,['ошибка', 'ошибки', 'ошибок'])
+  const faceDetection = ref(getFaceDetectionData())
+  const facerSuccessData = computed(() => faceDetection.value.success.map(i => i.data))
+  const facerSuccessCategories = computed(() => faceDetection.value.success.map(i => i.name))
+  const facerErrorsData = computed(() => faceDetection.value.minMax.map(i => `00 : ${i.data < 9 ? '0'+i.data : i.data.toString()}`))
+  const facerErrorsCategories = computed(() => faceDetection.value.minMax.map(i => i.name))
+
+  const facerTotalNote = computed<string>(() => {
+    const count = faceDetection.value.minMax[0].data * 77
+
+    return `${count} ${declination(count, ['запрос', 'запроса', 'запросов'])}`
+  })
+
+
+
+  const {series: errorsSeries, categories: errorCategories, fetchData: fetchErrors} = useErrorsStatistic();
+  const errorNote = computed(() => {
+    const length = errorsSeries.value.length > 5 ? 5 : errorsSeries.value.length
+    return `Топ ${length} ${declination(length,['ошибка', 'ошибки', 'ошибок'])}`
+  })
 
   const filterHandler = async () => {
     isLoading.value = true
@@ -74,9 +91,8 @@ export const useDashboard = () => {
     browsersData.value = getBrowsersData(itemsLength.value)
     browsersDifference.value = getEventsDifference()
 
-    errorsData.value = getErrorsStatistics()
-
-    await new Promise(resolve => setTimeout(resolve, 700))
+    faceDetection.value = getFaceDetectionData()
+    await fetchErrors({fromDate: dateInterval.value[0], toDate: dateInterval.value[1]})
     isLoading.value = false
   }
 
@@ -104,6 +120,12 @@ export const useDashboard = () => {
     errorsSeries,
     errorCategories,
     errorNote,
+
+    facerSuccessData,
+    facerSuccessCategories,
+    facerErrorsData,
+    facerErrorsCategories,
+    facerTotalNote,
 
     categories,
     isLoading,

@@ -59,6 +59,7 @@ export const getBrowsersData = (length: number): seriesType[] => ([
   }
 ]);
 
+/*
 export const getErrorsStatistics = (): seriesType[] => {
   const values = getRandomArray(5);
   const names = [
@@ -80,3 +81,28 @@ export const getErrorsStatistics = (): seriesType[] => {
 
   return sortedErrors
 }
+*/
+
+export const getFaceDetectionData = ()=> ({
+  minMax: [
+    {
+      name: "Максимум",
+      data: getRandomArray(3).reduce((acc, curr) => acc += curr),
+    },
+    {
+      name: "Минимум",
+      data: getRandomArray(3).reduce((acc, curr) => acc += curr),
+    }
+  ],
+
+  success: [
+    {
+      name: "Успешно",
+      data: getRandomArray(3).reduce((acc, curr) => acc += curr) + "%",
+    },
+    {
+      name: "Не успешно",
+      data: getRandomArray(3).reduce((acc, curr) => acc += curr) + "%",
+    }
+  ]
+})

@@ -14,9 +14,8 @@ export interface IChartConfigProps {
   statBorders?: boolean,
 };
 
-export interface IChartProps {
-  title: string,
-  series: number[] | seriesType[],
+export interface IChartTitleProps {
+  title?: string,
   loading: boolean,
   count?: string | number,
   note?: string,
@@ -24,4 +23,8 @@ export interface IChartProps {
     value: number | string,
     increase: boolean,
   },
+}
+
+export interface IChartProps extends IChartTitleProps{
+  series: number[] | seriesType[],
 };

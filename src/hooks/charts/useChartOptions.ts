@@ -41,7 +41,7 @@ export const useChartOptions = (props: IChartConfigProps) => {
         stacked: true,
         zoom: {enabled: false},
         toolbar: {show: false},
-        offsetY: props.type === 'donut' ? 20 : 10,
+        offsetY: props.type === 'donut' && props.direction === 'row' ? 20 : 10,
       },
       plotOptions: {
         bar: {

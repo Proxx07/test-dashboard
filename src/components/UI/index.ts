@@ -5,6 +5,7 @@ import VIcon from "@/components/UI/VIcon.vue";
 import PopupModal from "@/components/UI/PopupModal.vue";
 import VPreloader from "@/components/UI/VPreloader.vue";
 import VChip from "@/components/UI/VChip.vue";
+import VCard from "@/components/UI/VCard.vue";
 export default [
   VButton,
   VInput,
@@ -12,5 +13,6 @@ export default [
   VIcon,
   VPreloader,
   VChip,
-  PopupModal
+  PopupModal,
+  VCard,
 ]

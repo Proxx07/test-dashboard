@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import VTable from "@/components/VTable.vue";
 import PageTopPart from "@/components/PageTopPart.vue";
-import CircleChart from "@/components/charts/CircleChart.vue";
-import EmptyText from "@/components/EmptyText.vue";
+import VChart from "@/components/charts/VChart.vue";
 
 import {eventsThead} from "@/models/staticContent/eventsTable.ts";
-import {useErrorsStatistic} from "@/hooks/useErrorsStatistic.ts";
 
-const {sortedList, isFetching, dateInterval, filterHandler, series, categories} = useErrorsStatistic();
+import {useErrorsStatistic} from "@/hooks/dashboards/useErrorStatistics.ts";
+
+const {dateInterval, isFetching, sortedList, series, categories, filterHandler} = useErrorsStatistic();
 
 </script>
 
@@ -21,15 +21,16 @@ const {sortedList, isFetching, dateInterval, filterHandler, series, categories} 
 
   <main class="table-with-chart">
 
-    <div class="chart-wrapper styled-scroll" :class="{'fill-bg': isFetching || !series.length}">
+    <div class="chart-wrapper styled-scroll" :class="{'fill-bg': !sortedList.length && !isFetching}">
 
-      <v-preloader v-if="isFetching"/>
+      <v-chart
+        type="donut"
+        :loading="isFetching"
+        :series="series"
+        :categories="categories"
+        stat-borders
+      />
 
-      <circle-chart v-else-if="series.length" :data="series" :categories="categories"/>
-
-      <empty-text v-else>
-        За текущий период <br> ошибок не найдено...
-      </empty-text>
     </div>
 
     <div class="table-wrapper styled-scroll">
@@ -46,7 +47,8 @@ const {sortedList, isFetching, dateInterval, filterHandler, series, categories} 
   padding-bottom: 0;
   overflow: hidden;
   :deep(.chart) {
-    min-height: 100vh;
+    width: 100%;
+    background: none;
   }
 }
 .chart-wrapper {
@@ -54,7 +56,7 @@ const {sortedList, isFetching, dateInterval, filterHandler, series, categories} 
   border-radius: var(--radius-m);
   transition: var(--transition-slow);
   color: var(--primary-color);
-  padding-right: .5rem;
+  //padding-right: .5rem;
 
   &.fill-bg {
     background: var(--bg-10);

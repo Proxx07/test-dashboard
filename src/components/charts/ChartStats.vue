@@ -2,7 +2,7 @@
 import {computed, onMounted, ref} from "vue";
 
 const props = defineProps<{
-  colors: string[]
+  colors?: string[]
   series: Array<string | number>
   categories: string[]
   borders?: boolean
@@ -16,7 +16,7 @@ const emit = defineEmits<{
 
 const statsWrapper = ref<null | HTMLElement>();
 const wrapperWidth = ref<number>(0);
-const itemsCount = computed(() => wrapperWidth.value < 320 ? 1 : props.series.length !== 3 ? 2 : 3);
+const itemsCount = computed(() => wrapperWidth.value < 330 ? 1 : props.series.length !== 3 ? 2 : 3);
 const clickHandler = (value: string) => {
   emit('itemClick', value)
 }
@@ -45,9 +45,9 @@ onMounted(() => {
 
       <div class="stats__item-title">
           <span
-            v-if="props.colors.length"
+            v-if="colors"
             class="marker"
-            :style="{'--marker-color': colors[i % colors.length]}"
+            :style="{'--marker-color': colors && colors[i % colors.length]}"
           />
         <v-preloader v-if="loading" type="dots"/>
         {{ !loading ? categories[i] : "" }}
@@ -59,7 +59,7 @@ onMounted(() => {
 <style scoped lang="scss">
 .stats {
   display: grid;
-  grid-template-columns: repeat(var(--itemsCount), 1fr);
+  grid-template-columns: repeat(var(--itemsCount), calc(100% / var(--itemsCount)));
   gap: 2rem 1rem;
 
   &__item {

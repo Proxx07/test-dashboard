@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import PageTopPart from "@/components/PageTopPart.vue";
-import ColumnChart from "@/components/charts/ColumnChart.vue";
+import VChart from "@/components/charts/VChart.vue";
 
 import {useDashboard} from "@/hooks/charts/useDashboard.ts";
+import ChartTitle from "@/components/charts/ChartTitle.vue";
+import ChartStats from "@/components/charts/ChartStats.vue";
 
 const {
   dateInterval, isLoading, categories,
@@ -13,6 +15,7 @@ const {
   devicesData, devicesDifference, devicesTotal,
   browsersData, browsersDifference, browsersTotal,
   errorsSeries, errorCategories, errorNote,
+  facerSuccessData, facerSuccessCategories, facerErrorsData, facerErrorsCategories, facerTotalNote,
 
   filterHandler
 } = useDashboard();
@@ -29,7 +32,7 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
   />
 
   <main class="charts-wrapper">
-    <column-chart
+    <v-chart
       title="События"
       type="bar"
       :categories="categories"
@@ -39,7 +42,7 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
       :count="eventsTotal"
     />
 
-    <column-chart
+    <v-chart
       title="Количество Liveness"
       type="bar"
       :categories="categories"
@@ -49,7 +52,7 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
       :count="livenessTotal"
     />
 
-    <column-chart
+    <v-chart
       title="Количество Matching"
       type="bar"
       :categories="categories"
@@ -59,7 +62,7 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
       :count="matchingTotal"
     />
 
-    <column-chart
+    <v-chart
       title="Типы ошибок"
       type="donut"
       direction="row"
@@ -70,9 +73,15 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
       :categories="errorCategories"
     />
 
-    <div class="empty" style="background: #fff;"></div>
+    <v-card class="face-info">
+      <chart-title title="Распознание лиц" :note="facerTotalNote" :loading="isLoading"/>
+      <div class="face-body">
+        <chart-stats :series="facerErrorsData" :categories="facerErrorsCategories" :loading="isLoading"/>
+        <chart-stats :series="facerSuccessData" :categories="facerSuccessCategories" :loading="isLoading"/>
+      </div>
+    </v-card>
 
-    <column-chart
+    <v-chart
       title="Мобильные устройства"
       type="bar"
       :colors="chartColors"
@@ -83,7 +92,7 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
       :count="devicesTotal"
     />
 
-    <column-chart
+    <v-chart
       title="Веб-браузер"
       type="bar"
       :colors="chartColors"
@@ -99,6 +108,25 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
 </template>
 
 <style scoped lang="scss">
+.face-info {
+
+  .face-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding-top: 3rem;
+  }
+
+  :deep(.chart__title) {
+    padding-bottom: 1.4rem;
+  }
+
+  :deep(.stats__item-value) {
+    font: var(--font-xl);
+  }
+
+}
+
 .charts-wrapper {
   display: grid;
   gap: 2.4rem;

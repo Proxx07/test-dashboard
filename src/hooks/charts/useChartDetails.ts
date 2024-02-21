@@ -1,9 +1,9 @@
-import {computed} from "vue";
+import {computed, ref, watch} from "vue";
 import {IChartConfigProps, IChartProps} from "@/hooks/charts/types.ts";
 import {seriesType} from "@/models/interfaces/chartTypes.ts";
 
 export const useChartDetails = (props: IChartProps & IChartConfigProps) => {
-  const chipType = computed<string>(() => props.percent?.increase ? 'positive' : 'negative');
+  const chart = ref();
 
   const statCounts = computed<number[]>(() => {
     if (props.type === 'donut') return props.series as number[]
@@ -21,8 +21,21 @@ export const useChartDetails = (props: IChartProps & IChartConfigProps) => {
     return (props.series as seriesType[]).map(item => item.name)
   });
 
+  const activeCharts = props.type === 'bar' ? ref<string[]>(statsNames.value.map(i => i)) : undefined
+  const toggleCategory = (value: string) => {
+    if (!value || !chart.value || !Array.isArray(activeCharts?.value)) return
+    chart.value.toggleSeries(value)
+    activeCharts?.value.includes(value) ? activeCharts.value = activeCharts?.value.filter((str) => str !== value) : activeCharts?.value.push(value)
+  };
+
+  watch(() => props.loading, () => {
+    if (activeCharts) activeCharts.value = statsNames.value.map(i => i)
+  });
+
   return {
-    chipType,
+    chart,
+    activeCharts,
+    toggleCategory,
 
     statsValues,
     statsNames,

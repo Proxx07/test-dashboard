@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {computed} from "vue";
-import {IChartTitleProps} from "@/hooks/charts/types.ts";
+import {IChartTitleProps} from "@/composables/charts/types.ts";
 const props = defineProps<IChartTitleProps>()
 
 const chipType = computed<string>(() => props.percent?.increase ? 'positive' : 'negative');

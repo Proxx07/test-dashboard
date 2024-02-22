@@ -6,8 +6,8 @@ import AbleLogo from "@/components/AbleLogo.vue";
 
 import {useProjectsStore, useUserStore} from "@/stores";
 
-import {useAuth} from "@/hooks/useAuth.ts";
-import {useProjects} from "@/hooks/useProjects.ts";
+import {useAuth} from "@/composables/useAuth.ts";
+import {useProjects} from "@/composables/useProjects.ts";
 
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 

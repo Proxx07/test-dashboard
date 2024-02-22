@@ -4,7 +4,7 @@ import PageTopPart from "@/components/PageTopPart.vue";
 
 import {usersThead} from "@/models/staticContent/usersPageContent.ts";
 
-import {useUsers} from "@/hooks/useUsers.ts";
+import {useUsers} from "@/composables/useUsers.ts";
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
 
 const {list, isLoadMore, fetchData, listItemHandler} = useUsers()

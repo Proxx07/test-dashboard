@@ -5,8 +5,8 @@ import {IErrorItem, IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
 
 import {computed, ref, watch} from "vue";
 
-import {useFilter} from "@/hooks/useFilter.ts";
-import {useAbortController} from "@/hooks/useAbortController.ts";
+import {useFilter} from "@/composables/useFilter.ts";
+import {useAbortController} from "@/composables/useAbortController.ts";
 import {seriesType} from "@/models/interfaces/chartTypes.ts";
 
 export const useErrorsStatistic = () => {
@@ -64,7 +64,7 @@ export const useErrorsStatistic = () => {
   };
 
   watch(() => filter.value.projectId,  async () => {
-    await fetchData()
+    await filterHandler()
   });
 
   return {
@@ -76,6 +76,7 @@ export const useErrorsStatistic = () => {
     dataForChart,
     categories,
 
+    filter,
     fetchData,
     filterHandler,
   }

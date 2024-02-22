@@ -1,5 +1,5 @@
 import {computed, ref, watch} from "vue";
-import {IChartConfigProps, IChartProps} from "@/hooks/charts/types.ts";
+import {IChartConfigProps, IChartProps} from "@/composables/charts/types.ts";
 import {seriesType} from "@/models/interfaces/chartTypes.ts";
 
 export const useChartDetails = (props: IChartProps & IChartConfigProps) => {

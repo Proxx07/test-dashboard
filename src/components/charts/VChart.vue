@@ -3,9 +3,9 @@ import VueApexCharts from "vue3-apexcharts";
 import EmptyText from "@/components/EmptyText.vue";
 import ChartStats from "@/components/charts/ChartStats.vue";
 
-import {IChartConfigProps, IChartProps} from "@/hooks/charts/types.ts";
-import {useChartOptions} from "@/hooks/charts/useChartOptions.ts";
-import {useChartDetails} from "@/hooks/charts/useChartDetails.ts";
+import {IChartConfigProps, IChartProps} from "@/composables/charts/types.ts";
+import {useChartOptions} from "@/composables/charts/useChartOptions.ts";
+import {useChartDetails} from "@/composables/charts/useChartDetails.ts";
 import ChartTitle from "@/components/charts/ChartTitle.vue";
 
 type IProps = IChartProps & IChartConfigProps;

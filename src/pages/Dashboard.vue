@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import VTable from "@/components/VTable.vue";
 import PageTopPart from "@/components/PageTopPart.vue";
+
 import VChart from "@/components/charts/VChart.vue";
 
 import {eventsThead} from "@/models/staticContent/eventsTable.ts";
-
-import {useErrorsStatistic} from "@/hooks/dashboards/useErrorStatistics.ts";
+import {useErrorsStatistic} from "@/composables/dashboards/useErrorStatistics.ts";
 
 const {dateInterval, isFetching, sortedList, series, categories, filterHandler} = useErrorsStatistic();
 

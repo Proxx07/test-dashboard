@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useAuth} from "@/hooks/useAuth.ts";
+import {useAuth} from "@/composables/useAuth.ts";
 import CopyrightForDev from "@/components/CopyrightForDev.vue";
 
 const {error, authUser, authSubmit, resetError} = useAuth()

@@ -2,7 +2,7 @@
 import PageTopPart from "@/components/PageTopPart.vue";
 import VChart from "@/components/charts/VChart.vue";
 
-import {useDashboard} from "@/hooks/charts/useDashboard.ts";
+import {useDashboard} from "@/composables/charts/useDashboard.ts";
 import ChartTitle from "@/components/charts/ChartTitle.vue";
 import ChartStats from "@/components/charts/ChartStats.vue";
 
@@ -14,7 +14,7 @@ const {
   matchingData, matchingDifference, matchingTotal,
   devicesData, devicesDifference, devicesTotal,
   browsersData, browsersDifference, browsersTotal,
-  errorsSeries, errorCategories, errorNote,
+  errorsSeries, errorCategories, errorNote, errorsLoading,
   facerSuccessData, facerSuccessCategories, facerErrorsData, facerErrorsCategories, facerTotalNote,
 
   filterHandler
@@ -26,8 +26,9 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
 
 <template>
   <page-top-part
-    heading="Заголовок"
     v-model:date="dateInterval"
+    heading="Заголовок"
+    :is-loading="isLoading"
     @filter-changed="filterHandler"
   />
 
@@ -68,7 +69,7 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
       direction="row"
       class="error-statistics"
       :note="errorNote"
-      :loading="isLoading"
+      :loading="errorsLoading"
       :series="errorsSeries"
       :categories="errorCategories"
     />

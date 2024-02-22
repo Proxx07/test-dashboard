@@ -2,7 +2,7 @@
 import VTable from "@/components/VTable.vue";
 import PageTopPart from "@/components/PageTopPart.vue";
 
-import {useTransactions} from "@/hooks/useTransactions.ts";
+import {useTransactions} from "@/composables/useTransactions.ts";
 
 const {list, tableHeaders, isFetching, dateInterval, filterHandler} = useTransactions()
 </script>

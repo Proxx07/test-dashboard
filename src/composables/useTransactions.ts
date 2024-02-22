@@ -7,8 +7,8 @@ import {transationsStatisticThead} from "@/models/staticContent/mainPageContent.
 import {computed, ref, watch} from "vue";
 
 import {checkUserAccess} from "@/utils/roles.ts";
-import {useFilter} from "@/hooks/useFilter.ts";
-import {useAbortController} from "@/hooks/useAbortController.ts";
+import {useFilter} from "@/composables/useFilter.ts";
+import {useAbortController} from "@/composables/useAbortController.ts";
 
 
 export const useTransactions = ()=> {
@@ -48,7 +48,7 @@ export const useTransactions = ()=> {
   };
 
   watch(() => filter.value.projectId, async () => {
-    await fetchData()
+    await filterHandler()
   });
 
   return {

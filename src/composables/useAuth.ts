@@ -10,7 +10,7 @@ import {ref} from "vue";
 import {$confirm} from "@/plugins/ConfirmationPlugin.ts";
 
 import {useRouter} from "vue-router";
-import {useToast} from "@/hooks/useToast.ts";
+import {useToast} from "@/composables/useToast.ts";
 
 export const useAuth = () => {
   const $router = useRouter();

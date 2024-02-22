@@ -28,7 +28,7 @@ export const getEventsData = (length: number): seriesType[] => ([
 ]);
 export const getEventsDifference = () => ({
   increase: getRandomArray(2).reduce((acc, curr) => acc += curr) % 2 === 0,
-  value: getRandomArray(1)[0] + "%"
+  value: getRandomArray(1)[0] + 1 + "%"
 });
 export const getDevicesData = (length: number): seriesType[] => ([
   {

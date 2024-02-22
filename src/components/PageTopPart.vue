@@ -3,6 +3,8 @@ import {computed, onMounted, ref} from "vue";
 import FilterDeviceTypes from "@/components/filters/FilterDeviceTypes.vue";
 import FilterDateComponent from "@/components/filters/FilterDateComponent.vue";
 
+import {useDateIntervalStore} from "@/stores";
+
 const props = defineProps<{
   heading: string
 
@@ -18,6 +20,8 @@ const emit = defineEmits<{
   (e: 'update:device', value: string): void
   (e: 'filterChanged'): void
 }>();
+
+const dateIntervalStore = useDateIntervalStore();
 
 const wrapper = ref();
 const columns = ref<number>(1)
@@ -40,7 +44,8 @@ const dateFromTo = computed({
   },
 
   set(value: [string, string]) {
-    emit('update:date', value)
+    dateIntervalStore.setDateInterval(value)
+    /*emit('update:date', value)*/
   }
 });
 

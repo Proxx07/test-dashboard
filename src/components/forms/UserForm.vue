@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useRouter} from "vue-router";
-import {useUser} from "@/hooks/useSingleUser.ts";
-import {useProjects} from "@/hooks/useProjects.ts";
+import {useUser} from "@/composables/useSingleUser.ts";
+import {useProjects} from "@/composables/useProjects.ts";
 import {rolesList} from "@/utils/roles.ts";
 
 const $router = useRouter();

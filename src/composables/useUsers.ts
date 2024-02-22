@@ -6,8 +6,8 @@ import {IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
 import {computed, ref} from "vue";
 
 import {useRouter} from "vue-router";
-import {useToast} from "@/hooks/useToast.ts";
-import {useFilter} from "@/hooks/useFilter.ts";
+import {useToast} from "@/composables/useToast.ts";
+import {useFilter} from "@/composables/useFilter.ts";
 
 const $toast = useToast()
 

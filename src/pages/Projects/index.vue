@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Project from "@/components/projects/Project.vue";
-import {useProjects, useProject} from "@/hooks/useProjects.ts";
+import {useProjects, useProject} from "@/composables/useProjects.ts";
 import PageTopPart from "@/components/PageTopPart.vue";
 import PopupModal from "@/components/UI/PopupModal.vue";
 import ProjectPreview from "@/components/projects/ProjectPreview.vue";

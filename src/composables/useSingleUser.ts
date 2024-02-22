@@ -6,7 +6,7 @@ import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {IUser, IUserWithPassword} from "@/models/interfaces/usersInterfaces.ts";
 
 import {$confirm} from "@/plugins/ConfirmationPlugin.ts";
-import {useToast} from "@/hooks/useToast.ts";
+import {useToast} from "@/composables/useToast.ts";
 export const useUser = () => {
   const $router = useRouter();
   const $toast = useToast();

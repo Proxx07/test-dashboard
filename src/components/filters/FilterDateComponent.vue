@@ -24,7 +24,6 @@ const isActive = (item: IFilterDate): boolean => props.date[0] === item.value[0]
     <v-button
       v-for="item in filterDateTypes"
       :class="['date-button', isActive(item) && 'active']"
-      :disabled="isActive(item)"
       :key="item.value.join('-')"
       @click="dateHandler(item.value)"
     >

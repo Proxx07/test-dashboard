@@ -1,4 +1,4 @@
-import {IFormRule} from "@/hooks/UI/types.ts";
+import {IFormRule} from "@/composables/UI/types.ts";
 export const useFormRules = () => {
   const password: IFormRule = {
     pattern: '(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}',

@@ -1,6 +1,6 @@
 import {computed} from "vue";
 //import {formatters} from "@/utils/scripts.ts";
-import {IChartConfigProps} from "@/hooks/charts/types.ts";
+import {IChartConfigProps} from "@/composables/charts/types.ts";
 import {seriesType} from "@/models/interfaces/chartTypes.ts";
 
 

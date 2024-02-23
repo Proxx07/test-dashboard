@@ -2,7 +2,7 @@
 import PageTopPart from "@/components/PageTopPart.vue";
 import VChart from "@/components/charts/VChart.vue";
 
-import {useDashboard} from "@/composables/charts/useDashboard.ts";
+import {useDashboard} from "@/composables/dashboards/useDashboard.ts";
 import ChartTitle from "@/components/charts/ChartTitle.vue";
 import ChartStats from "@/components/charts/ChartStats.vue";
 
@@ -16,12 +16,15 @@ const {
   browsersData, browsersDifference, browsersTotal,
   errorsSeries, errorCategories, errorNote, errorsLoading,
   facerSuccessData, facerSuccessCategories, facerErrorsData, facerErrorsCategories, facerTotalNote,
+  deviceTypeSeries, deviceTypeCategory, deviceTypeTotal,
+  CPUData, CPUTotal, CPUDifference,
+  diskVolumeData, memoryVolumeData,
 
   filterHandler
 } = useDashboard();
 
 const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 74, 230, 1)'];
-
+const volumeColors = ['rgba(0, 137, 188, 1)', 'rgba(23, 217, 90, 1)'];
 </script>
 
 <template>
@@ -104,13 +107,53 @@ const chartColors = ['rgba(23, 217, 90, 1)', 'rgba(255, 245, 0, 1)', 'rgba(118, 
       :count="browsersTotal"
     />
 
-    <div class="empty" style="background: #fff;"></div>
+    <v-chart
+      title="Типы устройств"
+      type="donut"
+      :colors="chartColors"
+      :loading="isLoading"
+      :series="deviceTypeSeries"
+      :count="deviceTypeTotal"
+      :categories="deviceTypeCategory"
+      :pie="95"
+    />
+
+    <v-chart
+      title="Нагрузка на ЦП"
+      type="area"
+      :loading="isLoading"
+      :series="CPUData"
+      :categories="categories"
+      :count="CPUTotal"
+      :percent="CPUDifference"
+    />
+
+    <v-chart
+      title="Объём диска"
+      type="bar"
+      :colors="volumeColors"
+      :loading="isLoading"
+      :series="diskVolumeData"
+      horizontal
+      patterned
+      hide-axises
+    />
+
+    <v-chart
+      title="Объём ОЗУ"
+      type="bar"
+      :colors="volumeColors"
+      :loading="isLoading"
+      :series="memoryVolumeData"
+      horizontal
+      patterned
+      hide-axises
+    />
   </main>
 </template>
 
 <style scoped lang="scss">
 .face-info {
-
   .face-body {
     display: flex;
     flex-direction: column;

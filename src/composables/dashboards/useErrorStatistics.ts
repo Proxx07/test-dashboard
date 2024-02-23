@@ -49,7 +49,7 @@ export const useErrorsStatistic = () => {
 
   const fetchData = async (query?: IFilter) => {
     isFetching.value = true
-    await new Promise(resolve => setTimeout(resolve, 7000))
+
     try {
       const {data: {result}} = await $axios.post<IResponse<IErrorItem[]>>('/statistic/by_check', query ?? filter?.value, {signal})
       list.value = result

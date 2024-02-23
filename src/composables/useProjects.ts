@@ -37,8 +37,7 @@ export const useProjects = () => {
     return selectOptions.value.map(item => ({
       name: item.name,
       value: item.id
-    })
-  )
+    }))
   })
 
   const fetchData = async () => {

@@ -1,5 +1,4 @@
 import {seriesType} from "@/models/interfaces/chartTypes.ts";
-import {formatters} from "@/utils/scripts.ts";
 
 export interface IChartConfigProps {
   type: 'bar' | 'area' | 'donut',
@@ -8,10 +7,13 @@ export interface IChartConfigProps {
   categories?: string[],
   colors?: string[],
   horizontal?: boolean,
-  formatterX?: keyof typeof formatters,
-  formatterY?: keyof typeof formatters,
+  //formatterX?: keyof typeof formatters,
+  //formatterY?: keyof typeof formatters,
+  hideAxises?: boolean,
+  patterned?: boolean,
   tooltipNote?: string,
   statBorders?: boolean,
+  pie?: number,
 };
 
 export interface IChartTitleProps {

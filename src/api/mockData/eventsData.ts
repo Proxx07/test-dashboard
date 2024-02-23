@@ -58,31 +58,6 @@ export const getBrowsersData = (length: number): seriesType[] => ([
     data: getRandomArray(length),
   }
 ]);
-
-/*
-export const getErrorsStatistics = (): seriesType[] => {
-  const values = getRandomArray(5);
-  const names = [
-    "FACER_ABORTED_LIVENESS_TRANSACTION",
-    "FACER_ELECTRONIC_DEVICE_DETECTED",
-    "FACER_TRACK_BREAK",
-    "FACER_WRONG_GEO",
-    "FACER_LOW_QUALITY",
-  ];
-
-  const sortedErrors = names
-    .map((name, index) => ({name, data: values[index]}))
-    .sort((a, b) => b.data - a.data);
-
-  sortedErrors.push({
-    data: getRandomArray(1)[0],
-    name: "OTHER_ERRORS",
-  });
-
-  return sortedErrors
-}
-*/
-
 export const getFaceDetectionData = ()=> ({
   minMax: [
     {
@@ -105,4 +80,33 @@ export const getFaceDetectionData = ()=> ({
       data: getRandomArray(3).reduce((acc, curr) => acc += curr) + "%",
     }
   ]
-})
+});
+
+export const getDeviceTypes = (): seriesType[] => ([
+  {
+    name: "ПК",
+    data: getRandomArray(5).reduce((acc, curr) => acc += curr) * 2,
+  },
+  {
+    name: "Мобильные",
+    data: getRandomArray(5).reduce((acc, curr) => acc += curr) * 3,
+  }
+]);
+
+export const getCPUData = (length: number): seriesType[] => ([
+  {
+    name: "",
+    data: getRandomArray(length)
+  }
+]);
+
+export const getVolumeData = (): seriesType[] => ([
+  {
+    name: "Занято",
+    data: [getRandomArray(5).reduce((acc, curr) => acc += curr) * 3]
+  },
+  {
+    name: "Свободно",
+    data: [getRandomArray(5).reduce((acc, curr) => acc += curr) * 2]
+  }
+]);

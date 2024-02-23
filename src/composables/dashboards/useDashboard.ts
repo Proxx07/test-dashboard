@@ -5,7 +5,8 @@ import {seriesType} from "@/models/interfaces/chartTypes.ts";
 import {
   getEventsDifference, generateDates,
   getEventsData, getDevicesData, getBrowsersData,
-  getFaceDetectionData,
+  getFaceDetectionData, getDeviceTypes,
+  getCPUData, getVolumeData,
 } from "@/api/mockData/eventsData.ts";
 
 import {declination} from "@/utils/scripts.ts";
@@ -68,18 +69,36 @@ export const useDashboard = () => {
   })
 
 
-
   const {isFetching: errorsLoading,series: errorsSeries, categories: errorCategories, fetchData: fetchErrors} = useErrorsStatistic();
   const errorNote = computed(() => {
     const length = errorsSeries.value.length > 5 ? 5 : errorsSeries.value.length
     return `Топ ${length} ${declination(length,['ошибка', 'ошибки', 'ошибок'])}`
   })
 
-  const filterHandler = async () => {
-    errorsLoading.value = isLoading.value = true
-    await fetchErrors()
-    errorsLoading.value = false
+  const deviceTypeData = ref<seriesType[]>(getDeviceTypes());
+  const deviceTypeSeries = computed<number[]>(() => deviceTypeData.value.map(i => (i.data as number)))
+  const deviceTypeCategory = computed<string[]>(() => deviceTypeData.value.map(i => i.name))
+  const deviceTypeTotal = computed<number>(() => {
+    if (!deviceTypeData.value.length) return 0
+    return deviceTypeSeries.value.reduce((acc, curr) => acc += curr);
+  });
 
+  const CPUData = ref(getCPUData(itemsLength.value))
+  const CPUDifference = ref(getEventsDifference())
+  const CPUTotal = computed(() => {
+    if (!CPUData.value.length) return 0
+    return CPUData.value.reduce((acc: number[], {data}) => acc.concat(data), []).reduce((acc, curr) => acc+= curr);
+  });
+
+  const diskVolumeData = ref(getVolumeData())
+  const memoryVolumeData = ref(getVolumeData())
+
+  const filterHandler = async () => {
+    isLoading.value = true
+
+    await fetchErrors()
+
+    await new Promise(resolve => setTimeout(resolve, 1000)) // custom delay remove before deploy
     eventsData.value = getEventsData(itemsLength.value)
     eventsDifference.value = getEventsDifference()
 
@@ -96,6 +115,10 @@ export const useDashboard = () => {
     browsersDifference.value = getEventsDifference()
 
     faceDetection.value = getFaceDetectionData()
+    deviceTypeData.value = getDeviceTypes()
+
+    CPUData.value = getCPUData(itemsLength.value)
+
     isLoading.value = false
   }
 
@@ -130,6 +153,17 @@ export const useDashboard = () => {
     facerErrorsData,
     facerErrorsCategories,
     facerTotalNote,
+
+    deviceTypeSeries,
+    deviceTypeCategory,
+    deviceTypeTotal,
+
+    CPUData,
+    CPUTotal,
+    CPUDifference,
+
+    diskVolumeData,
+    memoryVolumeData,
 
     categories,
     isLoading,

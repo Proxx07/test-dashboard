@@ -1,27 +1,31 @@
 <script setup lang="ts">
 import VueApexCharts from "vue3-apexcharts";
+import ChartTitle from "@/components/charts/ChartTitle.vue";
 import EmptyText from "@/components/EmptyText.vue";
 import ChartStats from "@/components/charts/ChartStats.vue";
 
 import {IChartConfigProps, IChartProps} from "@/composables/charts/types.ts";
 import {useChartOptions} from "@/composables/charts/useChartOptions.ts";
 import {useChartDetails} from "@/composables/charts/useChartDetails.ts";
-import ChartTitle from "@/components/charts/ChartTitle.vue";
+import {computed} from "vue";
 
 type IProps = IChartProps & IChartConfigProps;
 const props = defineProps<IProps>()
 
-const {chartOptions} = useChartOptions(props as IChartConfigProps);
+const {chartOptions} = useChartOptions(props as IProps);
 const {statsNames, statsValues, chart, activeCharts, toggleCategory} = useChartDetails(props);
 
+const chartClass = computed(() => props.pie ? 'pie-chart' : props.horizontal ? 'horizontal' : "")
+const chartDirection = computed(() => props.direction ?? 'column')
+const chartBodyClass = computed(() => props.loading || !props.series.length ? 'align-center' : '')
 </script>
 
 <template>
-  <v-card :class="['chart', horizontal && 'horizontal']">
+  <v-card :class="['chart', chartClass]">
     <chart-title :title="title" :note="note" :count="count" :percent="percent" :loading="loading"/>
-    <div :class="['chart-content', props.direction ?? 'column']">
 
-      <div :class="['chart__body', loading || !series.length ? 'align-center' : '']">
+    <div :class="['chart-content', chartDirection]">
+      <div :class="['chart__body', chartBodyClass]">
         <v-preloader v-if="loading"/>
 
         <empty-text v-else-if="!series.length">
@@ -31,7 +35,7 @@ const {statsNames, statsValues, chart, activeCharts, toggleCategory} = useChartD
         <vue-apex-charts v-else ref="chart" :options="chartOptions" :series="props.series" height="100%"/>
       </div>
 
-      <div class="chart-stats">
+      <div class="chart-stats" v-if="props.type !== 'area'">
         <chart-stats
           :series="statsValues"
           :categories="statsNames"
@@ -58,6 +62,17 @@ const {statsNames, statsValues, chart, activeCharts, toggleCategory} = useChartD
     :deep(.loader.circle) {
       min-width: 6rem;
       min-height: 6rem;
+    }
+  }
+
+  &.pie-chart :deep(.stats){
+    max-width: 35rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    .stats__item {
+      padding: 0;
     }
   }
 }

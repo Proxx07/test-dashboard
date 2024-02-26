@@ -1,0 +1,123 @@
+:root {
+  /*General*/
+  --dp-font-family: inherit;
+  --dp-border-radius: 0.8rem; /*Configurable border-radius*/
+  --dp-cell-border-radius: 1.5rem; /*Specific border radius for the calendar cell*/
+
+  /*Sizing*/
+  --dp-button-height: 35px; /*Size for buttons in overlays*/
+  --dp-month-year-row-height: 4rem; /*Height of the month-year select row*/
+  --dp-month-year-row-button-size: 35px; /*Specific height for the next/previous buttons*/
+  --dp-button-icon-height: 1.5rem; /*Icon sizing in buttons*/
+  --dp-cell-size: 4.9rem; /*Width and height of calendar cell*/
+  --dp-cell-padding: 0; /*Padding in the cell*/
+  --dp-common-padding: 10px; /*Common padding used*/
+  --dp-input-icon-padding: 35px; /*Padding on the left side of the input if icon is present*/
+  --dp-input-padding: 6px 30px 6px 12px; /*Padding in the input*/
+  --dp-menu-min-width: 37rem; /*Adjust the min width of the menu*/
+  --dp-action-buttons-padding: 2px 5px; /*Adjust padding for the action buttons in action row*/
+  --dp-row-margin:  5px 0; /*Adjust the spacing between rows in the calendar*/
+  --dp-calendar-header-cell-padding:  0.5rem; /*Adjust padding in calendar header cells*/
+  --dp-two-calendars-spacing:  10px; /*Space between multiple calendars*/
+  --dp-overlay-col-padding:  3px; /*Padding in the overlay column*/
+  --dp-time-inc-dec-button-size:  32px; /*Sizing for arrow buttons in the time picker*/
+  --dp-menu-padding: 1rem 1.6rem; /*Menu padding*/
+
+  /*Font sizes*/
+  --dp-font-size: 1.2rem; /*Default font-size*/
+  --dp-preview-font-size: 0; /*Font size of the date preview in the action row*/
+  --dp-time-font-size: 1rem; /*Font size in the time picker*/
+}
+
+.dp__theme_light {
+  --dp-background-color: var(--popover-bg);
+  --dp-text-color: var(--primary-color);
+  --dp-hover-color: var(--primary-color);
+  --dp-hover-text-color: var(--dark-color);
+  --dp-primary-color: var(--primary-color);
+  --dp-primary-text-color: var(--dark-color);
+  --dp-menu-border-color: var(--bg-2);
+  --dp-border-color-hover: ;
+  --dp-disabled-color: ;
+  --dp-scroll-bar-background: ;
+  --dp-scroll-bar-color: ;
+  --dp-success-color: ;
+  --dp-success-color-disabled: ;
+  --dp-icon-color: ;
+  --dp-danger-color: ;
+  --dp-marker-color: ;
+  --dp-tooltip-color: ;
+  --dp-disabled-color-text: ;
+  --dp-range-between-dates-background-color: #B9B9B9;
+  --dp-range-between-dates-text-color: var(--dark-color);
+  --dp-range-between-border-color: transparent;
+}
+
+
+.dp__input {
+  border-radius: 0;
+  font-size: 0;
+  padding: 0;
+  width: 6rem;
+  height: 3.8rem;
+  background: none;
+  border: 1px solid var(--bg-2);
+  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+}
+.dp__input_wrap .dp__icon {
+  width: auto;
+  height: auto;
+  padding: 1rem 2rem;
+}
+.dp__input + div {
+  --icon-color: var(--secondary-color);
+}
+
+.dp__input_focus {
+  background: var(--primary-color);
+}
+.dp__input_focus + div {
+  --icon-color: var(--dark-color);
+}
+.dp__input_icon {
+  color: var(--icon-color);
+}
+
+.dp__month_year_wrap {
+  justify-content: center;
+}
+.dp__month_year_select {
+  width: auto;
+  padding: 0 .3rem;
+  color: var(--primary-color) !important;
+  font: var(--font-m-m);
+}
+.dp__calendar_header {
+  font: var(--font-xs-m);
+}
+.dp__calendar_header_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dp__cell_inner {
+  height: 4rem;
+}
+
+.dp__cell_offset.dp__range_start {
+  color: var(--primary-color);
+}
+
+.dp--year-select:hover,
+.dp__month_year_select:hover {
+  background: none;
+}
+
+.dp__inner_nav {
+  transition: var(--transition-fast);
+}
+
+.dp__inner_nav:hover {
+  color: var(--dark-color);
+}

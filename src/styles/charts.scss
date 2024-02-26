@@ -1,0 +1,64 @@
+.apexcharts-canvas > svg {
+  background: transparent !important;
+}
+
+.vue-apexcharts .chart-axis-labels {
+  font: var(--font-s);
+  color: var(--secondary-color);
+  fill: currentColor;
+}
+
+.apexcharts-tooltip {
+  box-shadow: none !important;
+  &.apexcharts-theme-dark {
+    color: #000 !important;
+  }
+}
+
+.chart:not(.horizontal) .apexcharts-tooltip {
+  &:has(.apex-tooltip) {
+    top: 0.1rem !important;
+  }
+}
+
+.apex-tooltip {
+  padding: 1rem 1.2rem;
+  background: var(--popover-bg);
+  border-radius: var(--radius-m);
+  font: var(--font-xs);
+  color: var(--primary-color);
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(var(--count), 1fr);
+    gap: 1rem;
+    padding-bottom: 1.2rem;
+  }
+
+  &__title {
+    margin-bottom: 0.2rem;
+    font: var(--font-xxm);
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--secondary-color);
+    &.hide {
+      display: none;
+    }
+    .marker {
+      font-size: 0;
+      min-width: 0.6rem;
+      min-height: 0.6rem;
+      height: 0.6rem;
+      border-radius: 50%;
+      background: var(--marker-color);
+    }
+  }
+
+  &__label {
+    text-align: center;
+  }
+}

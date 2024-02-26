@@ -15,13 +15,13 @@ export interface INavigation {
 export const navigation: INavigation[] = [
   {
     name: "События",
-    link: "/",
+    link: "/dashboard",
     icon: eventsIcon,
   },
 
   {
     name: "Дашборд",
-    link: "/dashboard",
+    link: "/test",
     access: accesses.READ_DASHBOARD,
     icon: dashboardIcon,
   },

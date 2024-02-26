@@ -5,10 +5,12 @@ import {IErrorItem, IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
 
 import {computed, ref, watch} from "vue";
 
+import {useToast} from "@/composables/useToast.ts";
 import {useFilter} from "@/composables/useFilter.ts";
 import {useAbortController} from "@/composables/useAbortController.ts";
 import {seriesType} from "@/models/interfaces/chartTypes.ts";
 
+const $toast = useToast();
 export const useErrorsStatistic = () => {
   const {dateInterval, projectID} = useFilter();
   const {signal} = useAbortController();
@@ -47,12 +49,16 @@ export const useErrorsStatistic = () => {
   const series = computed(() => dataForChart.value.map(i => i.data as number))
   const categories = computed(() => dataForChart.value.map(i => i.name))
 
-  const fetchData = async (query?: IFilter) => {
+  const fetchData = async () => {
     isFetching.value = true
 
     try {
-      const {data: {result}} = await $axios.post<IResponse<IErrorItem[]>>('/statistic/by_check', query ?? filter?.value, {signal})
+      const {data: {result}} = await $axios.post<IResponse<IErrorItem[]>>('/statistic/by_check', filter.value, {signal})
       list.value = result
+    }
+    catch (_) {
+      $toast.error('Не удалось загрузить данные по типам ошибок')
+      list.value = []
     }
     finally {
       isFetching.value = false

@@ -5,7 +5,9 @@ import {IMockProject, IProject} from "@/models/interfaces/projectsIntefaces.ts";
 import {computed, onMounted, ref} from "vue";
 
 import {accesses, checkUserAccess} from "@/utils/roles.ts";
+import {useToast} from "@/composables/useToast.ts";
 
+const $toast = useToast();
 export const useProjects = () => {
   const list = ref<IMockProject[]>([
     {
@@ -45,6 +47,9 @@ export const useProjects = () => {
     try {
       const {data: {result}} = await $axios.get<IResponse<IProject[]>>('/projects')
       selectOptions.value = result
+    }
+    catch (_) {
+      $toast.error('Не удалось загрузить проекты')
     }
     finally {
       isFetching.value = false

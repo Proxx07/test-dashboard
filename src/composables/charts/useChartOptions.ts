@@ -11,7 +11,6 @@ export const useChartOptions = (props: IChartProps & IChartConfigProps) => {
       names: series.map(i => i.name),
       series: series.map(s => Array.isArray(s.data) ? [...s.data].filter((_, index) => index === selectedIndex)[0] : s.data)
     }
-
     return `
       <div class='apex-tooltip'>
         <div class="apex-tooltip__list" style="--count: ${currentItem.names.length}">
@@ -29,6 +28,10 @@ export const useChartOptions = (props: IChartProps & IChartConfigProps) => {
         <div class="apex-tooltip__label"> ${labels[selectedIndex]} </div>
       </div>`
   }
+
+  // const disableSiblings = (seriesElements: HTMLElement[], selectedIndex: number) => {
+  //
+  // }
 
   const chartOptions = computed(() => {
     return {

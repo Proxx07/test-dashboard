@@ -1,6 +1,10 @@
 :root {
   --toastify-text-color-light: #050505;
   --toastify-toast-width: 35rem;
+  --toastify-color-dark: rgba(40, 41, 49, .5);
+
+  --toastify-color-error: var(--negative);
+  --toastify-color-success: var(--positive);
 }
 
 .Toastify {
@@ -9,4 +13,5 @@
 
 .Toastify__toast {
   padding: 1.4rem 8px 1.7rem;
+  backdrop-filter: blur(2rem);
 }

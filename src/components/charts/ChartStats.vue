@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import {computed, onMounted, ref} from "vue";
+import {statsDirection} from "@/composables/charts/types.ts";
 
 const props = defineProps<{
-  colors?: string[]
   series: Array<string | number>
   categories: string[]
+  statsDirection?: statsDirection
+  colors?: string[]
   borders?: boolean
   loading?: boolean
   activeCharts?: string[]
@@ -16,7 +18,11 @@ const emit = defineEmits<{
 
 const statsWrapper = ref<null | HTMLElement>();
 const wrapperWidth = ref<number>(0);
-const itemsCount = computed(() => wrapperWidth.value < 330 ? 1 : props.series.length !== 3 ? 2 : 3);
+
+const itemsCount = computed(() => {
+  if (props.statsDirection === 'row') return 2
+  return wrapperWidth.value < 330 ? 1 : props.series.length !== 3 ? 2 : 3
+});
 const clickHandler = (value: string) => {
   emit('itemClick', value)
 }

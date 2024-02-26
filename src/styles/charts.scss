@@ -10,6 +10,9 @@
 
 .apexcharts-tooltip {
   box-shadow: none !important;
+  &.apexcharts-theme-dark {
+    color: #000 !important;
+  }
 }
 
 .chart:not(.horizontal) .apexcharts-tooltip {

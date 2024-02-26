@@ -16,7 +16,7 @@ const {chartOptions} = useChartOptions(props as IProps);
 const {statsNames, statsValues, chart, activeCharts, toggleCategory} = useChartDetails(props);
 
 const chartClass = computed(() => props.pie ? 'pie-chart' : props.horizontal ? 'horizontal' : "")
-const chartDirection = computed(() => props.direction ?? 'column')
+const statsDirection = computed(() => props.direction ?? 'column')
 const chartBodyClass = computed(() => props.loading || !props.series.length ? 'align-center' : '')
 </script>
 
@@ -24,7 +24,7 @@ const chartBodyClass = computed(() => props.loading || !props.series.length ? 'a
   <v-card :class="['chart', chartClass]">
     <chart-title :title="title" :note="note" :count="count" :percent="percent" :loading="loading"/>
 
-    <div :class="['chart-content', chartDirection]">
+    <div :class="['chart-content', statsDirection]">
       <div :class="['chart__body', chartBodyClass]">
         <v-preloader v-if="loading"/>
 
@@ -43,6 +43,7 @@ const chartBodyClass = computed(() => props.loading || !props.series.length ? 'a
           :borders="!!statBorders"
           :loading="loading"
           :active-charts="activeCharts"
+          :stats-direction="statsDirection"
           @item-click="toggleCategory"
         />
       </div>

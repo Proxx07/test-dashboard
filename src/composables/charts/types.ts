@@ -1,9 +1,11 @@
 import {seriesType} from "@/models/interfaces/chartTypes.ts";
 
+export type statsDirection = 'column' | 'row';
+
 export interface IChartConfigProps {
   type: 'bar' | 'area' | 'donut',
 
-  direction?: 'column' | 'row',
+  direction?: statsDirection,
   categories?: string[],
   colors?: string[],
   horizontal?: boolean,

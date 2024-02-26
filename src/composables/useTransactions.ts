@@ -7,10 +7,11 @@ import {transationsStatisticThead} from "@/models/staticContent/mainPageContent.
 import {computed, ref, watch} from "vue";
 
 import {checkUserAccess} from "@/utils/roles.ts";
+import {useToast} from "@/composables/useToast.ts";
 import {useFilter} from "@/composables/useFilter.ts";
 import {useAbortController} from "@/composables/useAbortController.ts";
 
-
+const $toast = useToast();
 export const useTransactions = ()=> {
   const {dateInterval, projectID} = useFilter();
   const {signal} = useAbortController();
@@ -37,7 +38,9 @@ export const useTransactions = ()=> {
       const {data: {result}} = await $axios.post<IResponse<IStatistic>>('/statistic/by_date', filter.value, {signal})
       list.value = [result]
     }
-
+    catch (_) {
+      $toast.error('Не удалось загрузить транзакции')
+    }
     finally {
       isFetching.value = false
     }

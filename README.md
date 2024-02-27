@@ -2,9 +2,7 @@
 
 Clone repo with command
 
-<code>
-git clone https://gitlab.itc.local/ableid/ableid-dashboard.git
-</code>
+<code>git clone https://gitlab.itc.local/ableid/ableid-dashboard.git</code>
 
 <code>npm i</code> for dependencies installation
 

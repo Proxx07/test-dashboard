@@ -29,10 +29,6 @@ export const useChartOptions = (props: IChartProps & IChartConfigProps) => {
       </div>`
   }
 
-  // const disableSiblings = (seriesElements: HTMLElement[], selectedIndex: number) => {
-  //
-  // }
-
   const chartOptions = computed(() => {
     return {
       ...(props.categories && {labels: props.categories}),

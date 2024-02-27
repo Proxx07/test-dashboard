@@ -53,7 +53,7 @@ Recommended Node version is <code>18.18.0</code>
         ├── /charts                 # VChart component's composables
         ├── useAbortController.ts   # Composable for request cancel when page unmounted
     
-    ├── /layouts                    # Wrappeers for pages working with routes an layoutMiddleware
+    ├── /layouts                    # Wrappeers for pages. Working with routes an layoutMiddleware
         ├── AppLayout.vue
         ├── Default.vue
         ├── Guest.vue

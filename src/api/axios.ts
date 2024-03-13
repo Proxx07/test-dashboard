@@ -13,4 +13,20 @@ $axios.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// $axios.interceptors.response.use(
+//   (response) => response,
+
+//   async (error) => {
+//     if (isRefreshing) return
+//     isRefreshing = true
+//     const originalRequest = error.config;
+
+//     throw new Error("Couldn't update token")
+
+//     return $axios(originalRequest)
+//   }
+// );
+
+
 export default $axios;

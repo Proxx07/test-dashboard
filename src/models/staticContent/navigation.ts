@@ -14,16 +14,16 @@ export interface INavigation {
 }
 export const navigation: INavigation[] = [
   {
-    name: "События",
+    name: "Дашборд",
     link: "/",
-    icon: eventsIcon,
+    access: accesses.READ_DASHBOARD,
+    icon: dashboardIcon,
   },
 
   {
-    name: "Дашборд",
-    link: "/dashboard",
-    access: accesses.READ_DASHBOARD,
-    icon: dashboardIcon,
+    name: "События",
+    link: "/events",
+    icon: eventsIcon,
   },
 
   {

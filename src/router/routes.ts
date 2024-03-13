@@ -3,9 +3,10 @@ import {RouteRecordRaw} from "vue-router";
 
 export const routes: RouteRecordRaw[] = [
   {
-    path: "/",
-    name: 'main',
-    component: () => import("@/pages/Transactions.vue"),
+    path: "/events",
+    name: 'events',
+    //component: () => import("@/pages/Transactions.vue"),
+    component: () => import("@/pages/Dashboard.vue"),
     meta: {
       layout: 'Default'
     },
@@ -21,9 +22,10 @@ export const routes: RouteRecordRaw[] = [
   },
 
   {
-    path: "/dashboard",
-    name: "dashboard",
-    component: () => import("@/pages/Dashboard.vue"),
+    path: "/",
+    name: "main",
+    //component: () => import("@/pages/Dashboard.vue"),
+    component: () => import("@/pages/DashboardTest.vue"),
     meta: {
       access: accesses.READ_DASHBOARD
     }
@@ -35,11 +37,11 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/pages/Projects/index.vue"),
   },
 
-  {
-    path: "/test",
-    name: "test",
-    component: () => import("@/pages/DashboardTest.vue"),
-  },
+  // {
+  //   path: "/test",
+  //   name: "test",
+  //   component: () => import("@/pages/DashboardTest.vue"),
+  // },
 
   {
     path: "/users",

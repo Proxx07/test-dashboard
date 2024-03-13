@@ -1,5 +1,4 @@
 <script setup lang="ts">
-//@ts-ignore
 import VueApexCharts from "vue3-apexcharts";
 import ChartTitle from "@/components/charts/ChartTitle.vue";
 import EmptyText from "@/components/EmptyText.vue";

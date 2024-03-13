@@ -29,6 +29,10 @@
   --dp-time-font-size: 1rem; /*Font size in the time picker*/
 }
 
+.dp__menu {
+  overflow: hidden;
+}
+
 .dp__theme_light {
   --dp-background-color: var(--popover-bg);
   --dp-text-color: var(--primary-color);

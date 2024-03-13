@@ -14,7 +14,7 @@ const {
   matchingData, matchingDifference, matchingTotal,
   devicesData, devicesDifference, devicesTotal,
   browsersData, browsersDifference, browsersTotal,
-  errorsSeries, errorCategories, errorNote,
+  errorsSeries, errorCategories, errorNote, errorsLoading,
   facerSuccessData, facerSuccessCategories, facerErrorsData, facerErrorsCategories, facerTotalNote,
   deviceTypeSeries, deviceTypeCategory, deviceTypeTotal,
   CPUData, CPUTotal, CPUDifference,
@@ -72,7 +72,7 @@ const volumeColors = ['rgba(0, 137, 188, 1)', 'rgba(23, 217, 90, 1)'];
       direction="row"
       class="error-statistics"
       :note="errorNote"
-      :loading="isLoading"
+      :loading="errorsLoading"
       :series="errorsSeries"
       :categories="errorCategories"
     />

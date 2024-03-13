@@ -11,12 +11,12 @@ const $toast = useToast();
 export const useProjects = () => {
   const list = ref<IMockProject[]>([
     {
-      id: "ID",
+      id: "9DyBcQaAA_bTD65l8E8PU",
       logo: "",
-      name: "PROJECT_NAME",
-      mail: "testproject@test.mail",
-      phone: "111111111111",
-      site: "#",
+      name: "UZIMEI",
+      mail: "info@uzimei.uz",
+      phone: "1170",
+      site: "https://uzimei.uz",
       status: 1,
     }
   ]);
@@ -26,7 +26,7 @@ export const useProjects = () => {
       logo: "",
       name: "Test project",
       mail: "test@test.test",
-      site: "#",
+      site: "https://neotech.uz",
       status: 0,
     })
   }
@@ -85,6 +85,12 @@ export const useProject = () => {
   }
   const isPreviewOpened = ref(false);
   const activeProject = ref<IMockProject>(setProject())
+
+
+  /*const getProject = async (projectID: string) => {
+    const {data: {result}} = await $axios.get<IResponse<IProject>>(`/projects/${projectID}`)
+    console.log(result)
+  }*/
 
   const previewHandler = (value: IMockProject) => {
     isPreviewOpened.value = true

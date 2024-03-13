@@ -1,5 +1,6 @@
 import $axios from "@/api/axios.ts";
 
+import {AxiosError} from "axios";
 import {IResponse} from "@/models/interfaces/tableInterfaces.ts";
 import {IErrorItem, IFilter} from "@/models/interfaces/mainPageInterfaces.ts";
 
@@ -56,7 +57,9 @@ export const useErrorsStatistic = () => {
       const {data: {result}} = await $axios.post<IResponse<IErrorItem[]>>('/statistic/by_check', filter.value, {signal})
       list.value = result
     }
-    catch (_) {
+    catch (e) {
+      const err = e as AxiosError
+      if (err.code === "ERR_CANCELED") return
       $toast.error('Не удалось загрузить данные по типам ошибок')
       list.value = []
     }

@@ -5,7 +5,6 @@ import {seriesType} from "@/models/interfaces/chartTypes.ts";
 import {
   getEventsDifference, generateDates,
   getEventsData, getDevicesData, getBrowsersData,
-  getErrorsStatistics,
   getFaceDetectionData, getDeviceTypes,
   getCPUData, getVolumeData,
 } from "@/api/mockData/eventsData.ts";
@@ -13,6 +12,7 @@ import {
 import {declination} from "@/utils/scripts.ts";
 
 import {useFilter} from "@/composables/useFilter.ts";
+import {useErrorsStatistic} from "@/composables/dashboards/useErrorStatistics.ts";
 
 export const useDashboard = () => {
   const {dateInterval} = useFilter();
@@ -68,18 +68,12 @@ export const useDashboard = () => {
     return `${count} ${declination(count, ['запрос', 'запроса', 'запросов'])}`
   })
 
-/*
+
   const {isFetching: errorsLoading,series: errorsSeries, categories: errorCategories, fetchData: fetchErrors} = useErrorsStatistic();
   const errorNote = computed(() => {
     const length = errorsSeries.value.length > 5 ? 5 : errorsSeries.value.length
     return `Топ ${length} ${declination(length,['ошибка', 'ошибки', 'ошибок'])}`
   })
-*/
-
-  const errorsData = ref<seriesType[]>(getErrorsStatistics());
-  const errorsSeries = computed(() => errorsData.value.map(i => i.data as number))
-  const errorCategories = computed(() => errorsData.value.map(i => i.name))
-  const errorNote = "Топ 5 " + declination(5,['ошибка', 'ошибки', 'ошибок'])
 
   const deviceTypeData = ref<seriesType[]>(getDeviceTypes());
   const deviceTypeSeries = computed<number[]>(() => deviceTypeData.value.map(i => (i.data as number)))
@@ -102,10 +96,9 @@ export const useDashboard = () => {
   const filterHandler = async () => {
     isLoading.value = true
 
-    await new Promise(resolve => setTimeout(resolve, 1000)) // custom delay  ToDo - remove before deploy
-    
-    errorsData.value = getErrorsStatistics()
+    await fetchErrors()
 
+    await new Promise(resolve => setTimeout(resolve, 1000)) // custom delay remove before deploy
     eventsData.value = getEventsData(itemsLength.value)
     eventsDifference.value = getEventsDifference()
 
@@ -153,6 +146,7 @@ export const useDashboard = () => {
     errorsSeries,
     errorCategories,
     errorNote,
+    errorsLoading,
 
     facerSuccessData,
     facerSuccessCategories,

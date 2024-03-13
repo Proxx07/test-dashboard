@@ -26,35 +26,10 @@ export const getEventsData = (length: number): seriesType[] => ([
     data: getRandomArray(length),
   }
 ]);
-
 export const getEventsDifference = () => ({
   increase: getRandomArray(2).reduce((acc, curr) => acc += curr) % 2 === 0,
   value: getRandomArray(1)[0] + 1 + "%"
 });
-
-export const getErrorsStatistics = (): seriesType[] => {
-  const values = getRandomArray(5);
-  const names = [
-    "FACER_ABORTED_LIVENESS_TRANSACTION",
-    "FACER_ELECTRONIC_DEVICE_DETECTED",
-    "FACER_TRACK_BREAK",
-    "FACER_WRONG_GEO",
-    "FACER_LOW_QUALITY",
-  ];
-
-  const sortedErrors = names
-    .map((name, index) => ({name, data: values[index]}))
-    .sort((a, b) => b.data - a.data);
-
-  sortedErrors.push({
-    data: getRandomArray(1)[0],
-    name: "OTHER_ERRORS",
-  });
-
-  return sortedErrors
-}
-
-
 export const getDevicesData = (length: number): seriesType[] => ([
   {
     name: "IOS",
@@ -69,7 +44,6 @@ export const getDevicesData = (length: number): seriesType[] => ([
     data: getRandomArray(length),
   }
 ]);
-
 export const getBrowsersData = (length: number): seriesType[] => ([
   {
     name: "Safari",
@@ -84,7 +58,6 @@ export const getBrowsersData = (length: number): seriesType[] => ([
     data: getRandomArray(length),
   }
 ]);
-
 export const getFaceDetectionData = ()=> ({
   minMax: [
     {
